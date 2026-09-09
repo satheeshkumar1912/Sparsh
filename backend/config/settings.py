@@ -31,11 +31,24 @@ if DEBUG:
         if host not in ALLOWED_HOSTS:
             ALLOWED_HOSTS.append(host)
 
+# Render sets this automatically for Web Services
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME", "").strip()
+if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 CSRF_TRUSTED_ORIGINS = [
     o.strip()
     for o in os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
     if o.strip()
 ]
+if RENDER_EXTERNAL_HOSTNAME:
+    render_origin = f"https://{RENDER_EXTERNAL_HOSTNAME}"
+    if render_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(render_origin)
+
+# Required behind Render's HTTPS proxy so CSRF/cookies work
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -171,7 +184,10 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+elif RENDER_EXTERNAL_HOSTNAME:
+    # On Render even with DEBUG temporarily on, cookies must be HTTPS-aware
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 CACHES = {
     "default": {
