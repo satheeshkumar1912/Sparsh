@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <section class="page-hero page-hero--soft">
@@ -16,7 +17,13 @@
       {% if m.photo %}
       <img src="{{ m.photo.url }}" alt="Portrait of {{ m.name }}" width="280" height="280" loading="lazy">
       {% else %}
-      <div class="person-card__placeholder" aria-hidden="true">{{ m.name|make_list|first }}</div>
+      <img
+        src="{% get_static_prefix %}img/team/team-{{ forloop.counter }}.jpg"
+        alt="Portrait of {{ m.name }}"
+        width="280"
+        height="280"
+        loading="lazy"
+      >
       {% endif %}
       <h2>{{ m.name }}</h2>
       <p class="person-card__role">{{ m.role }}</p>

@@ -9,10 +9,10 @@
     <div class="hero__pattern" aria-hidden="true"></div>
     <img
       class="hero__image"
-      src="{% static 'img/hero-learners.svg' %}"
-      alt="Diverse children learning together outdoors under soft green light, with a butterfly motif"
-      width="1200"
-      height="900"
+      src="{% static 'img/hero-learners.jpg' %}"
+      alt="Children learning together in a bright, welcoming classroom"
+      width="1600"
+      height="1000"
       fetchpriority="high"
     >
   </div>
@@ -98,10 +98,23 @@
       {% for program in welcome_programs %}
       <li class="welcome-card reveal">
         <a href="{{ program.get_absolute_url }}" data-track="welcome-{{ program.slug }}">
-          <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
-          <h3>{{ program.name }}</h3>
-          <p>{{ program.short_description }}</p>
-          <p class="welcome-card__stat">{{ program.age_group }}</p>
+          <div class="welcome-card__media">
+            {% if 'early' in program.slug %}
+            <img src="{% static 'img/welcome/early-intervention.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            {% elif 'therapy' in program.slug %}
+            <img src="{% static 'img/welcome/therapy-support.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            {% elif 'academic' in program.slug %}
+            <img src="{% static 'img/welcome/academic-pathways.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            {% else %}
+            <img src="{% static 'img/welcome/inclusive-learning.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            {% endif %}
+          </div>
+          <div class="welcome-card__body">
+            <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
+            <h3>{{ program.name }}</h3>
+            <p>{{ program.short_description }}</p>
+            <p class="welcome-card__stat">{{ program.age_group }}</p>
+          </div>
         </a>
       </li>
       {% empty %}
@@ -125,7 +138,7 @@
     <div class="section-head reveal">
       <p class="eyebrow">Life at Sparsh</p>
       <h2 id="gallery-heading">Moments that feel like belonging</h2>
-      <p class="section-head__lede">Real campus life — replace these frames with your consented photographs.</p>
+      <p class="section-head__lede">Everyday moments of learning, play, creativity, and friendship.</p>
     </div>
     <ul class="gallery-grid">
       {% for item in gallery %}
@@ -134,7 +147,7 @@
           {% if item.image %}
           <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
           {% else %}
-          <img src="{% get_static_prefix %}img/gallery/placeholder-{{ forloop.counter }}.svg" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% get_static_prefix %}img/gallery/gallery-{{ forloop.counter }}.jpg" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
           {% endif %}
           <figcaption>
             <span class="gallery-item__caption">{{ item.caption }}</span>
@@ -200,7 +213,14 @@
             {% if t.photo %}
             <img src="{{ t.photo.url }}" alt="" width="48" height="48" loading="lazy" class="testimonial-card__photo">
             {% else %}
-            <span class="testimonial-card__avatar" aria-hidden="true">{{ t.parent_name|make_list|first }}</span>
+            <img
+              src="{% get_static_prefix %}img/testimonials/parent-{{ forloop.counter }}.jpg"
+              alt=""
+              width="48"
+              height="48"
+              loading="lazy"
+              class="testimonial-card__photo"
+            >
             {% endif %}
             <div>
               <cite>{{ t.parent_name }}</cite>

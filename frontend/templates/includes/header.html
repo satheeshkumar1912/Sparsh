@@ -43,27 +43,23 @@
           {% endfor %}
         </ul>
         <a
-          href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire."
-          class="btn btn--whatsapp primary-nav__cta"
-          data-track="nav-whatsapp-cta"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="{% static 'files/SPARSH_8-Page_A4_Landscape_Brochure.pdf' %}"
+          class="btn btn--brochure primary-nav__cta"
+          data-track="nav-brochure-cta"
+          download="SPARSH_8-Page_A4_Landscape_Brochure.pdf"
         >
-          <span class="btn__wa-icon" aria-hidden="true"></span>
-          WhatsApp
+          Download Brochure
         </a>
       </div>
     </nav>
 
     <a
-      href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire."
-      class="btn btn--whatsapp header-cta"
-      data-track="header-whatsapp-cta"
-      target="_blank"
-      rel="noopener noreferrer"
+      href="{% static 'files/SPARSH_8-Page_A4_Landscape_Brochure.pdf' %}"
+      class="btn btn--brochure header-cta"
+      data-track="header-brochure-cta"
+      download="SPARSH_8-Page_A4_Landscape_Brochure.pdf"
     >
-      <span class="btn__wa-icon" aria-hidden="true"></span>
-      WhatsApp
+      Download Brochure
     </a>
   </div>
 </header>

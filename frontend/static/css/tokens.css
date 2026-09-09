@@ -18,8 +18,8 @@
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
-  --font-display: "Nunito", system-ui, sans-serif;
-  --font-body: "Outfit", system-ui, sans-serif;
+  --font-display: "Times New Roman", Times, serif;
+  --font-body: "Times New Roman", Times, serif;
   --header-h: 4.5rem;
   --max: 72rem;
   --focus: 0 0 0 3px var(--surface-0), 0 0 0 6px var(--green-700);
