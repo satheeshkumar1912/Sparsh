@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Parents’ Corner</p>
+    <h1>You’re not alone in this</h1>
+    <p class="page-hero__lede">
+      Resources, reassurance, and real voices from families who walk with Sparsh.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose-grid">
+    <div>
+      <h2>How we walk with families</h2>
+      <ul class="check-list">
+        <li>Plain-language progress conversations</li>
+        <li>Coaching that fits real home routines</li>
+        <li>Advocacy support for school transitions</li>
+        <li>A community that doesn’t minimise hard days</li>
+      </ul>
+      <p style="margin-top:1.5rem">
+        <a class="btn btn--accent" href="{% url 'admissions:index' %}">Talk to admissions</a>
+      </p>
+    </div>
+    <div>
+      <h2>From our families</h2>
+      {% for t in testimonials %}
+      <blockquote class="inline-quote">
+        <p>“{{ t.quote }}”</p>
+        <footer>— {{ t.parent_name }}</footer>
+      </blockquote>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="container narrow">
+    <h2>Parent FAQ</h2>
+    {% include "includes/faq_accordion.html" %}
+  </div>
+</section>
+{% endblock %}

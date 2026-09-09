@@ -1,0 +1,31 @@
+{% if faqs %}
+<div class="faq-list" data-accordion>
+  {% for faq in faqs %}
+  <div class="faq-item">
+    <h3>
+      <button
+        type="button"
+        class="faq-item__trigger"
+        id="faq-btn-{{ forloop.counter }}"
+        aria-expanded="false"
+        aria-controls="faq-panel-{{ forloop.counter }}"
+        data-accordion-trigger
+      >
+        <span>{{ faq.question }}</span>
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+    </h3>
+    <div
+      id="faq-panel-{{ forloop.counter }}"
+      class="faq-item__panel"
+      role="region"
+      aria-labelledby="faq-btn-{{ forloop.counter }}"
+      hidden
+      data-accordion-panel
+    >
+      <p>{{ faq.answer }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container narrow">
+    <h1>Privacy Policy</h1>
+    <p class="page-hero__lede">How Sparsh handles personal information submitted through this website.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container prose narrow">
+    <h2>What we collect</h2>
+    <p>Enquiry and contact forms may collect names, ages, learning-need descriptions, email, phone, and messages you choose to share.</p>
+    <h2>How we use it</h2>
+    <p>We use this information to respond to enquiries, plan admissions conversations, and improve our services. We do not sell personal data.</p>
+    <h2>Storage &amp; security</h2>
+    <p>Submissions are stored in our secured database with CSRF protection on forms and access limited to authorised staff.</p>
+    <h2>Your rights</h2>
+    <p>You may request access, correction, or deletion of your enquiry data by contacting <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.</p>
+    <p>Last updated: 2026.</p>
+  </div>
+</section>
+{% endblock %}

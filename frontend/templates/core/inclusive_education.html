@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Inclusive Education</p>
+    <h1>Belonging is the curriculum beneath the curriculum</h1>
+    <p class="page-hero__lede">
+      Inclusive education at Sparsh means meaningful participation, affirming supports,
+      and classrooms that flex for the humans inside them.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="prose narrow">
+      <p>
+        We reject the idea that children must “earn” inclusion by becoming easier to teach.
+        Instead, we adapt environments, adult responses, and peer culture so each learner can
+        contribute, regulate, and grow.
+      </p>
+    </div>
+    <ul class="pillar-grid" style="margin-top:2.5rem">
+      {% for pillar in pillars %}
+      <li>
+        <a href="{{ pillar.get_absolute_url }}" class="pillar-card">
+          <span class="pillar-card__icon icon-{{ pillar.icon }}" aria-hidden="true"></span>
+          <h3>{{ pillar.title }}</h3>
+          <p>{{ pillar.summary }}</p>
+          <span class="pillar-card__more">Learn more</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

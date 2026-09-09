@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">{{ program.get_category_display }}</p>
+    <h1>{{ program.name }}</h1>
+    <p class="page-hero__lede">{{ program.short_description }}</p>
+    <p class="welcome-card__stat">{{ program.age_group }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose-grid">
+    <article class="prose">
+      <p>{{ program.description }}</p>
+      {% if program.highlight_list %}
+      <h2>Highlights</h2>
+      <ul class="check-list">
+        {% for h in program.highlight_list %}
+        <li>{{ h }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <p style="margin-top:2rem">
+        <a class="btn btn--accent" href="{% url 'admissions:index' %}">Enquire about this program</a>
+      </p>
+    </article>
+    {% if related %}
+    <aside>
+      <h2 class="footer-heading">Related</h2>
+      <ul class="footer-list">
+        {% for r in related %}
+        <li><a href="{{ r.get_absolute_url }}">{{ r.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

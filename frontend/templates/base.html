@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page_title %}{{ page_title }} · {% endif %}{{ SITE_NAME }}</title>
+  <meta name="description" content="{{ meta_description|default:'Sparsh Inclusive Education — Different Abilities. Limitless Possibilities.' }}">
+  <meta name="theme-color" content="#5E8D45">
+  <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:title" content="{% if page_title %}{{ page_title }} · {% endif %}{{ SITE_NAME }}">
+  <meta property="og:description" content="{{ meta_description|default:SITE_TAGLINE }}">
+  <meta property="og:url" content="{{ SITE_URL }}{{ request.path }}">
+  <meta property="og:image" content="{{ SITE_URL }}{% static 'img/logo.png' %}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "{{ SITE_NAME }}",
+    "url": "{{ SITE_URL }}",
+    "logo": "{{ SITE_URL }}{% static 'img/logo.png' %}",
+    "description": "{{ SITE_TAGLINE }}",
+    "email": "{{ CONTACT_EMAIL }}",
+    "sameAs": [],
+    "areaServed": "IN",
+    "slogan": "{{ SITE_TAGLINE }}"
+  }
+  </script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="a11y-bar" role="region" aria-label="Accessibility controls">
+    <button type="button" class="a11y-toggle" data-contrast-toggle aria-pressed="false">
+      High contrast
+    </button>
+  </div>
+
+  {% include "includes/header.html" %}
+
+  {% if messages %}
+  <div class="flash-wrap" role="status" aria-live="polite">
+    {% for message in messages %}
+    <div class="flash flash--{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main id="main-content" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/footer.html" %}
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container narrow" style="text-align:center">
+    <p class="eyebrow">Thank you</p>
+    <h1>We’ve received your enquiry</h1>
+    <p class="page-hero__lede">
+      A Sparsh team member will be in touch soon. Meanwhile, you’re welcome to explore programmes
+      or message us on WhatsApp if something feels urgent.
+    </p>
+    <div class="hero__actions" style="justify-content:center">
+      <a class="btn btn--accent" href="{% url 'programs:list' %}">Explore programs</a>
+      <a class="btn btn--ghost" href="{% url 'core:home' %}">Back home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

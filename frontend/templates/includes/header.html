@@ -1,0 +1,69 @@
+{% load static %}
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <a class="brand" href="{% url 'core:home' %}" data-track="nav-logo">
+      <img
+        src="{% static 'img/logo.png' %}"
+        alt="Sparsh Inclusive Education — Different Abilities. Limitless Possibilities."
+        width="140"
+        height="64"
+        class="brand__logo"
+      >
+    </a>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-controls="primary-nav"
+      aria-expanded="false"
+      aria-label="Open menu"
+      data-nav-toggle
+    >
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-backdrop" data-nav-backdrop hidden></div>
+
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary" data-primary-nav>
+      <div class="primary-nav__panel">
+        <div class="primary-nav__top">
+          <p class="primary-nav__label">Menu</p>
+          <button type="button" class="nav-close" aria-label="Close menu" data-nav-close>&times;</button>
+        </div>
+        <ul class="primary-nav__list">
+          {% for item in NAV_ITEMS %}
+          <li>
+            <a
+              href="{% url item.url_name %}"
+              class="primary-nav__link{% if request.resolver_match.view_name == item.url_name %} is-active{% endif %}"
+              {% if request.resolver_match.view_name == item.url_name %}aria-current="page"{% endif %}
+              data-track="nav-{{ item.label|slugify }}"
+            >{{ item.label }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        <a
+          href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire."
+          class="btn btn--whatsapp primary-nav__cta"
+          data-track="nav-whatsapp-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="btn__wa-icon" aria-hidden="true"></span>
+          WhatsApp
+        </a>
+      </div>
+    </nav>
+
+    <a
+      href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire."
+      class="btn btn--whatsapp header-cta"
+      data-track="header-whatsapp-cta"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="btn__wa-icon" aria-hidden="true"></span>
+      WhatsApp
+    </a>
+  </div>
+</header>

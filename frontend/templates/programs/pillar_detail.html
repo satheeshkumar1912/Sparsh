@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Feature pillar</p>
+    <h1>{{ pillar.title }}</h1>
+    <p class="page-hero__lede">{{ pillar.summary }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose-grid">
+    <article class="prose">
+      <p>{{ pillar.body }}</p>
+      <p style="margin-top:2rem">
+        <a class="btn btn--accent" href="{% url 'admissions:index' %}">Start an enquiry</a>
+        <a class="btn btn--ghost" href="{% url 'core:home' %}#pillars-heading">All pillars</a>
+      </p>
+    </article>
+    <aside class="aside-card">
+      <h2>Explore more</h2>
+      <ul class="footer-list">
+        {% for o in others %}
+        <li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+  </div>
+</section>
+{% endblock %}

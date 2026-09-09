@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container narrow">
+    <h1>Accessibility statement</h1>
+    <p class="page-hero__lede">Sparsh is committed to a web experience that works for as many people as possible.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container prose narrow">
+    <p>We aim to meet WCAG 2.2 Level AA. This site includes skip links, keyboard-operable navigation, ARIA where helpful, captions on interactive controls, and a high-contrast mode.</p>
+    <p>If you encounter a barrier, email <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a> with the page URL and a short description. We will work to remediate issues promptly.</p>
+    <p>This statement was last reviewed in 2026.</p>
+  </div>
+</section>
+{% endblock %}

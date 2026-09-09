@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Programs</p>
+    <h1>Pathways shaped around your child</h1>
+    <p class="page-hero__lede">From early intervention to academic pathways — explore what fits your family.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar" role="navigation" aria-label="Filter by category">
+      <a href="{% url 'programs:list' %}" class="chip{% if not active_category %} is-active{% endif %}">All</a>
+      {% for value, label in categories %}
+      <a href="?category={{ value }}" class="chip{% if active_category == value %} is-active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+    <ul class="welcome-grid">
+      {% for program in programs %}
+      <li class="welcome-card">
+        <a href="{{ program.get_absolute_url }}">
+          <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
+          <h3>{{ program.name }}</h3>
+          <p>{{ program.short_description }}</p>
+          <p class="welcome-card__stat">{{ program.age_group }}</p>
+        </a>
+      </li>
+      {% empty %}
+      <li><p>No programs found for this filter.</p></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Admissions</p>
+    <h1>Begin your child's journey with Sparsh</h1>
+    <p class="page-hero__lede">
+      A gentle, supportive flow — no pressure, no jargon. Tell us about your child; we’ll listen first.
+    </p>
+    <div class="hero__actions">
+      <a href="#enquiry-form" class="btn btn--accent" data-track="admissions-form-jump">Apply / Enquire</a>
+      <a href="{{ whatsapp_url }}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-track="admissions-whatsapp">WhatsApp chat</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-inline-title">How admissions works</h2>
+    <ol class="timeline timeline--full">
+      {% for step in timeline %}
+      <li>
+        <span class="timeline__num">{{ step.step }}</span>
+        <div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section admissions-band" id="enquiry-form">
+  <div class="container admissions-band__grid">
+    <div>
+      <h2>Enquiry form</h2>
+      <p>Fields are stored securely. We’ll only use your details to respond about this enquiry.</p>
+    </div>
+    <form method="post" class="form-card" novalidate data-track-form="admissions">
+      {% csrf_token %}
+      {% include "admissions/_form_fields.html" %}
+      <button type="submit" class="btn btn--accent btn--block" data-track="admissions-submit">Submit enquiry</button>
+    </form>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="container narrow">
+    <h2>Admissions FAQ</h2>
+    {% include "includes/faq_accordion.html" %}
+  </div>
+</section>
+{% endblock %}

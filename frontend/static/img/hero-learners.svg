@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Learners at Sparsh</title>
+  <desc id="desc">Stylised illustration of children learning outdoors with green hills and a yellow sun</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b7d4a0"/>
+      <stop offset="100%" stop-color="#6b9e45"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1280" cy="180" r="90" fill="#f9d61e" opacity="0.95"/>
+  <ellipse cx="400" cy="820" rx="520" ry="220" fill="#3d5f2c" opacity="0.55"/>
+  <ellipse cx="1100" cy="860" rx="600" ry="240" fill="#2f4a22" opacity="0.5"/>
+  <g fill="#eef3e8">
+    <circle cx="520" cy="620" r="38"/>
+    <rect x="490" y="658" width="60" height="110" rx="20"/>
+    <circle cx="700" cy="600" r="42"/>
+    <rect x="668" y="640" width="64" height="120" rx="22"/>
+    <circle cx="900" cy="630" r="36"/>
+    <rect x="872" y="664" width="56" height="100" rx="18"/>
+  </g>
+  <g fill="#f9d61e">
+    <ellipse cx="1180" cy="420" rx="28" ry="48" transform="rotate(-20 1180 420)"/>
+    <ellipse cx="1235" cy="420" rx="28" ry="48" transform="rotate(20 1235 420)"/>
+    <rect x="1198" y="400" width="10" height="55" rx="4"/>
+  </g>
+  <text x="80" y="140" font-family="Nunito, sans-serif" font-size="42" fill="#2c2c2c" opacity="0.35">Sparsh</text>
+</svg>

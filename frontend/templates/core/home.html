@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{# ——— HERO ——— #}
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__media" aria-hidden="false">
+    <div class="hero__gradient"></div>
+    <div class="hero__pattern" aria-hidden="true"></div>
+    <img
+      class="hero__image"
+      src="{% static 'img/hero-learners.svg' %}"
+      alt="Diverse children learning together outdoors under soft green light, with a butterfly motif"
+      width="1200"
+      height="900"
+      fetchpriority="high"
+    >
+  </div>
+  <div class="hero__content container">
+    <p class="hero__brand">Sparsh</p>
+    <p class="hero__eyebrow">Inclusive education, reimagined</p>
+    <h1 id="hero-heading" class="hero__title">Every child has a place. Every child has potential.</h1>
+    <p class="hero__lede">
+      A neurodiverse-affirming community where difference is met with understanding —
+      and learning begins with connection.
+    </p>
+    <div class="hero__actions">
+      <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="hero-admissions">
+        Admissions &amp; Enquiry
+      </a>
+      <a href="{% url 'programs:list' %}" class="btn btn--ghost btn--lg" data-track="hero-programs">
+        Explore Programs
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Trust indicators">
+  <div class="container trust-strip__inner">
+    <p><strong>{% if stats %}{{ stats.learners_supported }}+{% else %}2,400+{% endif %}</strong> families served</p>
+    <p><strong>{% if stats %}{{ stats.partner_schools }}{% else %}48{% endif %}</strong> partner schools</p>
+    <p><strong>Since 2015</strong> walking beside learners</p>
+    <p><strong>Neurodiverse-affirming</strong> by design</p>
+  </div>
+</section>
+
+{# ——— PHILOSOPHY ——— #}
+<section class="section philosophy" aria-labelledby="philosophy-heading">
+  <div class="container philosophy__grid">
+    <div class="philosophy__copy reveal">
+      <p class="eyebrow">Our philosophy</p>
+      <h2 id="philosophy-heading">Connection before curriculum</h2>
+      <p>
+        Before worksheets and timelines, we build trust. Children learn best when they feel safe,
+        seen, and invited to bring their whole selves — sensory needs, passions, and all.
+      </p>
+    </div>
+    <blockquote class="philosophy__quote reveal">
+      <p>“They didn’t ask what was ‘wrong’ with my child. They asked what lights her up.”</p>
+      <footer>— Parent of a Sparsh learner</footer>
+    </blockquote>
+  </div>
+</section>
+
+{# ——— FEATURE PILLARS ——— #}
+<section class="section pillars" aria-labelledby="pillars-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">What guides us</p>
+      <h2 id="pillars-heading">Six pillars of Sparsh</h2>
+      <p class="section-head__lede">Each pillar opens to a fuller story — explore what belonging looks like here.</p>
+    </div>
+    <ul class="pillar-grid">
+      {% for pillar in pillars %}
+      <li class="reveal">
+        <a href="{{ pillar.get_absolute_url }}" class="pillar-card" data-track="pillar-{{ pillar.slug }}">
+          <span class="pillar-card__icon icon-{{ pillar.icon }}" aria-hidden="true"></span>
+          <h3>{{ pillar.title }}</h3>
+          <p>{{ pillar.summary }}</p>
+          <span class="pillar-card__more">Learn more</span>
+        </a>
+      </li>
+      {% empty %}
+      <li><p>Pillars coming soon.</p></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ——— WELCOME ——— #}
+<section class="section welcome" aria-labelledby="welcome-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Welcome</p>
+      <h2 id="welcome-heading">A place where difference is met with understanding, not judgement.</h2>
+    </div>
+    <ul class="welcome-grid">
+      {% for program in welcome_programs %}
+      <li class="welcome-card reveal">
+        <a href="{{ program.get_absolute_url }}" data-track="welcome-{{ program.slug }}">
+          <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
+          <h3>{{ program.name }}</h3>
+          <p>{{ program.short_description }}</p>
+          <p class="welcome-card__stat">{{ program.age_group }}</p>
+        </a>
+      </li>
+      {% empty %}
+      <li class="welcome-card"><h3>Early Intervention</h3></li>
+      <li class="welcome-card"><h3>Inclusive Learning</h3></li>
+      <li class="welcome-card"><h3>Therapy &amp; Family Support</h3></li>
+      <li class="welcome-card"><h3>Academic Pathways</h3></li>
+      {% endfor %}
+    </ul>
+    <div class="mini-proof" aria-label="Proof points">
+      <p><strong>1:6</strong> guided ratios in early years</p>
+      <p><strong>100%</strong> family partnership plans</p>
+      <p><strong>Weekly</strong> progress conversations</p>
+    </div>
+  </div>
+</section>
+
+{# ——— GALLERY ——— #}
+<section class="section gallery" aria-labelledby="gallery-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Life at Sparsh</p>
+      <h2 id="gallery-heading">Moments that feel like belonging</h2>
+      <p class="section-head__lede">Real campus life — replace these frames with your consented photographs.</p>
+    </div>
+    <ul class="gallery-grid">
+      {% for item in gallery %}
+      <li class="gallery-item reveal">
+        <figure>
+          {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% else %}
+          <img src="{% get_static_prefix %}img/gallery/placeholder-{{ forloop.counter }}.svg" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% endif %}
+          <figcaption>
+            <span class="gallery-item__caption">{{ item.caption }}</span>
+            <span class="gallery-item__title">{{ item.title }}</span>
+          </figcaption>
+          {% if item.quote %}
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <p>“{{ item.quote }}”</p>
+          </div>
+          {% endif %}
+        </figure>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ——— IMPACT ——— #}
+<section class="section impact" aria-labelledby="impact-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Impact</p>
+      <h2 id="impact-heading">Growing with families and schools</h2>
+    </div>
+    <ul class="stat-grid" data-counters>
+      <li class="stat-card reveal">
+        <p class="stat-card__value"><span data-count="{{ stats.learners_supported|default:2400 }}">0</span>+</p>
+        <p class="stat-card__label">Learners supported</p>
+        <p class="stat-card__qual">{{ stats.learners_qualifier|default:"since 2015" }}</p>
+      </li>
+      <li class="stat-card reveal">
+        <p class="stat-card__value"><span data-count="{{ stats.partner_schools|default:48 }}">0</span></p>
+        <p class="stat-card__label">Partner schools</p>
+        <p class="stat-card__qual">{{ stats.schools_qualifier|default:"across regions" }}</p>
+      </li>
+      <li class="stat-card reveal">
+        <p class="stat-card__value"><span data-count="{{ stats.educators_trained|default:860 }}">0</span>+</p>
+        <p class="stat-card__label">Educators trained</p>
+        <p class="stat-card__qual">{{ stats.educators_qualifier|default:"workshops & coaching" }}</p>
+      </li>
+      <li class="stat-card reveal">
+        <p class="stat-card__value"><span data-count="{{ stats.families_recommend|default:96 }}">0</span>%</p>
+        <p class="stat-card__label">Families recommend us</p>
+        <p class="stat-card__qual">{{ stats.recommend_qualifier|default:"of surveyed families" }}</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{# ——— TESTIMONIALS ——— #}
+<section class="section testimonials" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Families</p>
+      <h2 id="testimonials-heading">Words shared with consent</h2>
+    </div>
+    <ul class="testimonial-grid">
+      {% for t in testimonials %}
+      <li class="testimonial-card reveal">
+        <blockquote>
+          <p>“{{ t.quote }}”</p>
+          <footer>
+            {% if t.photo %}
+            <img src="{{ t.photo.url }}" alt="" width="48" height="48" loading="lazy" class="testimonial-card__photo">
+            {% else %}
+            <span class="testimonial-card__avatar" aria-hidden="true">{{ t.parent_name|make_list|first }}</span>
+            {% endif %}
+            <div>
+              <cite>{{ t.parent_name }}</cite>
+              <span>{{ t.role_label }}{% if t.program %} · {{ t.program }}{% endif %}</span>
+            </div>
+          </footer>
+        </blockquote>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ——— ADMISSIONS ——— #}
+<section class="section admissions-band" aria-labelledby="admissions-heading" id="enquire">
+  <div class="container admissions-band__grid">
+    <div class="admissions-band__copy reveal">
+      <p class="eyebrow">Admissions</p>
+      <h2 id="admissions-heading">Begin your child's journey with Sparsh</h2>
+      <p>
+        Our admissions flow is gentle and supportive. Tell us about your child —
+        we’ll listen first, then walk the next steps together.
+      </p>
+      <div class="hero__actions">
+        <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="home-apply">Apply / Enquire</a>
+        <a
+          href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire%20about%20admissions."
+          class="btn btn--ghost"
+          data-track="home-whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >WhatsApp chat</a>
+      </div>
+      <ol class="timeline timeline--compact" aria-label="Admissions timeline">
+        <li><span>1</span> Enquiry</li>
+        <li><span>2</span> Conversation</li>
+        <li><span>3</span> Visit</li>
+        <li><span>4</span> Plan</li>
+        <li><span>5</span> Welcome</li>
+      </ol>
+    </div>
+    <div class="admissions-band__form reveal">
+      <h3 class="form-card__title">Quick enquiry</h3>
+      <form method="post" action="{% url 'admissions:index' %}" class="form-card" novalidate data-track-form="home-enquiry">
+        {% csrf_token %}
+        {% include "admissions/_form_fields.html" with form=admission_form programs=programs %}
+        <button type="submit" class="btn btn--accent btn--block" data-track="home-enquiry-submit">Send enquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{# ——— FAQ ——— #}
+<section class="section faq-section" aria-labelledby="faq-heading">
+  <div class="container narrow">
+    <div class="section-head reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-heading">Questions families often ask</h2>
+    </div>
+    {% include "includes/faq_accordion.html" %}
+  </div>
+</section>
+{% endblock %}

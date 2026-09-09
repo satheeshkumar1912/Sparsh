@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Our Team</p>
+    <h1>People who make belonging practical</h1>
+    <p class="page-hero__lede">Educators, therapists, and guides walking beside children and families.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container people-grid">
+    {% for m in members %}
+    <article class="person-card">
+      {% if m.photo %}
+      <img src="{{ m.photo.url }}" alt="Portrait of {{ m.name }}" width="280" height="280" loading="lazy">
+      {% else %}
+      <div class="person-card__placeholder" aria-hidden="true">{{ m.name|make_list|first }}</div>
+      {% endif %}
+      <h2>{{ m.name }}</h2>
+      <p class="person-card__role">{{ m.role }}</p>
+      <p>{{ m.bio }}</p>
+    </article>
+    {% empty %}
+    <p>Team profiles will appear here.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

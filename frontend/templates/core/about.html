@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">About Sparsh</p>
+    <h1>Different abilities. Limitless possibilities.</h1>
+    <p class="page-hero__lede">
+      Sparsh Inclusive Education exists so every child can learn in a place that understands them —
+      not one that asks them to shrink.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose-grid">
+    <article class="prose">
+      <h2>Our story</h2>
+      <p>
+        Sparsh began with a simple conviction: inclusion is not a programme bolted onto school —
+        it is a culture of belonging. From early intervention rooms to partner classrooms,
+        we design for neurodiversity with warmth, evidence, and family partnership.
+      </p>
+      <h2>What we believe</h2>
+      <ul>
+        <li>Connection before curriculum</li>
+        <li>Strengths before labels</li>
+        <li>Families as co-experts</li>
+        <li>Every ability welcome</li>
+      </ul>
+      <h2>Looking ahead</h2>
+      <p>
+        This public site is the front door. Parent and institutional portals will extend the same
+        care into everyday collaboration — progress, resources, and shared planning.
+      </p>
+    </article>
+    <aside class="aside-card">
+      <h2>Meet a few faces</h2>
+      <ul class="mini-people">
+        {% for m in team_preview %}
+        <li>
+          <strong>{{ m.name }}</strong>
+          <span>{{ m.role }}</span>
+        </li>
+        {% empty %}
+        <li>Team profiles appear after seeding content.</li>
+        {% endfor %}
+      </ul>
+      <a class="btn btn--ghost" href="{% url 'people:team' %}">Our full team</a>
+    </aside>
+  </div>
+</section>
+{% endblock %}

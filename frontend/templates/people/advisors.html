@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="eyebrow">Advisors</p>
+    <h1>Guidance that keeps us accountable</h1>
+    <p class="page-hero__lede">Specialists and advocates who strengthen Sparsh’s inclusive practice.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container people-grid">
+    {% for a in advisors %}
+    <article class="person-card">
+      {% if a.photo %}
+      <img src="{{ a.photo.url }}" alt="Portrait of {{ a.name }}" width="280" height="280" loading="lazy">
+      {% else %}
+      <div class="person-card__placeholder" aria-hidden="true">{{ a.name|make_list|first }}</div>
+      {% endif %}
+      <h2>{{ a.name }}</h2>
+      <p class="person-card__role">{{ a.specialty }}</p>
+      {% if a.affiliation %}<p class="muted">{{ a.affiliation }}</p>{% endif %}
+      <p>{{ a.bio }}</p>
+    </article>
+    {% empty %}
+    <p>Advisor profiles will appear here.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load static %}
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__glow" aria-hidden="true"></div>
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <img src="{% static 'img/logo.png' %}" alt="" width="140" height="64" class="site-footer__logo">
+      <p class="site-footer__name">{{ SITE_NAME }}</p>
+      <p class="site-footer__tag">{{ SITE_TAGLINE }}</p>
+      <p class="site-footer__blurb">A neurodiverse-affirming community where every child has a place — and every child has potential.</p>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Quick links</h2>
+      <ul class="footer-list">
+        <li><a href="{% url 'core:about' %}">About Us</a></li>
+        <li><a href="{% url 'core:inclusive_education' %}">Inclusive Education</a></li>
+        <li><a href="{% url 'core:approach' %}">Our Approach</a></li>
+        <li><a href="{% url 'people:team' %}">Our Team</a></li>
+        <li><a href="{% url 'people:advisors' %}">Advisors</a></li>
+        <li><a href="{% url 'core:contact' %}">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Programs</h2>
+      <ul class="footer-list">
+        <li><a href="{% url 'programs:list' %}">All programs</a></li>
+        <li><a href="{% url 'programs:list' %}?category=early_intervention">Early Intervention</a></li>
+        <li><a href="{% url 'programs:list' %}?category=inclusive_learning">Inclusive Learning</a></li>
+        <li><a href="{% url 'programs:list' %}?category=therapy_support">Therapy &amp; Family Support</a></li>
+        <li><a href="{% url 'core:parents_corner' %}">Parents’ Corner</a></li>
+        <li><a href="{% url 'admissions:index' %}">Admissions</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Contact</h2>
+      <ul class="footer-list footer-list--contact">
+        <li><a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a></li>
+        <li><a href="tel:+{{ WHATSAPP_NUMBER }}">+{{ WHATSAPP_NUMBER }}</a></li>
+        <li>
+          <a href="https://wa.me/{{ WHATSAPP_NUMBER }}" data-track="footer-whatsapp" rel="noopener noreferrer" target="_blank">
+            WhatsApp chat
+          </a>
+        </li>
+      </ul>
+      <div class="social-links" aria-label="Social media">
+        <a href="#" aria-label="Facebook" data-track="social-facebook">FB</a>
+        <a href="#" aria-label="Instagram" data-track="social-instagram">IG</a>
+        <a href="#" aria-label="LinkedIn" data-track="social-linkedin">IN</a>
+        <a href="#" aria-label="YouTube" data-track="social-youtube">YT</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom container">
+    <p>&copy; {% now "Y" %} {{ SITE_NAME }}. All rights reserved.</p>
+    <ul class="legal-links">
+      <li><a href="{% url 'core:accessibility' %}">Accessibility statement</a></li>
+      <li><a href="{% url 'core:privacy' %}">Privacy Policy</a></li>
+      <li><a href="{% url 'core:terms' %}">Terms</a></li>
+    </ul>
+  </div>
+</footer>
