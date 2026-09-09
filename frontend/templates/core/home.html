@@ -100,13 +100,13 @@
         <a href="{{ program.get_absolute_url }}" data-track="welcome-{{ program.slug }}">
           <div class="welcome-card__media">
             {% if 'early' in program.slug %}
-            <img src="{% static 'img/welcome/early-intervention.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="" loading="lazy" width="400" height="260">
             {% elif 'therapy' in program.slug %}
-            <img src="{% static 'img/welcome/therapy-support.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="" loading="lazy" width="400" height="260">
             {% elif 'academic' in program.slug %}
-            <img src="{% static 'img/welcome/academic-pathways.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Academy path.png' %}" alt="" loading="lazy" width="400" height="260">
             {% else %}
-            <img src="{% static 'img/welcome/inclusive-learning.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="" loading="lazy" width="400" height="260">
             {% endif %}
           </div>
           <div class="welcome-card__body">
@@ -146,8 +146,20 @@
         <figure>
           {% if item.image %}
           <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 1 %}
+          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 2 %}
+          <img src="{% static 'img/gallery/Colour and Rhythm Classroom.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 3 %}
+          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_35_14 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 4 %}
+          <img src="{% static 'img/gallery/Quiet Corner, Bright Minds.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 5 %}
+          <img src="{% static 'img/gallery/Arts and Music.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          {% elif forloop.counter == 6 %}
+          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_48_20 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
           {% else %}
-          <img src="{% get_static_prefix %}img/gallery/gallery-{{ forloop.counter }}.jpg" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
           {% endif %}
           <figcaption>
             <span class="gallery-item__caption">{{ item.caption }}</span>

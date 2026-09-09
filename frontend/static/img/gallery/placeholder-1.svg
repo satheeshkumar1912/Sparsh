@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#8da760"/>
-  <circle cx="640" cy="120" r="70" fill="#f9d61e" opacity="0.85"/>
-  <ellipse cx="400" cy="520" rx="360" ry="140" fill="#2c2c2c" opacity="0.18"/>
-  <text x="50" y="90" font-family="Times New Roman, Times, serif" font-size="36" fill="#f7f8f2" font-weight="700">Classroom</text>
-  <text x="50" y="140" font-family="Times New Roman, Times, serif" font-size="22" fill="#eef3e8">Life at Sparsh</text>
-</svg>
