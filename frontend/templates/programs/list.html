@@ -24,15 +24,15 @@
         <a href="{{ program.get_absolute_url }}">
           <div class="welcome-card__media">
             {% if 'early' in program.slug or program.category == 'early_intervention' %}
-            <img src="{% static 'img/welcome/early-intervention.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="" loading="lazy" width="400" height="260">
             {% elif 'therapy' in program.slug or program.category == 'therapy_support' %}
-            <img src="{% static 'img/welcome/therapy-support.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="" loading="lazy" width="400" height="260">
             {% elif 'academic' in program.slug or program.category == 'academic_pathways' %}
-            <img src="{% static 'img/welcome/academic-pathways.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Academy path.png' %}" alt="" loading="lazy" width="400" height="260">
             {% elif 'educator' in program.slug or program.category == 'educator_training' %}
             <img src="{% static 'img/about/about-community.jpg' %}" alt="" loading="lazy" width="400" height="260">
             {% else %}
-            <img src="{% static 'img/welcome/inclusive-learning.jpg' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="" loading="lazy" width="400" height="260">
             {% endif %}
           </div>
           <div class="welcome-card__body">

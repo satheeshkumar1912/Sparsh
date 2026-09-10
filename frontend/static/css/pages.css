@@ -24,25 +24,11 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(100deg, rgba(55, 78, 24, 0.92) 0%, rgba(55, 78, 24, 0.72) 42%, rgba(55, 78, 24, 0.25) 100%),
-    linear-gradient(0deg, rgba(55, 78, 24, 0.55), transparent 45%);
+  background: rgba(46, 68, 18, 0.88);
 }
 
 .hero__pattern {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0.18;
-  background-image: radial-gradient(circle at 20% 30%, var(--yellow-500) 0 2px, transparent 3px),
-    radial-gradient(circle at 70% 60%, #fff 0 1.5px, transparent 2.5px);
-  background-size: 48px 48px, 36px 36px;
-  animation: drift 28s linear infinite;
-}
-
-@keyframes drift {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 120px 80px, -80px 60px; }
+  display: none;
 }
 
 .hero__content {
@@ -142,11 +128,12 @@
 .philosophy__quote {
   margin: 0;
   padding: 2rem;
-  background: linear-gradient(145deg, var(--green-700), var(--green-900));
+  background: var(--green-900);
   color: #fff;
   border-radius: var(--radius-lg);
   position: relative;
   box-shadow: var(--shadow-soft);
+  border-left: 5px solid var(--yellow-500);
 }
 
 .philosophy__quote::after {
@@ -174,12 +161,11 @@
 }
 
 .welcome {
-  background:
-    linear-gradient(180deg, transparent, var(--surface-2) 20%, var(--surface-2) 80%, transparent);
+  background: var(--surface-2);
 }
 
 .impact {
-  background: linear-gradient(180deg, var(--green-900), #364c17);
+  background: var(--green-900);
   color: #e8f0df;
 }
 
@@ -187,9 +173,7 @@
 .impact h2 { color: #fff; }
 
 .admissions-band {
-  background:
-    radial-gradient(circle at 100% 0%, rgba(249, 214, 30, 0.2), transparent 40%),
-    var(--surface-2);
+  background: var(--surface-2);
 }
 
 .admissions-band__grid {
@@ -202,21 +186,67 @@
   .admissions-band__grid { grid-template-columns: 1fr 1.05fr; }
 }
 
+/* Page Hero for all Navbar Pages */
 .page-hero {
-  padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
+  padding: clamp(3rem, 6vw, 4.25rem) 0 2.5rem;
+  position: relative;
+  background: var(--green-900);
+  color: #ffffff;
+  border-bottom: 4px solid var(--yellow-500);
 }
 
 .page-hero--soft {
-  background:
-    linear-gradient(120deg, var(--green-100), rgba(249, 214, 30, 0.2) 55%, transparent),
-    var(--surface-0);
-  border-bottom: 1px solid color-mix(in srgb, var(--green-700) 10%, transparent);
+  background: var(--green-900);
+  color: #ffffff;
+  border-bottom: 4px solid var(--yellow-500);
+}
+
+.page-hero .eyebrow {
+  color: var(--yellow-400);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-hero h1 {
+  color: #ffffff;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.18;
+  margin-bottom: 0.85rem;
 }
 
 .page-hero__lede {
-  font-size: 1.15rem;
-  color: var(--ink-500);
-  max-width: 40rem;
+  font-size: 1.18rem;
+  color: #e4efd8;
+  max-width: 44rem;
+  line-height: 1.6;
+}
+
+.page-hero .welcome-card__stat {
+  color: var(--yellow-400);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.page-hero .hero__actions {
+  margin-top: 1.5rem;
+}
+
+.page-hero .btn--ghost {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.page-hero .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.page-hero .btn--accent {
+  background: var(--yellow-500);
+  color: var(--ink-900);
 }
 
 .prose-grid {
@@ -244,7 +274,10 @@
   background: var(--surface-1);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
-  border-top: 4px solid var(--green-500);
+  border-top: 4px solid var(--yellow-500);
+  border-left: 1px solid rgba(92, 132, 39, 0.14);
+  border-right: 1px solid rgba(92, 132, 39, 0.14);
+  border-bottom: 1px solid rgba(92, 132, 39, 0.14);
 }
 
 .approach-step__num {

@@ -225,13 +225,14 @@
   color: inherit;
   padding: 1.35rem 1.25rem 1.5rem;
   height: 100%;
-  border: 1px solid transparent;
-  transition: border-color var(--transition), transform var(--transition);
+  border: 1px solid rgba(92, 132, 39, 0.14);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
 .pillar-card:hover {
-  border-color: var(--green-500);
+  border-color: var(--green-600);
   transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(54, 77, 23, 0.12);
 }
 
 .pillar-card__icon {
@@ -315,7 +316,8 @@
   flex-wrap: wrap;
   gap: 1rem 2rem;
   padding: 1.25rem 1.5rem;
-  background: linear-gradient(90deg, var(--green-100), rgba(249, 214, 30, 0.25));
+  background: var(--green-100);
+  border-left: 4px solid var(--yellow-500);
   border-radius: var(--radius-lg);
 }
 
@@ -354,7 +356,7 @@
   right: 0;
   bottom: 0;
   padding: 1rem;
-  background: linear-gradient(transparent, rgba(44, 44, 44, 0.75));
+  background: rgba(35, 39, 29, 0.88);
   color: #fff;
 }
 
@@ -529,9 +531,9 @@ textarea.form-control {
   width: 100%;
   font: inherit;
   padding: 0.7rem 0.85rem;
-  border: 1.5px solid color-mix(in srgb, var(--green-700) 25%, #ccc);
+  border: 1.5px solid color-mix(in srgb, var(--green-700) 25%, #d5ceb2);
   border-radius: var(--radius-sm);
-  background: var(--surface-0);
+  background: var(--surface-1);
   color: var(--ink-900);
 }
 
@@ -691,6 +693,10 @@ textarea.form-control {
 
 .aside-card {
   padding: 1.35rem;
+  border-top: 4px solid var(--yellow-500);
+  border-left: 1px solid rgba(92, 132, 39, 0.14);
+  border-right: 1px solid rgba(92, 132, 39, 0.14);
+  border-bottom: 1px solid rgba(92, 132, 39, 0.14);
 }
 
 .mini-people {

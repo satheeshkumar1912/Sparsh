@@ -23,10 +23,7 @@ body {
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--ink-700);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, var(--green-100), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(249, 214, 30, 0.18), transparent 50%),
-    var(--surface-0);
+  background: var(--surface-0);
   min-height: 100vh;
 }
 
