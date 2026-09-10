@@ -2,30 +2,36 @@
   const doc = document;
   const body = doc.body;
 
-  /* ——— Mobile nav ——— */
+  /* ——— Mobile dropdown nav ——— */
   const nav = doc.querySelector("[data-primary-nav]");
   const toggle = doc.querySelector("[data-nav-toggle]");
   const closeBtn = doc.querySelector("[data-nav-close]");
-  const backdrop = doc.querySelector("[data-nav-backdrop]");
 
   const setNav = (open) => {
     if (!nav || !toggle) return;
     nav.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    if (backdrop) {
-      backdrop.hidden = !open;
-    }
-    body.style.overflow = open ? "hidden" : "";
-    if (open) {
-      const first = nav.querySelector("a, button");
-      first && first.focus();
-    }
   };
 
-  toggle && toggle.addEventListener("click", () => setNav(!nav.classList.contains("is-open")));
+  toggle && toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setNav(!nav.classList.contains("is-open"));
+  });
+
   closeBtn && closeBtn.addEventListener("click", () => setNav(false));
-  backdrop && backdrop.addEventListener("click", () => setNav(false));
+
+  doc.addEventListener("click", (e) => {
+    if (!nav || !toggle) return;
+    if (nav.classList.contains("is-open") && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      setNav(false);
+    }
+  });
+
+  nav && nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setNav(false));
+  });
+
   doc.addEventListener("keydown", (e) => {
     if (e.key === "Escape") setNav(false);
   });

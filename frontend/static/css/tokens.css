@@ -1,34 +1,34 @@
 :root {
-  --green-900: #3d5f2c;
-  --green-700: #5e8d45;
-  --green-600: #6b9e45;
-  --green-500: #8da760;
-  --green-100: #e8f0df;
-  --yellow-500: #f9d61e;
-  --yellow-400: #ffe566;
+  --green-900: #435e1d;
+  --green-700: #68942b;
+  --green-600: #7ca832;
+  --green-500: #94bf3e;
+  --green-100: #ecf3d5;
+  --yellow-500: #f3ca18;
+  --yellow-400: #fae259;
   --ink-900: #2c2c2c;
   --ink-700: #4a4a4a;
   --ink-500: #666666;
   --ink-300: #9a9a9a;
-  --surface-0: #f7f8f2;
+  --surface-0: #f9faf2;
   --surface-1: #ffffff;
-  --surface-2: #eef3e8;
-  --leaf-tint: rgba(94, 141, 69, 0.12);
-  --shadow-soft: 0 12px 40px rgba(61, 95, 44, 0.1);
+  --surface-2: #f1f6dd;
+  --leaf-tint: rgba(104, 148, 43, 0.13);
+  --shadow-soft: 0 12px 40px rgba(67, 94, 29, 0.1);
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
   --font-display: "Times New Roman", Times, serif;
   --font-body: "Times New Roman", Times, serif;
-  --header-h: 4.5rem;
+  --header-h: 5.6rem;
   --max: 72rem;
   --focus: 0 0 0 3px var(--surface-0), 0 0 0 6px var(--green-700);
   --transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html[data-contrast="high"] {
-  --green-700: #2f5a1c;
-  --green-600: #2f5a1c;
+  --green-700: #3a5318;
+  --green-600: #3a5318;
   --ink-900: #000;
   --ink-700: #111;
   --surface-0: #fff;

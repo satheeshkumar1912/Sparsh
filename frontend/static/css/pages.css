@@ -25,8 +25,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(100deg, rgba(45, 70, 32, 0.92) 0%, rgba(45, 70, 32, 0.72) 42%, rgba(45, 70, 32, 0.25) 100%),
-    linear-gradient(0deg, rgba(45, 70, 32, 0.55), transparent 45%);
+    linear-gradient(100deg, rgba(55, 78, 24, 0.92) 0%, rgba(55, 78, 24, 0.72) 42%, rgba(55, 78, 24, 0.25) 100%),
+    linear-gradient(0deg, rgba(55, 78, 24, 0.55), transparent 45%);
 }
 
 .hero__pattern {
@@ -179,7 +179,7 @@
 }
 
 .impact {
-  background: linear-gradient(180deg, var(--green-900), #355028);
+  background: linear-gradient(180deg, var(--green-900), #364c17);
   color: #e8f0df;
 }
 
