@@ -1,31 +1,127 @@
-{% if faqs %}
 <div class="faq-list" data-accordion>
-  {% for faq in faqs %}
-  <div class="faq-item">
-    <h3>
-      <button
-        type="button"
-        class="faq-item__trigger"
-        id="faq-btn-{{ forloop.counter }}"
-        aria-expanded="false"
-        aria-controls="faq-panel-{{ forloop.counter }}"
-        data-accordion-trigger
+  {% if faqs %}
+    {% for faq in faqs %}
+    <div class="faq-item">
+      <h3>
+        <button
+          type="button"
+          class="faq-item__trigger"
+          id="faq-btn-{{ forloop.counter }}"
+          aria-expanded="false"
+          aria-controls="faq-panel-{{ forloop.counter }}"
+          data-accordion-trigger
+        >
+          <span>{{ faq.question }}</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div
+        id="faq-panel-{{ forloop.counter }}"
+        class="faq-item__panel"
+        role="region"
+        aria-labelledby="faq-btn-{{ forloop.counter }}"
+        hidden
+        data-accordion-panel
       >
-        <span>{{ faq.question }}</span>
-        <span class="faq-item__icon" aria-hidden="true">+</span>
-      </button>
-    </h3>
-    <div
-      id="faq-panel-{{ forloop.counter }}"
-      class="faq-item__panel"
-      role="region"
-      aria-labelledby="faq-btn-{{ forloop.counter }}"
-      hidden
-      data-accordion-panel
-    >
-      <p>{{ faq.answer }}</p>
+        <p>{{ faq.answer }}</p>
+      </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-1" aria-expanded="false" aria-controls="faq-panel-1" data-accordion-trigger>
+          <span>Who is Sparsh for?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-1" class="faq-item__panel" role="region" aria-labelledby="faq-btn-1" hidden data-accordion-panel>
+        <p>Sparsh welcomes learners with diverse abilities — including autism, ADHD, learning differences, developmental delays, and children who thrive with thoughtful, affirming support. We also partner with schools and educators.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-2" aria-expanded="false" aria-controls="faq-panel-2" data-accordion-trigger>
+          <span>How does the admissions process work?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-2" class="faq-item__panel" role="region" aria-labelledby="faq-btn-2" hidden data-accordion-panel>
+        <p>Start with a gentle enquiry form or WhatsApp message. We’ll schedule a conversation, optionally arrange a visit, and co-create a placement plan — never rushed, never clinical cold.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-3" aria-expanded="false" aria-controls="faq-panel-3" data-accordion-trigger>
+          <span>Do you only serve neurodivergent children?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-3" class="faq-item__panel" role="region" aria-labelledby="faq-btn-3" hidden data-accordion-panel>
+        <p>Our practice is neurodiverse-affirming and inclusive. Many learners join through partner schools where mixed classrooms benefit from Sparsh scaffolds and training.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-4" aria-expanded="false" aria-controls="faq-panel-4" data-accordion-trigger>
+          <span>Can parents stay involved?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-4" class="faq-item__panel" role="region" aria-labelledby="faq-btn-4" hidden data-accordion-panel>
+        <p>Absolutely. Family partnership is a pillar of our work — coaching, progress reviews, and shared language between home and Sparsh.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-5" aria-expanded="false" aria-controls="faq-panel-5" data-accordion-trigger>
+          <span>What ages do you support?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-5" class="faq-item__panel" role="region" aria-labelledby="faq-btn-5" hidden data-accordion-panel>
+        <p>Programmes span early intervention (from about age 2) through adolescent academic pathways. Share your child’s age in the enquiry and we’ll guide next steps.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-6" aria-expanded="false" aria-controls="faq-panel-6" data-accordion-trigger>
+          <span>Is Sparsh a replacement for mainstream school?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-6" class="faq-item__panel" role="region" aria-labelledby="faq-btn-6" hidden data-accordion-panel>
+        <p>Sometimes Sparsh is a primary learning home; sometimes we bridge toward or support within mainstream settings. The right path is decided together.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-7" aria-expanded="false" aria-controls="faq-panel-7" data-accordion-trigger>
+          <span>How do you measure progress?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-7" class="faq-item__panel" role="region" aria-labelledby="faq-btn-7" hidden data-accordion-panel>
+        <p>Through goals that matter to the child and family — communication, regulation, belonging, and academic growth — reviewed in plain language, not opaque scores alone.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>
+        <button type="button" class="faq-item__trigger" id="faq-btn-8" aria-expanded="false" aria-controls="faq-panel-8" data-accordion-trigger>
+          <span>How can schools partner with Sparsh?</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+      </h3>
+      <div id="faq-panel-8" class="faq-item__panel" role="region" aria-labelledby="faq-btn-8" hidden data-accordion-panel>
+        <p>We offer educator training, classroom coaching, and inclusion consults. Use the Contact page or Admissions enquiry and select Educator Training.</p>
+      </div>
+    </div>
+  {% endif %}
 </div>
-{% endif %}

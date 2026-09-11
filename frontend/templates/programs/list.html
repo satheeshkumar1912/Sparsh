@@ -2,51 +2,145 @@
 {% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Programs</p>
-    <h1>Pathways shaped around your child</h1>
-    <p class="page-hero__lede">From early intervention to academic pathways — explore what fits your family.</p>
+    <h1>Inclusive programs for every <br>stage</h1>
+    <p class="page-hero__lede">
+      From the earliest years to adolescence, our programs meet children where they are and open the widest possible path ahead.
+    </p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="background: var(--surface-0);">
   <div class="container">
-    <div class="filter-bar" role="navigation" aria-label="Filter by category">
+    {% if categories %}
+    <div class="filter-bar" role="navigation" aria-label="Filter by category" style="margin-bottom: 2.5rem;">
       <a href="{% url 'programs:list' %}" class="chip{% if not active_category %} is-active{% endif %}">All</a>
       {% for value, label in categories %}
       <a href="?category={{ value }}" class="chip{% if active_category == value %} is-active{% endif %}">{{ label }}</a>
       {% endfor %}
     </div>
-    <ul class="welcome-grid">
-      {% for program in programs %}
-      <li class="welcome-card">
-        <a href="{{ program.get_absolute_url }}">
-          <div class="welcome-card__media">
+    {% endif %}
+
+    <div class="programs-alternating-list" style="display: flex; flex-direction: column; gap: 4rem;">
+      {% if programs %}
+        {% for program in programs %}
+        <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
+          <div class="program-block__media{% if forloop.counter|divisibleby:2 %} order-last-desktop{% endif %}" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
             {% if 'early' in program.slug or program.category == 'early_intervention' %}
-            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'therapy' in program.slug or program.category == 'therapy_support' %}
-            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'academic' in program.slug or program.category == 'academic_pathways' %}
-            <img src="{% static 'img/welcome/Academy path.png' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Academy path.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'educator' in program.slug or program.category == 'educator_training' %}
-            <img src="{% static 'img/about/sparsh_about_us.webp' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/about/sparsh_about_us.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
-            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% endif %}
+            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
+              {{ program.age_group }}
+            </span>
           </div>
-          <div class="welcome-card__body">
-            <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
-            <h3>{{ program.name }}</h3>
-            <p>{{ program.short_description }}</p>
-            <p class="welcome-card__stat">{{ program.age_group }}</p>
+
+          <div class="program-block__content">
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.65rem, 3.2vw, 2.25rem); color: var(--ink-900); margin: 0 0 0.75rem;">{{ program.name }}</h2>
+            <p style="color: var(--ink-700); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.5rem;">{{ program.description|default:program.short_description }}</p>
+            
+            <ul class="program-features" style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem;">
+              {% if 'early' in program.slug or program.category == 'early_intervention' %}
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Play-based sessions
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Speech &amp; communication
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Sensory regulation
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Parent coaching
+              </li>
+              {% elif 'therapy' in program.slug or program.category == 'therapy_support' %}
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Occupational therapy
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Speech therapy
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Family counselling
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Home-school bridge
+              </li>
+              {% elif 'academic' in program.slug or program.category == 'academic_pathways' %}
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Flexible curriculum
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Exam accommodations
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Life &amp; study skills
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Transition planning
+              </li>
+              {% else %}
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Small guided groups
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Co-teaching support
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Peer buddy system
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Individual learning plans
+              </li>
+              {% endif %}
+            </ul>
+
+            <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="program-enquire-{{ program.slug }}">
+              Enquire about {{ program.name }} &rarr;
+            </a>
           </div>
-        </a>
-      </li>
-      {% empty %}
-      <li><p>No programs found for this filter.</p></li>
-      {% endfor %}
-    </ul>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{# ——— PROGRAM CTA SECTION ——— #}
+<section class="section" style="background: var(--green-900); color: #ffffff; text-align: center; padding: 4.5rem 0;">
+  <div class="container" style="max-width: 48rem;">
+    <h2 style="color: #ffffff; font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 0.75rem;">Not sure which program is right for your child?</h2>
+    <p style="color: rgba(255, 255, 255, 0.75); font-size: 1.15rem; margin-bottom: 2rem;">
+      Let’s have a gentle conversation — we’ll help guide the way.
+    </p>
+    <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="programs-team-cta">
+      Talk to our team &rarr;
+    </a>
   </div>
 </section>
 {% endblock %}

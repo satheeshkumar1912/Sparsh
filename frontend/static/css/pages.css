@@ -24,7 +24,9 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(5, 62, 43, 0.88);
+  background-image: linear-gradient(to right, var(--green-900) 40%, transparent);
+  /* background: var(--green-900); */
+  opacity: 0.88;
 }
 
 .hero__pattern {
@@ -42,8 +44,15 @@
 }
 
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(22px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .hero__brand {
@@ -104,10 +113,18 @@
 }
 
 @media (min-width: 800px) {
-  .trust-strip__inner { grid-template-columns: repeat(4, 1fr); text-align: center; }
+  .trust-strip__inner {
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+  }
 }
 
-.trust-strip p { margin: 0; font-size: 0.95rem; color: var(--ink-500); }
+.trust-strip p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink-500);
+}
+
 .trust-strip strong {
   display: block;
   font-family: var(--font-display);
@@ -122,7 +139,9 @@
 }
 
 @media (min-width: 860px) {
-  .philosophy__grid { grid-template-columns: 1.1fr 0.9fr; }
+  .philosophy__grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
 }
 
 .philosophy__quote {
@@ -160,6 +179,10 @@
   font-size: 0.95rem;
 }
 
+.pillars {
+  background-color: #FBF3C4;
+}
+
 .welcome {
   background: var(--surface-2);
 }
@@ -169,11 +192,16 @@
   color: #e0f1eb;
 }
 
-.impact .section-head .eyebrow { color: var(--yellow-400); }
-.impact h2 { color: #fff; }
+.impact .section-head .eyebrow {
+  color: var(--yellow-400);
+}
+
+.impact h2 {
+  color: #fff;
+}
 
 .admissions-band {
-  background: var(--surface-2);
+  background: var(--yellow-600);
 }
 
 .admissions-band__grid {
@@ -183,22 +211,22 @@
 }
 
 @media (min-width: 900px) {
-  .admissions-band__grid { grid-template-columns: 1fr 1.05fr; }
+  .admissions-band__grid {
+    grid-template-columns: 1fr 1.05fr;
+  }
 }
 
 /* Page Hero for all Navbar Pages */
 .page-hero {
-  padding: clamp(3rem, 6vw, 4.25rem) 0 2.5rem;
+  padding: clamp(3.5rem, 6.5vw, 4.75rem) 0 3.25rem;
   position: relative;
   background: var(--green-900);
   color: #ffffff;
-  border-bottom: 4px solid var(--yellow-500);
 }
 
 .page-hero--soft {
   background: var(--green-900);
   color: #ffffff;
-  border-bottom: 4px solid var(--yellow-500);
 }
 
 .page-hero .eyebrow {
@@ -255,10 +283,15 @@
 }
 
 @media (min-width: 860px) {
-  .prose-grid { grid-template-columns: 1.4fr 0.8fr; align-items: start; }
+  .prose-grid {
+    grid-template-columns: 1.4fr 0.8fr;
+    align-items: start;
+  }
 }
 
-.prose h2 { margin-top: 1.75rem; }
+.prose h2 {
+  margin-top: 1.75rem;
+}
 
 .approach-steps {
   display: grid;
@@ -266,7 +299,9 @@
 }
 
 @media (min-width: 800px) {
-  .approach-steps { grid-template-columns: 1fr 1fr; }
+  .approach-steps {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .approach-step {
@@ -294,7 +329,134 @@
 }
 
 @media (min-width: 800px) {
-  .contact-grid { grid-template-columns: 0.85fr 1.15fr; }
+  .contact-grid {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
 }
 
-.section-inline-title { margin-bottom: 1.25rem; }
+.section-inline-title {
+  margin-bottom: 1.25rem;
+}
+
+/* ——— Inclusive Education Page Styles ——— */
+.inclusion-statement-section {
+  background: var(--surface-0);
+  padding: clamp(4rem, 7.5vw, 6rem) 0;
+}
+
+.inclusion-statement-box {
+  max-width: 56rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.inclusion-statement-box .eyebrow {
+  color: var(--yellow-500);
+  margin-bottom: 1.5rem;
+}
+
+.inclusion-statement-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.3vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--ink-900);
+  margin: 0;
+}
+
+.inclusion-models-section {
+  background: var(--yellow-600);
+  padding: clamp(4rem, 7vw, 5.5rem) 0;
+}
+
+.inclusion-models-section .eyebrow {
+  color: #8c7310;
+}
+
+.inclusion-models-section h2 {
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  color: var(--ink-900);
+  margin-bottom: 2.25rem;
+}
+
+.inclusion-models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .inclusion-models-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.inclusion-model-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.85rem 1.65rem 2rem;
+  box-shadow: 0 4px 18px rgba(56, 71, 27, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.inclusion-model-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(56, 71, 27, 0.09);
+}
+
+.inclusion-model-card__icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 8px;
+  background: var(--green-900);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.35rem;
+}
+
+.inclusion-model-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  margin: 0 0 0.65rem;
+  line-height: 1.3;
+}
+
+.inclusion-model-card p {
+  color: var(--ink-500);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Inclusion Action CTA Section */
+.inclusion-cta-section {
+  background: var(--green-900);
+  color: #ffffff;
+  padding: clamp(3.75rem, 6vw, 5rem) 0;
+  text-align: center;
+}
+
+.inclusion-cta__title {
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 0.75rem;
+}
+
+.inclusion-cta__lede {
+  font-size: 1.1rem;
+  color: #e0f1eb;
+  margin-bottom: 2.25rem;
+}
+
+.inclusion-cta__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

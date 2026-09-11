@@ -100,6 +100,18 @@
   color: var(--green-900);
 }
 
+.btn--ghost-white {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+}
+
+.btn--ghost-white:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
 .site-footer .btn--ghost {
   border-color: #fff;
   color: #fff;
@@ -171,6 +183,7 @@
 }
 
 .pillar-grid,
+.resources-grid,
 .welcome-grid,
 .gallery-grid,
 .stat-grid,
@@ -183,8 +196,24 @@
   gap: 1.25rem;
 }
 
-.pillar-grid {
-  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+.pillar-grid,
+.resources-grid {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .pillar-grid,
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .pillar-grid,
+  .resources-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .welcome-grid {
@@ -192,7 +221,19 @@
 }
 
 .gallery-grid {
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .stat-grid {
@@ -200,11 +241,35 @@
 }
 
 .testimonial-grid {
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .people-grid {
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .people-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .people-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .pillar-card,
@@ -341,17 +406,22 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--green-100);
+  aspect-ratio: 16 / 10;
 }
 
 .gallery-item figure {
   margin: 0;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
 .gallery-item img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  display: block;
 }
 
 .gallery-item figcaption {
@@ -394,6 +464,10 @@
 .gallery-item:hover .gallery-item__overlay,
 .gallery-item:focus-within .gallery-item__overlay {
   opacity: 1;
+}
+
+.gallery{
+  background-color: #fbf3c4;
 }
 
 .stat-card {

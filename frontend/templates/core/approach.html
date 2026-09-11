@@ -1,38 +1,76 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Our Approach</p>
-    <h1>Connection before curriculum</h1>
+    <h1>Connection first, then a plan <br>built around the child</h1>
     <p class="page-hero__lede">
-      A clear, humane sequence: regulate, relate, then reason — with families beside us at every step.
+      A gentle, structured process that turns understanding into everyday progress — with families beside us at every step.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container approach-steps">
-    <article class="approach-step">
-      <span class="approach-step__num">01</span>
-      <h2>See the whole child</h2>
-      <p>We begin with curiosity — interests, sensory profile, communication style, and what already works at home.</p>
-    </article>
-    <article class="approach-step">
-      <span class="approach-step__num">02</span>
-      <h2>Design for regulation</h2>
-      <p>Calm spaces, predictable rhythms, and adult co-regulation come before academic stretch.</p>
-    </article>
-    <article class="approach-step">
-      <span class="approach-step__num">03</span>
-      <h2>Teach through belonging</h2>
-      <p>Peer connection and contribution are learning goals, not side effects.</p>
-    </article>
-    <article class="approach-step">
-      <span class="approach-step__num">04</span>
-      <h2>Partner with families</h2>
-      <p>Shared language, honest reviews, and strategies that travel between Sparsh and home.</p>
-    </article>
+{# ——— BELIEF SECTION ——— #}
+<section class="section" style="background: var(--surface-0); padding: clamp(4rem, 7vw, 6rem) 0;">
+  <div class="container" style="max-width: 52rem; text-align: center;">
+    <div class="reveal">
+      <p class="eyebrow">Our belief</p>
+      <p style="font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; line-height: 1.4; color: var(--ink-900); margin: 1rem 0 0;">
+        “They didn’t ask what was ‘wrong’ with my child. They asked what lights her up.”
+      </p>
+    </div>
+  </div>
+</section>
+
+{# ——— FOUR STEPS PROCESS SECTION ——— #}
+<section class="section" style="background: var(--surface-2); padding: clamp(4rem, 7vw, 6rem) 0;">
+  <div class="container" style="max-width: 58rem;">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
+      <p class="eyebrow">The process</p>
+      <h2>Four steps we walk together</h2>
+    </div>
+
+    <div class="approach-steps-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div class="approach-step-card reveal" style="display: flex; gap: 1.75rem; align-items: flex-start; background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; color: var(--yellow-500); line-height: 1; flex-shrink: 0;">01</div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Understand the whole child</h3>
+          <p style="color: var(--ink-500); font-size: 1.05rem; line-height: 1.6; margin: 0;">We begin with listening — to families, to the child, and to the strengths and passions that often go unnoticed in a checklist.</p>
+        </div>
+      </div>
+
+      <div class="approach-step-card reveal" style="display: flex; gap: 1.75rem; align-items: flex-start; background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; color: var(--yellow-500); line-height: 1; flex-shrink: 0;">02</div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Co-create an individual plan</h3>
+          <p style="color: var(--ink-500); font-size: 1.05rem; line-height: 1.6; margin: 0;">Educators, therapists, and parents set goals together in plain language — communication, regulation, belonging, and academics.</p>
+        </div>
+      </div>
+
+      <div class="approach-step-card reveal" style="display: flex; gap: 1.75rem; align-items: flex-start; background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; color: var(--yellow-500); line-height: 1; flex-shrink: 0;">03</div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Integrate learning &amp; therapy</h3>
+          <p style="color: var(--ink-500); font-size: 1.05rem; line-height: 1.6; margin: 0;">Speech, occupational, and behavioural supports are woven into the school day so goals reinforce one another.</p>
+        </div>
+      </div>
+
+      <div class="approach-step-card reveal" style="display: flex; gap: 1.75rem; align-items: flex-start; background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; color: var(--yellow-500); line-height: 1; flex-shrink: 0;">04</div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Review, celebrate, adjust</h3>
+          <p style="color: var(--ink-500); font-size: 1.05rem; line-height: 1.6; margin: 0;">Weekly conversations and regular reviews keep the plan alive — we celebrate progress and adapt as the child grows.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="text-align: center; margin-top: 3rem;">
+      <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="approach-admissions-cta">
+        Start your child’s plan &rarr;
+      </a>
+    </div>
   </div>
 </section>
 {% endblock %}

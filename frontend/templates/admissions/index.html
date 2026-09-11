@@ -1,54 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Admissions</p>
-    <h1>Begin your child's journey with Sparsh</h1>
+    <h1>A gentle, listening-first <br>admissions journey</h1>
     <p class="page-hero__lede">
-      A gentle, supportive flow — no pressure, no jargon. Tell us about your child; we’ll listen first.
+      No checklist of deficits — just curiosity about who your child is. Share a little, and we’ll walk the next steps together.
     </p>
-    <div class="hero__actions">
-      <a href="#enquiry-form" class="btn btn--accent" data-track="admissions-form-jump">Apply / Enquire</a>
-      <a href="{{ whatsapp_url }}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-track="admissions-whatsapp">WhatsApp chat</a>
-    </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="section-inline-title">How admissions works</h2>
-    <ol class="timeline timeline--full">
-      {% for step in timeline %}
-      <li>
-        <span class="timeline__num">{{ step.step }}</span>
-        <div>
-          <h3>{{ step.title }}</h3>
-          <p>{{ step.text }}</p>
-        </div>
-      </li>
-      {% endfor %}
-    </ol>
-  </div>
-</section>
-
-<section class="section admissions-band" id="enquiry-form">
+{# ——— ENQUIRY SECTION ——— #}
+<section class="section admissions-band" id="enquiry-section" style="background: var(--surface-2); padding: clamp(4rem, 7vw, 6rem) 0;">
   <div class="container admissions-band__grid">
-    <div>
-      <h2>Enquiry form</h2>
-      <p>Fields are stored securely. We’ll only use your details to respond about this enquiry.</p>
+    <div class="admissions-band__copy reveal">
+      <p class="eyebrow">Admissions</p>
+      <h2>Begin your child's journey with Sparsh</h2>
+      <p style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
+        Our admissions flow is gentle and supportive. Tell us about your child — we’ll listen first, then walk the next steps together.
+      </p>
+      <div class="hero__actions" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+        <a href="#admissions-form" class="btn btn--accent" data-track="admissions-apply-jump">Apply / Enquire</a>
+        <a
+          href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire%20about%20admissions."
+          class="btn btn--ghost"
+          data-track="admissions-whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >WhatsApp chat</a>
+      </div>
+      
+      <ol class="timeline timeline--compact" aria-label="Admissions timeline" style="margin-top: 2rem;">
+        <li><span>1</span> Enquiry</li>
+        <li><span>2</span> Conversation</li>
+        <li><span>3</span> Visit</li>
+        <li><span>4</span> Plan</li>
+        <li><span>5</span> Welcome</li>
+      </ol>
     </div>
-    <form method="post" class="form-card" novalidate data-track-form="admissions">
-      {% csrf_token %}
-      {% include "admissions/_form_fields.html" %}
-      <button type="submit" class="btn btn--accent btn--block" data-track="admissions-submit">Submit enquiry</button>
-    </form>
+
+    <div class="admissions-band__form reveal" id="admissions-form">
+      <div class="form-card" style="background: #ffffff; border-radius: var(--radius-lg); padding: 2rem 2.25rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 0 0 1.25rem;">Quick enquiry</h3>
+        <form method="post" action="{% url 'admissions:index' %}" novalidate data-track-form="admissions-page">
+          {% csrf_token %}
+          {% include "admissions/_form_fields.html" %}
+          <button type="submit" class="btn btn--accent btn--block" style="margin-top: 1.5rem;" data-track="admissions-submit">Send enquiry</button>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section faq-section">
+{# ——— FAQ SECTION ——— #}
+<section class="section faq-section" style="background: var(--surface-0); padding: clamp(4rem, 7vw, 6rem) 0;">
   <div class="container narrow">
-    <h2>Admissions FAQ</h2>
+    <div class="section-head reveal" style="text-align: center; margin-inline: auto; margin-bottom: 2.75rem;">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions families often ask</h2>
+    </div>
     {% include "includes/faq_accordion.html" %}
   </div>
 </section>

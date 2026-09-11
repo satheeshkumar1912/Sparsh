@@ -1,48 +1,52 @@
 :root {
-  --green-900: #053E2B;
-  --green-800: #0a4f38;
-  --green-700: #0f6347;
-  --green-600: #197a59;
-  --green-500: #25966f;
-  --green-200: #b8e2d4;
-  --green-100: #ddf0ea;
-  --green-50: #eff8f4;
+  --green-900: #38471B; /* sparsh-forest-dark */
+  --green-800: #3F521E;
+  --green-700: #4A5D23; /* sparsh-forest */
+  --green-600: #576E2A;
+  --green-500: #6B7D3A; /* sparsh-olive */
+  --green-200: #E6ECCF;
+  --green-100: #F1F6DF;
+  --green-50: #FBFDF6;
 
-  --yellow-500: #FBB117;
-  --yellow-400: #F0B324;
-  --yellow-300: #f5c553;
-  --yellow-200: #fae099;
-  --yellow-100: #fdf1cb;
-  --yellow-50: #FFF9E6;
+  --yellow-600: #FBF3C4; /* sparsh-sage */
+  --yellow-500: #D9A91E; /* sparsh-gold */
+  --yellow-400: #C2951A; /* sparsh-gold-dark */
+  --yellow-300: #E5BE4A;
+  --yellow-200: #F3DC87;
+  --yellow-100: #FAF0C5;
+  --yellow-50: #FFFDF0;
 
-  --ink-900: #17261f;
-  --ink-700: #32433b;
-  --ink-500: #556960;
-  --ink-300: #889c93;
+  --ink-900: #3A3A22; /* sparsh-ink */
+  --ink-700: #4A4A2E;
+  --ink-500: #6B6B48;
+  --ink-300: #9C9C78;
 
-  --surface-0: #FDF6E4;
-  --surface-1: #ffffff;
-  --surface-2: #FFF9E6;
-  --leaf-tint: rgba(5, 62, 43, 0.10);
-  --shadow-soft: 0 10px 32px rgba(5, 62, 43, 0.08);
+  --surface-0: #FFFBE6; /* sparsh-cream */
+  --surface-1: #FFFFFF; /* white */
+  --surface-2: #FBF3C4; /* sparsh-sage */
+  --leaf-tint: rgba(74, 93, 35, 0.10);
+  --shadow-soft: 0 4px 20px rgba(58, 58, 34, 0.07);
   --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
-  --font-display: "Times New Roman", Times, serif;
-  --font-body: "Times New Roman", Times, serif;
-  --header-h: 5.6rem;
-  --max: 72rem;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-display: "Times New Roman", Times, Georgia, serif;
+  --font-body: "Times New Roman", Times, Georgia, serif;
+  --header-h: 5.25rem;
+  --max: 80rem;
   --focus: 0 0 0 3px var(--surface-0), 0 0 0 6px var(--green-700);
   --transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html[data-contrast="high"] {
-  --green-700: #032a1d;
-  --green-600: #032a1d;
-  --ink-900: #000;
-  --ink-700: #111;
-  --surface-0: #fff;
-  --surface-1: #fff;
-  --yellow-500: #d49005;
-  --shadow-soft: 0 0 0 2px #000;
+html[data-contrast="high"],
+body.high-contrast {
+  --green-900: #000000;
+  --green-700: #000000;
+  --green-600: #000000;
+  --ink-900: #000000;
+  --ink-700: #000000;
+  --surface-0: #FFFFFF;
+  --surface-1: #FFFFFF;
+  --surface-2: #F0F0F0;
+  --yellow-500: #000000;
+  --shadow-soft: 0 0 0 2px #000000;
 }

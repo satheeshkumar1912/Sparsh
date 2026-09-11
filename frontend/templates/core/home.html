@@ -9,7 +9,7 @@
     <div class="hero__pattern" aria-hidden="true"></div>
     <img
       class="hero__image"
-      src="{% static 'img/sparsh_hero_image.webp' %}"
+      src="{% static 'img/Hero-Img_indian_classroom.webp' %}"
       alt="Children learning together in a bright, welcoming classroom"
       width="1600"
       height="1000"
@@ -28,13 +28,14 @@
       <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="hero-admissions">
         Admissions &amp; Enquiry
       </a>
-      <a href="{% url 'programs:list' %}" class="btn btn--ghost btn--lg" data-track="hero-programs">
+      <a href="{% url 'programs:list' %}" class="btn btn--ghost-white btn--lg" data-track="hero-programs">
         Explore Programs
       </a>
     </div>
   </div>
 </section>
 
+{# ——— TRUST STRIP ——— #}
 <section class="trust-strip" aria-label="Trust indicators">
   <div class="container trust-strip__inner">
     <p><strong>{% if stats %}{{ stats.learners_supported }}+{% else %}2,400+{% endif %}</strong> families served</p>
@@ -45,27 +46,35 @@
 </section>
 
 {# ——— PHILOSOPHY ——— #}
-<section class="section philosophy" aria-labelledby="philosophy-heading">
+<section class="section philosophy" aria-labelledby="philosophy-heading" style="background: var(--surface-0);">
   <div class="container philosophy__grid">
     <div class="philosophy__copy reveal">
       <p class="eyebrow">Our philosophy</p>
       <h2 id="philosophy-heading">Connection before curriculum</h2>
-      <p>
+      <p style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
         Before worksheets and timelines, we build trust. Children learn best when they feel safe,
-        seen, and invited to bring their whole selves — sensory needs, passions, and all.
+        seen, and invited to bring their whole selves — sensory needs, passions, and all. Our educators
+        are trained to notice strengths first, so every learner steps into the day feeling capable and welcome.
       </p>
     </div>
-    <blockquote class="philosophy__quote reveal">
-      <p>“They didn’t ask what was ‘wrong’ with my child. They asked what lights her up.”</p>
-      <footer>— Parent of a Sparsh learner</footer>
-    </blockquote>
+    <div class="reveal">
+      <figure class="philosophy-quote-card" style="background: #ffffff; border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: 0 20px 60px -20px rgba(74, 93, 35, 0.35); border: 1px solid rgba(74, 93, 35, 0.12); margin: 0;">
+        <span style="font-family: var(--font-display); font-size: 4.5rem; color: var(--yellow-500); line-height: 0.8; display: block; margin-bottom: 0.5rem;">“</span>
+        <blockquote style="margin: 0; font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; line-height: 1.35; color: var(--green-700);">
+          They didn’t ask what was ‘wrong’ with my child. They asked what lights her up.
+        </blockquote>
+        <figcaption style="margin-top: 1.5rem; font-size: 0.9rem; font-weight: 700; color: var(--green-500);">
+          — A Sparsh parent
+        </figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
 {# ——— FEATURE PILLARS ——— #}
-<section class="section pillars" aria-labelledby="pillars-heading">
+<section class="section pillars" aria-labelledby="pillars-heading" style="background: var(--surface-2);">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">What guides us</p>
       <h2 id="pillars-heading">Six pillars of Sparsh</h2>
       <p class="section-head__lede">Each pillar opens to a fuller story — explore what belonging looks like here.</p>
@@ -74,23 +83,39 @@
       {% for pillar in pillars %}
       <li class="reveal">
         <a href="{{ pillar.get_absolute_url }}" class="pillar-card" data-track="pillar-{{ pillar.slug }}">
-          <span class="pillar-card__icon icon-{{ pillar.icon }}" aria-hidden="true"></span>
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-{{ pillar.icon }}" style="background: transparent; width: auto; height: auto;" aria-hidden="true"></span>
+          </div>
           <h3>{{ pillar.title }}</h3>
           <p>{{ pillar.summary }}</p>
-          <span class="pillar-card__more">Learn more</span>
+          {% if pillar.long_description %}
+          <p style="font-size: 0.88rem; color: var(--ink-500); margin-top: 0.5rem;">{{ pillar.long_description }}</p>
+          {% endif %}
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">
+            Learn more &rarr;
+          </span>
         </a>
       </li>
       {% empty %}
-      <li><p>Pillars coming soon.</p></li>
+      <li class="reveal">
+        <div class="pillar-card">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-brain" aria-hidden="true"></span>
+          </div>
+          <h3>Neurodiverse-Affirming</h3>
+          <p>We honour how each brain learns — strengths first, stigma never.</p>
+          <span class="pillar-card__more">Learn more &rarr;</span>
+        </div>
+      </li>
       {% endfor %}
     </ul>
   </div>
 </section>
 
-{# ——— WELCOME ——— #}
-<section class="section welcome" aria-labelledby="welcome-heading">
+{# ——— WELCOME / PROGRAMS ——— #}
+<section class="section welcome" aria-labelledby="welcome-heading" style="background: var(--surface-0);">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head reveal" style="max-width: 48rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">Welcome</p>
       <h2 id="welcome-heading">A place where difference is met with understanding, not judgement.</h2>
     </div>
@@ -110,7 +135,6 @@
             {% endif %}
           </div>
           <div class="welcome-card__body">
-            <span class="welcome-card__icon icon-{{ program.icon }}" aria-hidden="true"></span>
             <h3>{{ program.name }}</h3>
             <p>{{ program.short_description }}</p>
             <p class="welcome-card__stat">{{ program.age_group }}</p>
@@ -124,46 +148,59 @@
       <li class="welcome-card"><h3>Academic Pathways</h3></li>
       {% endfor %}
     </ul>
-    <div class="mini-proof" aria-label="Proof points">
-      <p><strong>1:6</strong> guided ratios in early years</p>
-      <p><strong>100%</strong> family partnership plans</p>
-      <p><strong>Weekly</strong> progress conversations</p>
+    
+    <div class="mini-proof reveal" aria-label="Proof points" style="margin-top: 3.5rem; background: var(--green-900); color: #ffffff; border-radius: var(--radius-lg); padding: 2rem 2.5rem; border-left: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1.5rem; text-align: center;">
+      <div style="border-right: 1px solid rgba(255, 255, 255, 0.15); padding: 0.5rem;">
+        <div style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--yellow-500); line-height: 1;">1:6</div>
+        <p style="margin: 0.4rem 0 0; color: rgba(255, 255, 255, 0.85); font-size: 0.95rem;">guided ratios in early years</p>
+      </div>
+      <div style="border-right: 1px solid rgba(255, 255, 255, 0.15); padding: 0.5rem;">
+        <div style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--yellow-500); line-height: 1;">100%</div>
+        <p style="margin: 0.4rem 0 0; color: rgba(255, 255, 255, 0.85); font-size: 0.95rem;">family partnership plans</p>
+      </div>
+      <div style="padding: 0.5rem;">
+        <div style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--yellow-500); line-height: 1;">Weekly</div>
+        <p style="margin: 0.4rem 0 0; color: rgba(255, 255, 255, 0.85); font-size: 0.95rem;">progress conversations</p>
+      </div>
     </div>
   </div>
 </section>
 
 {# ——— GALLERY ——— #}
-<section class="section gallery" aria-labelledby="gallery-heading">
+<section class="section gallery" aria-labelledby="gallery-heading" style="background: var(--surface-2);">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">Life at Sparsh</p>
       <h2 id="gallery-heading">Moments that feel like belonging</h2>
       <p class="section-head__lede">Everyday moments of learning, play, creativity, and friendship.</p>
     </div>
     <ul class="gallery-grid">
       {% for item in gallery %}
-      <li class="gallery-item reveal">
-        <figure>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
           {% if item.image %}
-          <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 1 %}
-          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 2 %}
-          <img src="{% static 'img/gallery/Colour and Rhythm Classroom.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Colour and Rhythm Classroom.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 3 %}
-          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_35_14 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_35_14 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 4 %}
-          <img src="{% static 'img/gallery/Quiet Corner, Bright Minds.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Quiet Corner, Bright Minds.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 5 %}
-          <img src="{% static 'img/gallery/Arts and Music.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Arts and Music.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 6 %}
-          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_48_20 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_48_20 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% else %}
-          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" width="600" height="400">
+          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% endif %}
-          <figcaption>
-            <span class="gallery-item__caption">{{ item.caption }}</span>
-            <span class="gallery-item__title">{{ item.title }}</span>
+          
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">{{ item.caption }}</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">{{ item.title }}</span>
           </figcaption>
           {% if item.quote %}
           <div class="gallery-item__overlay" aria-hidden="true">
@@ -178,65 +215,71 @@
 </section>
 
 {# ——— IMPACT ——— #}
-<section class="section impact" aria-labelledby="impact-heading">
+<section class="section impact" aria-labelledby="impact-heading" style="background: var(--green-900); color: #ffffff;">
   <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">Impact</p>
-      <h2 id="impact-heading">Growing with families and schools</h2>
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
+      <p class="eyebrow" style="color: var(--yellow-500); letter-spacing: 0.2em;">Impact</p>
+      <h2 id="impact-heading" style="color: #ffffff;">Growing with families and schools</h2>
     </div>
-    <ul class="stat-grid" data-counters>
-      <li class="stat-card reveal">
-        <p class="stat-card__value"><span data-count="{{ stats.learners_supported|default:2400 }}">0</span>+</p>
-        <p class="stat-card__label">Learners supported</p>
-        <p class="stat-card__qual">{{ stats.learners_qualifier|default:"since 2015" }}</p>
+    <ul class="stat-grid" data-counters style="display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.25rem;">
+      <li class="stat-card reveal" style="background: var(--surface-0); border-radius: var(--radius-md); padding: 1.75rem 1.25rem; border-top: 4px solid var(--yellow-500); text-align: center; box-shadow: var(--shadow-soft);">
+        <p class="stat-card__value" style="font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; color: var(--green-700); margin: 0; line-height: 1;">
+          <span data-count="{{ stats.learners_supported|default:2400 }}">0</span>+
+        </p>
+        <p class="stat-card__label" style="font-weight: 700; color: var(--ink-900); margin: 0.65rem 0 0.2rem;">Learners supported</p>
+        <p class="stat-card__qual" style="font-size: 0.88rem; color: var(--ink-500); margin: 0;">{{ stats.learners_qualifier|default:"since 2015" }}</p>
       </li>
-      <li class="stat-card reveal">
-        <p class="stat-card__value"><span data-count="{{ stats.partner_schools|default:48 }}">0</span></p>
-        <p class="stat-card__label">Partner schools</p>
-        <p class="stat-card__qual">{{ stats.schools_qualifier|default:"across regions" }}</p>
+      <li class="stat-card reveal" style="background: var(--surface-0); border-radius: var(--radius-md); padding: 1.75rem 1.25rem; border-top: 4px solid var(--yellow-500); text-align: center; box-shadow: var(--shadow-soft);">
+        <p class="stat-card__value" style="font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; color: var(--green-700); margin: 0; line-height: 1;">
+          <span data-count="{{ stats.partner_schools|default:48 }}">0</span>
+        </p>
+        <p class="stat-card__label" style="font-weight: 700; color: var(--ink-900); margin: 0.65rem 0 0.2rem;">Partner schools</p>
+        <p class="stat-card__qual" style="font-size: 0.88rem; color: var(--ink-500); margin: 0;">{{ stats.schools_qualifier|default:"across regions" }}</p>
       </li>
-      <li class="stat-card reveal">
-        <p class="stat-card__value"><span data-count="{{ stats.educators_trained|default:860 }}">0</span>+</p>
-        <p class="stat-card__label">Educators trained</p>
-        <p class="stat-card__qual">{{ stats.educators_qualifier|default:"workshops & coaching" }}</p>
+      <li class="stat-card reveal" style="background: var(--surface-0); border-radius: var(--radius-md); padding: 1.75rem 1.25rem; border-top: 4px solid var(--yellow-500); text-align: center; box-shadow: var(--shadow-soft);">
+        <p class="stat-card__value" style="font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; color: var(--green-700); margin: 0; line-height: 1;">
+          <span data-count="{{ stats.educators_trained|default:860 }}">0</span>+
+        </p>
+        <p class="stat-card__label" style="font-weight: 700; color: var(--ink-900); margin: 0.65rem 0 0.2rem;">Educators trained</p>
+        <p class="stat-card__qual" style="font-size: 0.88rem; color: var(--ink-500); margin: 0;">{{ stats.educators_qualifier|default:"workshops & coaching" }}</p>
       </li>
-      <li class="stat-card reveal">
-        <p class="stat-card__value"><span data-count="{{ stats.families_recommend|default:96 }}">0</span>%</p>
-        <p class="stat-card__label">Families recommend us</p>
-        <p class="stat-card__qual">{{ stats.recommend_qualifier|default:"of surveyed families" }}</p>
+      <li class="stat-card reveal" style="background: var(--surface-0); border-radius: var(--radius-md); padding: 1.75rem 1.25rem; border-top: 4px solid var(--yellow-500); text-align: center; box-shadow: var(--shadow-soft);">
+        <p class="stat-card__value" style="font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; color: var(--green-700); margin: 0; line-height: 1;">
+          <span data-count="{{ stats.families_recommend|default:96 }}">0</span>%
+        </p>
+        <p class="stat-card__label" style="font-weight: 700; color: var(--ink-900); margin: 0.65rem 0 0.2rem;">Families recommend us</p>
+        <p class="stat-card__qual" style="font-size: 0.88rem; color: var(--ink-500); margin: 0;">{{ stats.recommend_qualifier|default:"of surveyed families" }}</p>
       </li>
     </ul>
   </div>
 </section>
 
 {# ——— TESTIMONIALS ——— #}
-<section class="section testimonials" aria-labelledby="testimonials-heading">
+<section class="section testimonials" aria-labelledby="testimonials-heading" style="background: var(--surface-0);">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">Families</p>
       <h2 id="testimonials-heading">Words shared with consent</h2>
     </div>
     <ul class="testimonial-grid">
       {% for t in testimonials %}
-      <li class="testimonial-card reveal">
-        <blockquote>
-          <p>“{{ t.quote }}”</p>
-          <footer>
+      <li class="testimonial-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="color: var(--yellow-500); margin-bottom: 0.75rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        <blockquote style="margin: 0;">
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“{{ t.quote }}”</p>
+          <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
             {% if t.photo %}
-            <img src="{{ t.photo.url }}" alt="" width="48" height="48" loading="lazy" class="testimonial-card__photo">
+            <img src="{{ t.photo.url }}" alt="" width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
             {% else %}
-            <img
-              src="{% get_static_prefix %}img/testimonials/parent-{{ forloop.counter }}.jpg"
-              alt=""
-              width="48"
-              height="48"
-              loading="lazy"
-              class="testimonial-card__photo"
-            >
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--green-700); color: #fff; font-family: var(--font-display); font-size: 1rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0;">
+              {{ t.parent_name|slice:":2"|upper }}
+            </div>
             {% endif %}
             <div>
-              <cite>{{ t.parent_name }}</cite>
-              <span>{{ t.role_label }}{% if t.program %} · {{ t.program }}{% endif %}</span>
+              <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">{{ t.parent_name }}</cite>
+              <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">{{ t.role_label }}{% if t.program %} · {{ t.program }}{% endif %}</span>
             </div>
           </footer>
         </blockquote>
@@ -246,17 +289,17 @@
   </div>
 </section>
 
-{# ——— ADMISSIONS ——— #}
-<section class="section admissions-band" aria-labelledby="admissions-heading" id="enquire">
+{# ——— ADMISSIONS BAND ——— #}
+<section class="section admissions-band" aria-labelledby="admissions-heading" id="enquire" style="background: var(--surface-2);">
   <div class="container admissions-band__grid">
     <div class="admissions-band__copy reveal">
       <p class="eyebrow">Admissions</p>
       <h2 id="admissions-heading">Begin your child's journey with Sparsh</h2>
-      <p>
+      <p style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
         Our admissions flow is gentle and supportive. Tell us about your child —
         we’ll listen first, then walk the next steps together.
       </p>
-      <div class="hero__actions">
+      <div class="hero__actions" style="margin-top: 1.5rem; margin-bottom: 2rem;">
         <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="home-apply">Apply / Enquire</a>
         <a
           href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire%20about%20admissions."
@@ -266,7 +309,7 @@
           rel="noopener noreferrer"
         >WhatsApp chat</a>
       </div>
-      <ol class="timeline timeline--compact" aria-label="Admissions timeline">
+      <ol class="timeline timeline--compact" aria-label="Admissions timeline" style="margin-top: 2rem;">
         <li><span>1</span> Enquiry</li>
         <li><span>2</span> Conversation</li>
         <li><span>3</span> Visit</li>
@@ -275,20 +318,22 @@
       </ol>
     </div>
     <div class="admissions-band__form reveal">
-      <h3 class="form-card__title">Quick enquiry</h3>
-      <form method="post" action="{% url 'admissions:index' %}" class="form-card" novalidate data-track-form="home-enquiry">
-        {% csrf_token %}
-        {% include "admissions/_form_fields.html" with form=admission_form programs=programs %}
-        <button type="submit" class="btn btn--accent btn--block" data-track="home-enquiry-submit">Send enquiry</button>
-      </form>
+      <div class="form-card" style="background: #ffffff; border-radius: var(--radius-lg); padding: 2rem 2.25rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <h3 class="form-card__title" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 0 0 1.25rem;">Quick enquiry</h3>
+        <form method="post" action="{% url 'admissions:index' %}" novalidate data-track-form="home-enquiry">
+          {% csrf_token %}
+          {% include "admissions/_form_fields.html" with form=admission_form programs=programs %}
+          <button type="submit" class="btn btn--accent btn--block" style="margin-top: 1.5rem;" data-track="home-enquiry-submit">Send enquiry</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
 {# ——— FAQ ——— #}
-<section class="section faq-section" aria-labelledby="faq-heading">
+<section class="section faq-section" aria-labelledby="faq-heading" style="background: var(--surface-0);">
   <div class="container narrow">
-    <div class="section-head reveal">
+    <div class="section-head reveal" style="text-align: center; margin-inline: auto; margin-bottom: 2.75rem;">
       <p class="eyebrow">FAQ</p>
       <h2 id="faq-heading">Questions families often ask</h2>
     </div>

@@ -2,67 +2,105 @@
 {% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
-    <p class="eyebrow">About Sparsh</p>
-    <h1>Different abilities. Limitless possibilities.</h1>
+    <p class="eyebrow">About Us</p>
+    <h1>An inclusive community <br>built on connection</h1>
     <p class="page-hero__lede">
-      Sparsh Inclusive Education exists so every child can learn in a place that understands them —
-      not one that asks them to shrink.
+      Since 2015, Sparsh has walked beside neurodiverse learners and their families — turning inclusion from an idea into everyday practice.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <figure class="about-hero-image reveal">
-      <img
-        src="{% static 'img/about/sparsh_about_us.webp' %}"
-        alt="An educator supporting children in a warm, inclusive learning space"
-        width="1200"
-        height="700"
-        loading="lazy"
-      >
-    </figure>
+{# ——— MISSION SECTION ——— #}
+<section class="section" style="background: var(--surface-0);">
+  <div class="container prose-grid" style="align-items: center;">
+    <div class="reveal">
+      <p class="eyebrow">Our mission</p>
+      <h2>Connection before curriculum</h2>
+      <p class="lede-text" style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
+        Before worksheets and timelines, we build trust. Children learn best when they feel safe, seen, and invited to bring their whole selves — sensory needs, passions, and all. Our educators are trained to notice strengths first, so every learner steps into the day feeling capable and welcome.
+      </p>
+      <p style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
+        We believe difference should be met with understanding, not judgement. Our educators, therapists, and families form a circle of support around each child so they can learn, belong, and grow with confidence.
+      </p>
+    </div>
+    <div class="reveal">
+      <figure class="about-hero-image" style="margin:0; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--shadow-soft);">
+        <img
+          src="{% static 'img/about/sparsh_about_us.webp' %}"
+          alt="An educator supporting children in a warm, inclusive learning space"
+          width="1200"
+          height="700"
+          loading="lazy"
+          style="width:100%; aspect-ratio: 4/3; object-fit: cover;"
+        >
+      </figure>
+    </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
-  <div class="container prose-grid">
-    <article class="prose">
-      <h2>Our story</h2>
-      <p>
-        Sparsh began with a simple conviction: inclusion is not a programme bolted onto school —
-        it is a culture of belonging. From early intervention rooms to partner classrooms,
-        we design for neurodiversity with warmth, evidence, and family partnership.
-      </p>
-      <h2>What we believe</h2>
-      <ul>
-        <li>Connection before curriculum</li>
-        <li>Strengths before labels</li>
-        <li>Families as co-experts</li>
-        <li>Every ability welcome</li>
-      </ul>
-      <h2>Looking ahead</h2>
-      <p>
-        This public site is the front door. Parent and institutional portals will extend the same
-        care into everyday collaboration — progress, resources, and shared planning.
-      </p>
-    </article>
-    <aside class="aside-card">
-      <h2>Meet a few faces</h2>
-      <ul class="mini-people">
-        {% for m in team_preview %}
-        <li>
-          <strong>{{ m.name }}</strong>
-          <span>{{ m.role }}</span>
-        </li>
-        {% empty %}
-        <li>Team profiles appear after seeding content.</li>
-        {% endfor %}
-      </ul>
-      <a class="btn btn--ghost" href="{% url 'people:team' %}">Our full team</a>
-    </aside>
+{# ——— VALUES / APPROACH SECTION ——— #}
+<section class="section" style="background: var(--surface-2);">
+  <div class="container">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.5rem;">
+      <p class="eyebrow">Our approach</p>
+      <h2>How we walk beside every learner</h2>
+    </div>
+    <div class="values-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem;">
+      <div class="value-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+        <div class="value-card__icon" style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; flex-shrink: 0; color: var(--green-700);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Strengths first</h3>
+          <p style="color: var(--ink-500); line-height: 1.6; margin: 0;">We notice what a child can do, and build from there — never leading with a list of deficits.</p>
+        </div>
+      </div>
+
+      <div class="value-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+        <div class="value-card__icon" style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; flex-shrink: 0; color: var(--green-700);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.42 0l6.59-6.59a1 1 0 0 0 0-1.41l-2.83-2.83a1 1 0 0 0-1.41 0L14 11"/><path d="m13 7-2-2a1 1 0 0 0-1.42 0L2.99 11.59a1 1 0 0 0 0 1.41l2.83 2.83a1 1 0 0 0 1.41 0L10 13"/></svg>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Partnership always</h3>
+          <p style="color: var(--ink-500); line-height: 1.6; margin: 0;">Parents, therapists, and teachers work as one team with shared, plain-language goals.</p>
+        </div>
+      </div>
+
+      <div class="value-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+        <div class="value-card__icon" style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; flex-shrink: 0; color: var(--green-700);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Safety &amp; regulation</h3>
+          <p style="color: var(--ink-500); line-height: 1.6; margin: 0;">Calm, predictable environments and sensory-aware spaces so learning can happen.</p>
+        </div>
+      </div>
+
+      <div class="value-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+        <div class="value-card__icon" style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; flex-shrink: 0; color: var(--green-700);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Individual pathways</h3>
+          <p style="color: var(--ink-500); line-height: 1.6; margin: 0;">Every plan is co-created and reviewed often, because no two learners are the same.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ——— CTA SECTION ——— #}
+<section class="section" style="background: var(--green-900); color: #ffffff; text-align: center; padding: 4rem 0;">
+  <div class="container" style="max-width: 48rem;">
+    <h2 style="color: #ffffff; font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 0.75rem;">Ready to learn more about Sparsh?</h2>
+    <p style="color: rgba(255, 255, 255, 0.75); font-size: 1.15rem; margin-bottom: 2rem;">
+      We’d love to hear about your child and share how we can help.
+    </p>
+    <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="about-admissions-cta">
+      Start an enquiry &rarr;
+    </a>
   </div>
 </section>
 {% endblock %}

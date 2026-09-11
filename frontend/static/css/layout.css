@@ -5,13 +5,13 @@
   z-index: 100;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  background: rgba(253, 246, 228, 0.96);
-  border-bottom: 1px solid color-mix(in srgb, var(--green-700) 22%, transparent);
-  box-shadow: 0 4px 20px rgba(5, 62, 43, 0.06);
+  background-color: rgba(251, 243, 196, 0.95);
+  border-bottom: 1px solid rgba(74, 93, 35, 0.20);
+  box-shadow: 0 4px 20px rgba(58, 58, 34, 0.05);
 }
 
 .site-header__inner {
-  width: min(100% - 2.5rem, 78rem);
+  width: min(100% - 2.5rem, 80rem);
   margin-inline: auto;
   min-height: var(--header-h);
   display: flex;
@@ -212,24 +212,25 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
-  color: var(--green-900);
-  font-weight: 700;
-  font-size: 1rem;
-  transition: background var(--transition), color var(--transition);
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  color: var(--green-700);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
 .primary-nav__link:hover {
-  background: rgba(5, 62, 43, 0.10);
-  color: var(--green-900);
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--green-700);
 }
 
 .primary-nav__link.is-active {
-  background: var(--green-200);
-  color: var(--green-900);
-  border-left: 4px solid var(--green-700);
-  box-shadow: 0 2px 6px rgba(5, 62, 43, 0.10);
+  background: var(--green-700);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(74, 93, 35, 0.25);
 }
 
 .primary-nav__cta {
@@ -267,7 +268,7 @@
     justify-content: center;
     height: auto;
     padding: 0;
-    gap: 0;
+    gap: 0.25rem;
     box-shadow: none;
     background: transparent;
     overflow: visible;
@@ -284,7 +285,7 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: 0;
+    gap: 0.2rem;
     width: 100%;
   }
 
@@ -293,22 +294,22 @@
   }
 
   .primary-nav__link {
-    padding: 0.4rem 0.45rem;
-    font-size: 0.84rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
     white-space: nowrap;
-    letter-spacing: -0.01em;
+    border-radius: 999px;
   }
 
   .primary-nav__link:hover {
-    background: rgba(5, 62, 43, 0.10);
-    color: var(--green-900);
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--green-700);
   }
 
   .primary-nav__link.is-active {
-    background: var(--green-200);
-    color: var(--green-900);
-    border: 0px solid var(--green-700);
-    box-shadow: 0 2px 6px rgba(5, 62, 43, 0.10);
+    background: var(--green-700);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(74, 93, 35, 0.25);
   }
 
   .nav-backdrop {
@@ -318,23 +319,28 @@
 
 @media (min-width: 1280px) {
   .primary-nav__link {
-    padding: 0.45rem 0.55rem;
-    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
   }
 }
 
 /* Footer */
 .site-footer {
   position: relative;
-  margin-top: 2rem;
-  padding: 3.5rem 0 1.5rem;
+  margin-top: 0;
+  padding: 4rem 0 2rem;
   background: var(--green-900);
-  color: #e0f1eb;
+  color: rgba(255, 251, 230, 0.90);
   overflow: hidden;
 }
 
 .site-footer a {
-  color: #fff;
+  color: rgba(255, 251, 230, 0.85);
+  transition: color var(--transition);
+}
+
+.site-footer a:hover {
+  color: var(--yellow-500);
 }
 
 .site-footer__glow {
@@ -343,47 +349,55 @@
 
 .site-footer__grid {
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
   position: relative;
 }
 
 @media (min-width: 800px) {
   .site-footer__grid {
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
   }
 }
 
 .site-footer__logo {
-  height: 4.25rem;
+  height: 6rem;
   width: auto;
-  background: #ffffff;
+  background: transparent;
   border-radius: var(--radius-md);
-  padding: 0.35rem 0.55rem;
+  /* padding: 0.35rem 0.55rem; */
   margin-bottom: 0.75rem;
 }
 
 .site-footer__name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   margin: 0 0 0.25rem;
   color: #fff;
 }
 
 .site-footer__tag {
-  color: var(--yellow-400);
+  color: var(--yellow-500);
   margin: 0 0 0.75rem;
   font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .site-footer__blurb {
-  color: #cae7dd;
+  color: rgba(255, 251, 230, 0.75);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .footer-heading {
-  font-size: 1rem;
-  color: var(--yellow-400);
-  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--yellow-500);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 .footer-list {

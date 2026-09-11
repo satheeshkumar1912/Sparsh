@@ -2,37 +2,85 @@
 {% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Advisors</p>
-    <h1>Guidance that keeps us accountable</h1>
-    <p class="page-hero__lede">Specialists and advocates who strengthen Sparsh’s inclusive practice.</p>
+    <h1>An advisory circle that keeps <br>us honest and evidence-led</h1>
+    <p class="page-hero__lede">
+      Clinicians, researchers, and self-advocates who help ensure our practice stays affirming, rigorous, and kind.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container people-grid">
-    {% for a in advisors %}
-    <article class="person-card">
-      {% if a.photo %}
-      <img src="{{ a.photo.url }}" alt="Portrait of {{ a.name }}" width="280" height="280" loading="lazy">
+<section class="section" style="background: var(--surface-0);">
+  <div class="container">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
+      <p class="eyebrow">Advisory board</p>
+      <h2>Guidance we trust</h2>
+    </div>
+
+    <div class="advisors-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem;">
+      {% if advisors %}
+        {% for a in advisors %}
+        <article class="advisor-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+          <div style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">{{ a.name }}</h3>
+            <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">{{ a.specialty }}</p>
+            {% if a.affiliation %}<p style="color: var(--ink-500); font-size: 0.85rem; margin: 0 0 0.5rem;">{{ a.affiliation }}</p>{% endif %}
+            <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">{{ a.bio }}</p>
+          </div>
+        </article>
+        {% endfor %}
       {% else %}
-      <img
-        src="{% get_static_prefix %}img/advisors/advisor-{{ forloop.counter }}.jpg"
-        alt="Portrait of {{ a.name }}"
-        width="280"
-        height="280"
-        loading="lazy"
-      >
+        {# Fallback Reference Advisors Data #}
+        <article class="advisor-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+          <div style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Prof. Lakshmi Subramanian</h3>
+            <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Child Development, University Fellow</p>
+            <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Advises on developmentally-informed, evidence-based practice for early years.</p>
+          </div>
+        </article>
+
+        <article class="advisor-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+          <div style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Dr. Imran Qureshi</h3>
+            <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Developmental Paediatrician</p>
+            <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Guides our clinical partnerships and family-first assessment approach.</p>
+          </div>
+        </article>
+
+        <article class="advisor-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+          <div style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Kavya Reddy</h3>
+            <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Neurodiversity Advocate</p>
+            <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">A self-advocate who keeps affirming, respectful language at our core.</p>
+          </div>
+        </article>
+
+        <article class="advisor-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; gap: 1.25rem;">
+          <div style="width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Dr. Helen Mathews</h3>
+            <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Inclusive Policy Researcher</p>
+            <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Helps shape our school-partnership and inclusion consulting frameworks.</p>
+          </div>
+        </article>
       {% endif %}
-      <h2>{{ a.name }}</h2>
-      <p class="person-card__role">{{ a.specialty }}</p>
-      {% if a.affiliation %}<p class="muted">{{ a.affiliation }}</p>{% endif %}
-      <p>{{ a.bio }}</p>
-    </article>
-    {% empty %}
-    <p>Advisor profiles will appear here.</p>
-    {% endfor %}
+    </div>
   </div>
 </section>
 {% endblock %}

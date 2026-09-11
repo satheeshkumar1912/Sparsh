@@ -1,46 +1,174 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Parents’ Corner</p>
-    <h1>You’re not alone in this</h1>
+    <h1>Resources and support for <br>the whole family</h1>
     <p class="page-hero__lede">
-      Resources, reassurance, and real voices from families who walk with Sparsh.
+      Guides, articles, and workshops to help you feel confident — because parents are co-experts in every child’s journey.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container prose-grid">
-    <div>
-      <h2>How we walk with families</h2>
-      <ul class="check-list">
-        <li>Plain-language progress conversations</li>
-        <li>Coaching that fits real home routines</li>
-        <li>Advocacy support for school transitions</li>
-        <li>A community that doesn’t minimise hard days</li>
-      </ul>
-      <p style="margin-top:1.5rem">
-        <a class="btn btn--accent" href="{% url 'admissions:index' %}">Talk to admissions</a>
-      </p>
+{# ——— RESOURCE LIBRARY SECTION ——— #}
+<section class="section" style="background: var(--surface-0);">
+  <div class="container">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
+      <p class="eyebrow">Library</p>
+      <h2>Helpful reads &amp; workshops</h2>
     </div>
-    <div>
-      <h2>From our families</h2>
-      {% for t in testimonials %}
-      <blockquote class="inline-quote">
-        <p>“{{ t.quote }}”</p>
-        <footer>— {{ t.parent_name }}</footer>
-      </blockquote>
-      {% endfor %}
+
+    <div class="resources-grid">
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Guide</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Preparing for your first visit</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">A gentle checklist to help your child feel calm and ready.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">4 min read</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Read &rarr;</span>
+        </div>
+      </div>
+
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Article</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">What neurodiverse-affirming really means</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Language matters — here is how we talk about difference.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">6 min read</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Read &rarr;</span>
+        </div>
+      </div>
+
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Workshop</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Regulation at home</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Simple sensory strategies families can use every day.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">On demand</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Watch &rarr;</span>
+        </div>
+      </div>
+
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Guide</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Understanding your child’s plan</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">How goals are set, tracked, and celebrated together.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">5 min read</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Read &rarr;</span>
+        </div>
+      </div>
+
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Article</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Building routines that stick</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Predictability builds confidence — practical tips inside.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">5 min read</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Read &rarr;</span>
+        </div>
+      </div>
+
+      <div class="resource-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Workshop</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.5rem;">Talking to siblings</h3>
+          <p style="color: var(--ink-500); font-size: 0.95rem; line-height: 1.6; margin: 0;">Helping the whole family understand and belong.</p>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--ink-300);">On demand</span>
+          <span style="color: var(--green-700); font-weight: 800; font-size: 0.9rem;">Watch &rarr;</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section faq-section">
-  <div class="container narrow">
-    <h2>Parent FAQ</h2>
-    {% include "includes/faq_accordion.html" %}
+{# — — ONGOING SUPPORT SECTION ——— #}
+<section class="section" style="background: var(--surface-2);">
+  <div class="container prose-grid" style="align-items: center;">
+    <div class="reveal">
+      <p class="eyebrow">Ongoing support</p>
+      <h2>You are never walking alone</h2>
+      <ul class="support-check-list" style="list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1rem;">
+        <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; color: var(--ink-700);">
+          <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          Monthly parent coffee mornings
+        </li>
+        <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; color: var(--ink-700);">
+          <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          1:1 family coaching sessions
+        </li>
+        <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; color: var(--ink-700);">
+          <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          Shared home-school goal journals
+        </li>
+        <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; color: var(--ink-700);">
+          <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          WhatsApp support line for quick questions
+        </li>
+      </ul>
+    </div>
+
+    <div class="reveal">
+      <div style="background: var(--green-700); color: #ffffff; border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+        <h3 style="font-family: var(--font-display); font-size: 1.75rem; color: #ffffff; margin: 0 0 0.75rem;">Have a question today?</h3>
+        <p style="color: rgba(255, 255, 255, 0.8); margin: 0 0 1.75rem;">Our team is happy to listen and help — no question is too small.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn--accent" data-track="parents-contact-cta">
+          Contact us &rarr;
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock %}

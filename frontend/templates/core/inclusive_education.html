@@ -1,38 +1,112 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Inclusive Education</p>
-    <h1>Belonging is the curriculum beneath the curriculum</h1>
+    <h1>Belonging is the default, not <br>the exception</h1>
     <p class="page-hero__lede">
-      Inclusive education at Sparsh means meaningful participation, affirming supports,
-      and classrooms that flex for the humans inside them.
+      How we design every lesson, space, and relationship so that every learner is understood, supported, and included.
     </p>
   </div>
 </section>
 
-<section class="section">
+{# ——— WHAT IT MEANS ——— #}
+<section class="section inclusion-statement-section" aria-labelledby="statement-heading">
   <div class="container">
-    <div class="prose narrow">
-      <p>
-        We reject the idea that children must “earn” inclusion by becoming easier to teach.
-        Instead, we adapt environments, adult responses, and peer culture so each learner can
-        contribute, regulate, and grow.
-      </p>
+    <div class="inclusion-statement-box">
+      <p id="statement-heading" class="eyebrow">WHAT IT MEANS</p>
+      <h2 class="inclusion-statement-text">
+        Inclusive education means every child learns together —
+        with the supports, respect, and high expectations they
+        deserve. At Sparsh, inclusion is not a special room at the end
+        of the corridor; it is a way of designing every lesson, space,
+        and relationship so belonging is the default.
+      </h2>
     </div>
-    <ul class="pillar-grid" style="margin-top:2.5rem">
-      {% for pillar in pillars %}
-      <li>
-        <a href="{{ pillar.get_absolute_url }}" class="pillar-card">
-          <span class="pillar-card__icon icon-{{ pillar.icon }}" aria-hidden="true"></span>
-          <h3>{{ pillar.title }}</h3>
-          <p>{{ pillar.summary }}</p>
-          <span class="pillar-card__more">Learn more</span>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+  </div>
+</section>
+
+{# ——— HOW WE DO IT ——— #}
+<section class="section inclusion-models-section" aria-labelledby="models-heading">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">HOW WE DO IT</p>
+      <h2 id="models-heading">Models that make inclusion real</h2>
+    </div>
+    <div class="inclusion-models-grid">
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Universal Design for Learning</h3>
+        <p>Lessons offer multiple ways to engage, understand, and show learning — so barriers are removed before they appear.</p>
+      </div>
+
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Co-Teaching &amp; Scaffolds</h3>
+        <p>A special educator works alongside the class teacher, embedding quiet supports so no child is singled out.</p>
+      </div>
+
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Sensory-Friendly Spaces</h3>
+        <p>Calm lighting, flexible seating, and regulation corners help every learner stay ready to learn.</p>
+      </div>
+
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Assistive Communication</h3>
+        <p>Spoken, signed, visual, or device-based — every voice has a valued way to be heard.</p>
+      </div>
+
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Peer Partnerships</h3>
+        <p>Structured buddy systems build genuine friendships and everyday practice in belonging.</p>
+      </div>
+
+      <div class="inclusion-model-card">
+        <div class="inclusion-model-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Strengths-Based Assessment</h3>
+        <p>We map what each child can do and loves, then build the plan outward from there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ——— SEE INCLUSION IN ACTION CTA ——— #}
+<section class="section inclusion-cta-section" aria-labelledby="cta-heading">
+  <div class="container">
+    <h2 id="cta-heading" class="inclusion-cta__title">See inclusion in action</h2>
+    <p class="inclusion-cta__lede">Explore our programs or book a gentle visit to our campus.</p>
+    <div class="inclusion-cta__actions">
+      <a href="{% url 'programs:list' %}" class="btn btn--accent" data-track="inclusive-explore-programs">Explore Programs &rarr;</a>
+      <a href="{% url 'admissions:index' %}" class="btn btn--ghost-white" data-track="inclusive-book-visit">Book a visit</a>
+    </div>
   </div>
 </section>
 {% endblock %}

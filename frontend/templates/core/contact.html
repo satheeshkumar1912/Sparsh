@@ -1,45 +1,102 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Contact</p>
-    <h1>We’re glad you’re reaching out</h1>
-    <p class="page-hero__lede">Email, phone, WhatsApp, or the form below — choose what feels easiest.</p>
+    <h1>We’d love to hear from you</h1>
+    <p class="page-hero__lede">
+      Questions about programs, admissions, or school partnerships? Reach out — a real person will respond with care.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container contact-grid">
-    <div class="contact-details">
-      <h2>Reach Sparsh</h2>
-      <ul class="footer-list footer-list--contact">
-        <li><a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a></li>
-        <li><a href="tel:+{{ WHATSAPP_NUMBER }}">+{{ WHATSAPP_NUMBER }}</a></li>
-        <li>
-          <a href="https://wa.me/{{ WHATSAPP_NUMBER }}" target="_blank" rel="noopener noreferrer" data-track="contact-whatsapp">
-            WhatsApp chat
-          </a>
-        </li>
-      </ul>
-      <p class="muted">Typical reply within 1–2 working days. Admissions enquiries are prioritised.</p>
-    </div>
-    <form method="post" class="form-card" novalidate data-track-form="contact">
-      {% csrf_token %}
-      {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
-      {% for field in form %}
-        {% if field.name != 'website' %}
-        <div class="form-field{% if field.name == 'captcha_answer' %}{% endif %}">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {{ field.errors }}
+<section class="section" style="background: var(--surface-0); padding: clamp(4rem, 7vw, 6rem) 0;">
+  <div class="container contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 3rem; align-items: start;">
+    <div>
+      <div class="reveal">
+        <p class="eyebrow">Reach us</p>
+        <h2>Let’s start a conversation</h2>
+      </div>
+
+      <div class="contact-cards-list" style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem;">
+        <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Visit us</div>
+            <div style="color: var(--ink-900); font-weight: 600; margin-top: 0.2rem; font-size: 0.98rem;">Sparsh Inclusive Learning Centre, Green Meadows Campus, Bengaluru, India</div>
+          </div>
         </div>
-        {% else %}
-        <div class="hp-wrap" aria-hidden="true">{{ field }}</div>
-        {% endif %}
-      {% endfor %}
-      <button type="submit" class="btn btn--accent btn--block" data-track="contact-submit">Send message</button>
-    </form>
+
+        <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Call us</div>
+            <div style="color: var(--ink-900); font-weight: 600; margin-top: 0.2rem; font-size: 0.98rem;"><a href="tel:+{{ WHATSAPP_NUMBER }}" style="color: inherit; text-decoration: none;">+{{ WHATSAPP_NUMBER }}</a></div>
+          </div>
+        </div>
+
+        <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Email</div>
+            <div style="color: var(--ink-900); font-weight: 600; margin-top: 0.2rem; font-size: 0.98rem;"><a href="mailto:{{ CONTACT_EMAIL }}" style="color: inherit; text-decoration: none;">{{ CONTACT_EMAIL }}</a></div>
+          </div>
+        </div>
+
+        <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); color: var(--green-700); display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500);">Hours</div>
+            <div style="color: var(--ink-900); font-weight: 600; margin-top: 0.2rem; font-size: 0.98rem;">Mon–Fri, 8:30am – 4:30pm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 1.75rem;">
+        <a
+          href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20get%20in%20touch."
+          class="btn btn--whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="contact-whatsapp-btn"
+        >
+          <span class="btn__wa-icon" aria-hidden="true"></span>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="form-card" style="background: #ffffff; border-radius: var(--radius-lg); padding: 2.25rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 0 0 1.25rem;">Send a message</h3>
+        <form method="post" novalidate data-track-form="contact-page">
+          {% csrf_token %}
+          {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+          {% for field in form %}
+            {% if field.name != 'website' %}
+            <div class="form-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {{ field.errors }}
+            </div>
+            {% else %}
+            <div class="hp-wrap" aria-hidden="true">{{ field }}</div>
+            {% endif %}
+          {% endfor %}
+          <button type="submit" class="btn btn--accent btn--block" style="margin-top: 1.5rem;" data-track="contact-submit">Send message</button>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock %}

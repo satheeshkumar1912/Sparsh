@@ -2,36 +2,106 @@
 {% load static %}
 
 {% block content %}
-<section class="page-hero page-hero--soft">
+<section class="page-hero">
   <div class="container">
     <p class="eyebrow">Our Team</p>
-    <h1>People who make belonging practical</h1>
-    <p class="page-hero__lede">Educators, therapists, and guides walking beside children and families.</p>
+    <h1>The people who walk beside <br>every learner</h1>
+    <p class="page-hero__lede">
+      Special educators, therapists, and mentors who lead with warmth, curiosity, and deep expertise.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container people-grid">
-    {% for m in members %}
-    <article class="person-card">
-      {% if m.photo %}
-      <img src="{{ m.photo.url }}" alt="Portrait of {{ m.name }}" width="280" height="280" loading="lazy">
+<section class="section" style="background: var(--surface-0);">
+  <div class="container">
+    <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
+      <p class="eyebrow">Meet the team</p>
+      <h2>Guided by strengths, always</h2>
+    </div>
+
+    <div class="people-grid">
+      {% if members %}
+        {% for m in members %}
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          {% if m.photo %}
+          <img src="{{ m.photo.url }}" alt="Portrait of {{ m.name }}" width="80" height="80" loading="lazy" style="width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+          {% else %}
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">
+            {{ m.name|slice:":2"|upper }}
+          </div>
+          {% endif %}
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">{{ m.name }}</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.75rem;">{{ m.role }}</p>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">{{ m.bio }}</p>
+        </article>
+        {% endfor %}
       {% else %}
-      <img
-        src="{% get_static_prefix %}img/team/team-{{ forloop.counter }}.jpg"
-        alt="Portrait of {{ m.name }}"
-        width="280"
-        height="280"
-        loading="lazy"
-      >
+        {# Fallback Reference Team Data #}
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">AR</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Dr. Ananya Rao</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Founder &amp; Director</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Special Education</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Two decades guiding neurodiverse learners and building inclusive schools across India.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">MK</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Meera Krishnan</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Head of Early Intervention</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Developmental Therapy</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Play-based practitioner passionate about the earliest, gentlest foundations.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">RV</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Rahul Verma</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Lead Special Educator</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Inclusive Learning</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Designs classrooms where scaffolds are invisible and belonging is obvious.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">FS</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Fatima Sheikh</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Speech &amp; Language Therapist</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Communication</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Believes every child has a voice — spoken, signed, or shown.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">AN</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Arjun Nair</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Occupational Therapist</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Sensory &amp; Regulation</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Creates sensory-smart spaces so learning can happen with ease.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">PM</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Priya Menon</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Family Partnership Lead</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Parent Coaching</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Walks beside families, turning home and school into one supportive team.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">SI</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">Sunita Iyer</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Academic Pathways Mentor</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">Adolescent Learning</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Helps teens find flexible routes toward meaningful milestones.</p>
+        </article>
+
+        <article class="person-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft); text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 5rem; height: 5rem; border-radius: 50%; background: var(--green-700); color: #ffffff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; margin-bottom: 1rem;">DG</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--ink-900); margin: 0 0 0.25rem;">David George</h3>
+          <p style="color: var(--green-700); font-weight: 700; font-size: 0.9rem; margin: 0 0 0.5rem;">Educator Training Lead</p>
+          <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green-500); background: var(--yellow-600); padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.75rem;">School Partnerships</span>
+          <p style="color: var(--ink-500); font-size: 0.92rem; line-height: 1.55; margin: 0;">Coaches partner schools to make inclusion everyday practice.</p>
+        </article>
       {% endif %}
-      <h2>{{ m.name }}</h2>
-      <p class="person-card__role">{{ m.role }}</p>
-      <p>{{ m.bio }}</p>
-    </article>
-    {% empty %}
-    <p>Team profiles will appear here.</p>
-    {% endfor %}
+    </div>
   </div>
 </section>
 {% endblock %}
