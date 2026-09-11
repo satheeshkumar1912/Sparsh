@@ -36,20 +36,86 @@
     if (e.key === "Escape") setNav(false);
   });
 
-  /* ——— High contrast ——— */
-  const contrastBtn = doc.querySelector("[data-contrast-toggle]");
-  const stored = localStorage.getItem("sparsh-contrast");
-  if (stored === "high") {
-    doc.documentElement.setAttribute("data-contrast", "high");
-    contrastBtn && contrastBtn.setAttribute("aria-pressed", "true");
-  }
-  contrastBtn &&
-    contrastBtn.addEventListener("click", () => {
-      const on = doc.documentElement.getAttribute("data-contrast") !== "high";
-      doc.documentElement.setAttribute("data-contrast", on ? "high" : "normal");
-      contrastBtn.setAttribute("aria-pressed", String(on));
-      localStorage.setItem("sparsh-contrast", on ? "high" : "normal");
+  /* ——— Clean up any legacy contrast settings ——— */
+  try {
+    localStorage.removeItem("sparsh-contrast");
+    doc.documentElement.removeAttribute("data-contrast");
+  } catch (_) {}
+
+  /* ——— Floating Scroll to Top & Scroll Progress ——— */
+  const scrollTopBtn = doc.querySelector("[data-scroll-top]");
+  const scrollProgressBar = doc.getElementById("scroll-progress-bar");
+  const siteHeader = doc.querySelector(".site-header");
+
+  let isScrolling = false;
+  const handleScroll = () => {
+    const scrollY = window.scrollY || doc.documentElement.scrollTop;
+    const docHeight = doc.documentElement.scrollHeight - window.innerHeight;
+
+    // Toggle scroll to top button
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle("is-visible", scrollY > 260);
+    }
+
+    // Header scrolled elevation
+    if (siteHeader) {
+      siteHeader.classList.toggle("is-scrolled", scrollY > 20);
+    }
+
+    // Scroll progress indicator
+    if (scrollProgressBar && docHeight > 0) {
+      const progress = Math.min(100, Math.max(0, (scrollY / docHeight) * 100));
+      scrollProgressBar.style.width = `${progress}%`;
+    }
+
+    isScrolling = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(handleScroll);
+        isScrolling = true;
+      }
+    },
+    { passive: true }
+  );
+
+  handleScroll();
+
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      const mainContent = doc.getElementById("main-content");
+      if (mainContent) {
+        mainContent.focus({ preventScroll: true });
+      }
     });
+  }
+
+  /* ——— Smooth Anchor Link Navigation ——— */
+  doc.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const targetId = anchor.getAttribute("href");
+      if (targetId && targetId.length > 1) {
+        const targetEl = doc.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+          if (history.pushState) {
+            history.pushState(null, null, targetId);
+          }
+        }
+      }
+    });
+  });
 
   /* ——— Accordion ——— */
   doc.querySelectorAll("[data-accordion]").forEach((root) => {
@@ -144,7 +210,164 @@
     el.addEventListener("click", () => track(el.getAttribute("data-track")));
   });
 
-  doc.querySelectorAll("[data-track-form]").forEach((form) => {
-    form.addEventListener("submit", () => track(`form:${form.getAttribute("data-track-form")}`));
+  /* ——— Quick Enquiry AJAX Form Handling & Instant Refresh ——— */
+  const initEnquiryForms = () => {
+    const forms = doc.querySelectorAll('.admissions-enquiry-form, form[data-track-form="home-enquiry"], form[data-track-form="admissions-page"]');
+
+    forms.forEach((form) => {
+      const card = form.closest(".form-card");
+      const successBanner = card ? card.querySelector(".enquiry-success-banner") : null;
+      const submitBtn = form.querySelector(".btn--enquiry-submit") || form.querySelector('button[type="submit"]');
+
+      // Helper to clear error states
+      const clearErrors = () => {
+        form.querySelectorAll(".is-invalid").forEach((el) => el.classList.remove("is-invalid"));
+        form.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
+        form.querySelectorAll(".field-error-slot").forEach((slot) => {
+          slot.innerHTML = "";
+        });
+        const globalErr = form.querySelector(".form-errors");
+        if (globalErr) globalErr.remove();
+      };
+
+      // Helper to attach inline error message
+      const showFieldError = (fieldName, message) => {
+        const fieldWrap = form.querySelector(`[data-field-name="${fieldName}"]`);
+        if (fieldWrap) {
+          fieldWrap.classList.add("has-error");
+          const input = fieldWrap.querySelector(".form-control, input, select, textarea");
+          if (input) input.classList.add("is-invalid");
+
+          const slot = fieldWrap.querySelector(".field-error-slot");
+          if (slot) {
+            slot.innerHTML = `
+              <div class="field-error-msg" role="alert">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>${message}</span>
+              </div>
+            `;
+          }
+        }
+      };
+
+      // Clear error on input interaction
+      form.querySelectorAll(".form-control, input, select, textarea").forEach((input) => {
+        input.addEventListener("input", () => {
+          input.classList.remove("is-invalid");
+          const wrap = input.closest(".form-field");
+          if (wrap) {
+            wrap.classList.remove("has-error");
+            const slot = wrap.querySelector(".field-error-slot");
+            if (slot) slot.innerHTML = "";
+          }
+        });
+      });
+
+      // Submit listener
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        track(`form:${form.getAttribute("data-track-form") || "enquiry"}`);
+        clearErrors();
+
+        if (submitBtn) {
+          submitBtn.classList.add("is-loading");
+          submitBtn.disabled = true;
+        }
+
+        const formData = new FormData(form);
+        formData.append("is_ajax", "1");
+
+        try {
+          const response = await fetch(form.action || window.location.href, {
+            method: "POST",
+            body: formData,
+            headers: {
+              "X-Requested-With": "XMLHttpRequest",
+              "Accept": "application/json",
+            },
+          });
+
+          const data = await response.json().catch(() => null);
+
+          if (response.ok && data && data.success) {
+            // Reset all form fields to blank
+            form.reset();
+            clearErrors();
+
+            // Display success banner
+            if (successBanner) {
+              successBanner.hidden = false;
+              if (data.message) {
+                const textEl = successBanner.querySelector(".enquiry-success-banner__text");
+                if (textEl) textEl.textContent = data.message;
+              }
+              // Smooth scroll into view
+              successBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+          } else {
+            // Handle validation errors
+            if (data && data.errors) {
+              let firstField = null;
+              for (const [field, errList] of Object.entries(data.errors)) {
+                if (field === "__all__") {
+                  const banner = doc.createElement("div");
+                  banner.className = "form-errors";
+                  banner.setAttribute("role", "alert");
+                  banner.innerHTML = `
+                    <svg class="form-errors__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <div>${errList.join(" ")}</div>
+                  `;
+                  form.prepend(banner);
+                } else {
+                  showFieldError(field, errList[0]);
+                  if (!firstField) {
+                    firstField = form.querySelector(`[name="${field}"]`);
+                  }
+                }
+              }
+              if (firstField) {
+                firstField.focus();
+              }
+            } else {
+              alert(data?.message || "An unexpected error occurred. Please try again.");
+            }
+          }
+        } catch (err) {
+          console.error("[Sparsh] Enquiry form submit error:", err);
+          // Fallback to regular submit if fetch failed completely
+          form.submit();
+        } finally {
+          if (submitBtn) {
+            submitBtn.classList.remove("is-loading");
+            submitBtn.disabled = false;
+          }
+        }
+      });
+
+      // "Send another enquiry" button handler
+      if (card) {
+        card.querySelectorAll(".enquiry-reset-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            form.reset();
+            clearErrors();
+            if (successBanner) successBanner.hidden = true;
+            const firstInput = form.querySelector('input[name="child_name"]');
+            if (firstInput) firstInput.focus();
+          });
+        });
+      }
+    });
+  };
+
+  initEnquiryForms();
+
+  // Reset forms on bfcache restoration (back button navigation)
+  window.addEventListener("pageshow", (e) => {
+    if (e.persisted) {
+      doc.querySelectorAll('.admissions-enquiry-form, form[data-track-form="home-enquiry"], form[data-track-form="admissions-page"]').forEach((f) => {
+        f.reset();
+      });
+    }
   });
 })();
+

@@ -35,18 +35,6 @@
   --max: 80rem;
   --focus: 0 0 0 3px var(--surface-0), 0 0 0 6px var(--green-700);
   --transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-smooth: 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html[data-contrast="high"],
-body.high-contrast {
-  --green-900: #000000;
-  --green-700: #000000;
-  --green-600: #000000;
-  --ink-900: #000000;
-  --ink-700: #000000;
-  --surface-0: #FFFFFF;
-  --surface-1: #FFFFFF;
-  --surface-2: #F0F0F0;
-  --yellow-500: #000000;
-  --shadow-soft: 0 0 0 2px #000000;
-}

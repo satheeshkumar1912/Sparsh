@@ -6,8 +6,15 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   background-color: rgba(251, 243, 196, 0.95);
-  border-bottom: 1px solid rgba(74, 93, 35, 0.20);
-  box-shadow: 0 4px 20px rgba(58, 58, 34, 0.05);
+  border-bottom: 1px solid rgba(74, 93, 35, 0.18);
+  box-shadow: 0 2px 12px rgba(58, 58, 34, 0.04);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.site-header.is-scrolled {
+  background-color: rgba(251, 243, 196, 0.98);
+  box-shadow: 0 6px 24px rgba(58, 58, 34, 0.08);
+  border-bottom-color: rgba(74, 93, 35, 0.28);
 }
 
 .site-header__inner {

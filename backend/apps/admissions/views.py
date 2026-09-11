@@ -38,37 +38,69 @@ ADMISSIONS_TIMELINE = [
 ]
 
 
+from django.http import JsonResponse
+
 @require_http_methods(["GET", "POST"])
 def admissions_index(request):
     form = AdmissionEnquiryForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        enquiry = form.save(commit=False)
-        enquiry.ip_address = _client_ip(request)
-        enquiry.user_agent = request.META.get("HTTP_USER_AGENT", "")[:300]
-        enquiry.save()
-        try:
-            send_mail(
-                subject=f"[Sparsh Admissions] Enquiry for {enquiry.child_name}",
-                message=(
-                    f"Child: {enquiry.child_name}, age {enquiry.age}\n"
-                    f"Needs: {enquiry.needs}\n"
-                    f"Program: {enquiry.program_of_interest}\n"
-                    f"Parent: {enquiry.parent_name}\n"
-                    f"Contact: {enquiry.parent_email} / {enquiry.parent_phone}\n"
-                    f"Preferred: {enquiry.preferred_contact}\n"
-                    f"Message: {enquiry.message}"
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.ADMISSIONS_NOTIFY_EMAIL],
-                fail_silently=True,
+    is_ajax = (
+        request.headers.get("x-requested-with") == "XMLHttpRequest"
+        or request.POST.get("is_ajax") == "1"
+        or "application/json" in request.headers.get("accept", "")
+    )
+
+    if request.method == "POST":
+        if form.is_valid():
+            enquiry = form.save(commit=False)
+            enquiry.ip_address = _client_ip(request)
+            enquiry.user_agent = request.META.get("HTTP_USER_AGENT", "")[:300]
+            enquiry.save()
+            try:
+                send_mail(
+                    subject=f"[Sparsh Admissions] Enquiry for {enquiry.child_name}",
+                    message=(
+                        f"Child: {enquiry.child_name}, age {enquiry.age}\n"
+                        f"Needs: {enquiry.needs}\n"
+                        f"Program: {enquiry.program_of_interest}\n"
+                        f"Parent: {enquiry.parent_name}\n"
+                        f"Contact: {enquiry.parent_email} / {enquiry.parent_phone}\n"
+                        f"Preferred: {enquiry.preferred_contact}\n"
+                        f"Message: {enquiry.message}"
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.ADMISSIONS_NOTIFY_EMAIL],
+                    fail_silently=True,
+                )
+            except Exception:
+                pass
+
+            if is_ajax:
+                return JsonResponse(
+                    {
+                        "success": True,
+                        "message": "Thank you! Your enquiry has been received safely — a Sparsh team member will reach out soon.",
+                    }
+                )
+
+            messages.success(
+                request,
+                "Thank you. Your enquiry is safe with us — a Sparsh team member will reach out soon.",
             )
-        except Exception:
-            pass
-        messages.success(
-            request,
-            "Thank you. Your enquiry is safe with us — a Sparsh team member will reach out soon.",
-        )
-        return redirect("admissions:thanks")
+            return redirect("admissions:thanks")
+        else:
+            if is_ajax:
+                errors = {
+                    field: [str(e) for e in err_list]
+                    for field, err_list in form.errors.items()
+                }
+                return JsonResponse(
+                    {
+                        "success": False,
+                        "message": "Please correct the highlighted fields before sending.",
+                        "errors": errors,
+                    },
+                    status=400,
+                )
 
     admission_faqs = list(
         FAQ.objects.filter(is_published=True, category__icontains="Admission")[:5]

@@ -27,6 +27,7 @@ class AdmissionEnquiryForm(forms.ModelForm):
         widget=forms.NumberInput(
             attrs={
                 "class": "form-control",
+                "placeholder": "Enter number (e.g. 7)",
                 "inputmode": "numeric",
                 "autocomplete": "off",
             }
@@ -49,27 +50,27 @@ class AdmissionEnquiryForm(forms.ModelForm):
         ]
         widgets = {
             "child_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Child's full name"}
+                attrs={"class": "form-control", "placeholder": "e.g. Aarav Sharma"}
             ),
             "age": forms.NumberInput(
                 attrs={
                     "class": "form-control",
                     "min": 1,
                     "max": 25,
-                    "placeholder": "Age",
+                    "placeholder": "e.g. 6",
                 }
             ),
             "needs": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "rows": 4,
-                    "placeholder": "Share strengths, support needs, or diagnoses (optional detail)",
+                    "rows": 3,
+                    "placeholder": "Briefly describe your child's strengths, interests, or support needs...",
                 }
             ),
             "program_of_interest": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "e.g. Early Intervention, Inclusive Learning",
+                    "placeholder": "Select or type program (e.g. Inclusive Learning)",
                     "list": "program-suggestions",
                 }
             ),
@@ -77,12 +78,12 @@ class AdmissionEnquiryForm(forms.ModelForm):
                 attrs={"class": "form-control", "placeholder": "Your full name"}
             ),
             "parent_email": forms.EmailInput(
-                attrs={"class": "form-control", "placeholder": "you@example.com"}
+                attrs={"class": "form-control", "placeholder": "parent@example.com"}
             ),
             "parent_phone": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "+91 …",
+                    "placeholder": "+91 98765 43210",
                     "autocomplete": "tel",
                 }
             ),
@@ -90,8 +91,8 @@ class AdmissionEnquiryForm(forms.ModelForm):
             "message": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "rows": 3,
-                    "placeholder": "Anything else you'd like us to know?",
+                    "rows": 2,
+                    "placeholder": "Any specific questions, preferred timings, or remarks? (Optional)",
                 }
             ),
             "consent_privacy": forms.CheckboxInput(attrs={"class": "form-check"}),

@@ -318,12 +318,41 @@
       </ol>
     </div>
     <div class="admissions-band__form reveal">
-      <div class="form-card" style="background: #ffffff; border-radius: var(--radius-lg); padding: 2rem 2.25rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
-        <h3 class="form-card__title" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 0 0 1.25rem;">Quick enquiry</h3>
-        <form method="post" action="{% url 'admissions:index' %}" novalidate data-track-form="home-enquiry">
+      <div class="form-card form-card--enquiry">
+        <div class="form-card__header">
+          <div class="form-card__badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Gentle &amp; Confidential</span>
+          </div>
+          <h3 class="form-card__title">Quick enquiry</h3>
+          <p class="form-card__subtitle">Share a little about your child — we’ll listen first, then guide you on the next steps together.</p>
+        </div>
+
+        {# In-place success notification container #}
+        <div class="enquiry-success-banner" id="home-enquiry-success-banner" hidden>
+          <div class="enquiry-success-banner__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="enquiry-success-banner__content">
+            <h4 class="enquiry-success-banner__title">Enquiry Sent Successfully!</h4>
+            <p class="enquiry-success-banner__text">Thank you. Your message and details have been received safely, and an email notification has been dispatched to our admissions team. We will reach out to you shortly.</p>
+            <button type="button" class="btn btn--outline btn--sm enquiry-reset-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              Send another enquiry
+            </button>
+          </div>
+        </div>
+
+        <form class="admissions-enquiry-form" method="post" action="{% url 'admissions:index' %}" novalidate data-track-form="home-enquiry">
           {% csrf_token %}
           {% include "admissions/_form_fields.html" with form=admission_form programs=programs %}
-          <button type="submit" class="btn btn--accent btn--block" style="margin-top: 1.5rem;" data-track="home-enquiry-submit">Send enquiry</button>
+          <button type="submit" class="btn btn--accent btn--block btn--enquiry-submit" style="margin-top: 1.5rem;" data-track="home-enquiry-submit">
+            <span class="btn__text">Send enquiry</span>
+            <span class="btn__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
         </form>
       </div>
     </div>

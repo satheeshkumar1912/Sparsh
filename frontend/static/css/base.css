@@ -73,35 +73,80 @@ a:hover { color: var(--green-700); }
   top: 1rem;
 }
 
-.a11y-bar {
+/* Top Reading / Scroll Progress Bar */
+.scroll-progress-bar {
   position: fixed;
-  right: 1rem;
-  bottom: 5.5rem;
-  z-index: 90;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-700) 0%, var(--yellow-500) 50%, var(--green-600) 100%);
+  z-index: 1001;
+  transition: width 0.1s ease-out;
+  pointer-events: none;
 }
 
-.a11y-toggle {
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: 2px solid var(--green-700);
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
+}
+
+/* Floating Scroll-to-Top Button */
+.scroll-top-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 5.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   background: var(--surface-1);
-  color: var(--green-900);
-  padding: 0.55rem 0.85rem;
-  border-radius: 999px;
+  border: 2px solid var(--green-700);
+  color: var(--green-700);
+  box-shadow: 0 8px 24px rgba(58, 58, 34, 0.14);
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
+  z-index: 92;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.92);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s, background var(--transition), color var(--transition), box-shadow var(--transition);
+}
+
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.scroll-top-btn:hover {
+  background: var(--green-700);
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(74, 93, 35, 0.32);
+}
+
+.scroll-top-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.scroll-top-btn__icon {
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .scroll-top-btn__icon {
+  transform: translateY(-2px);
 }
 
 .whatsapp-float {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: 1.5rem;
+  bottom: 1.25rem;
   z-index: 95;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.1rem 0.75rem 0.85rem;
+  padding: 0.75rem 1.15rem 0.75rem 0.95rem;
   border-radius: 999px;
   background: #25d366;
   color: #fff;
@@ -131,13 +176,20 @@ a:hover { color: var(--green-700); }
 @media (max-width: 480px) {
   .whatsapp-float__label { display: none; }
   .whatsapp-float {
+    right: 1rem;
+    bottom: 1rem;
     width: 3.25rem;
     height: 3.25rem;
     padding: 0;
     justify-content: center;
     border-radius: 50%;
   }
-  .a11y-bar { bottom: 5rem; }
+  .scroll-top-btn {
+    right: 1rem;
+    bottom: 4.85rem;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
 }
 
 .container {

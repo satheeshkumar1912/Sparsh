@@ -1,28 +1,61 @@
 {% if form.non_field_errors %}
-<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>
+<div class="form-errors" role="alert">
+  <svg class="form-errors__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div>{{ form.non_field_errors }}</div>
+</div>
 {% endif %}
 
 <div class="form-row">
-  <div class="form-field">
-    <label for="{{ form.child_name.id_for_label }}">{{ form.child_name.label }}</label>
+  <div class="form-field" data-field-name="child_name">
+    <label for="{{ form.child_name.id_for_label }}">
+      {{ form.child_name.label }} <span class="form-req" aria-label="Required">*</span>
+    </label>
     {{ form.child_name }}
-    {{ form.child_name.errors }}
+    <div class="field-error-slot">
+      {% if form.child_name.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.child_name.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
-  <div class="form-field">
-    <label for="{{ form.age.id_for_label }}">{{ form.age.label }}</label>
+  <div class="form-field" data-field-name="age">
+    <label for="{{ form.age.id_for_label }}">
+      {{ form.age.label }} <span class="form-req" aria-label="Required">*</span>
+    </label>
     {{ form.age }}
-    {{ form.age.errors }}
+    <div class="field-error-slot">
+      {% if form.age.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.age.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
-<div class="form-field">
-  <label for="{{ form.needs.id_for_label }}">{{ form.needs.label }}</label>
+<div class="form-field" data-field-name="needs">
+  <label for="{{ form.needs.id_for_label }}">
+    {{ form.needs.label }} <span class="form-req" aria-label="Required">*</span>
+    <span class="form-hint">(Min 10 characters)</span>
+  </label>
   {{ form.needs }}
-  {{ form.needs.errors }}
+  <div class="field-error-slot">
+    {% if form.needs.errors %}
+    <div class="field-error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ form.needs.errors.0 }}</span>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
-<div class="form-field">
-  <label for="{{ form.program_of_interest.id_for_label }}">{{ form.program_of_interest.label }}</label>
+<div class="form-field" data-field-name="program_of_interest">
+  <label for="{{ form.program_of_interest.id_for_label }}">
+    {{ form.program_of_interest.label }}
+  </label>
   {{ form.program_of_interest }}
   {% if programs %}
   <datalist id="program-suggestions">
@@ -31,55 +64,134 @@
     {% endfor %}
   </datalist>
   {% endif %}
-  {{ form.program_of_interest.errors }}
+  <div class="field-error-slot">
+    {% if form.program_of_interest.errors %}
+    <div class="field-error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ form.program_of_interest.errors.0 }}</span>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 <div class="form-row">
-  <div class="form-field">
-    <label for="{{ form.parent_name.id_for_label }}">{{ form.parent_name.label }}</label>
+  <div class="form-field" data-field-name="parent_name">
+    <label for="{{ form.parent_name.id_for_label }}">
+      {{ form.parent_name.label }} <span class="form-req" aria-label="Required">*</span>
+    </label>
     {{ form.parent_name }}
-    {{ form.parent_name.errors }}
+    <div class="field-error-slot">
+      {% if form.parent_name.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.parent_name.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
-  <div class="form-field">
-    <label for="{{ form.parent_email.id_for_label }}">{{ form.parent_email.label }}</label>
+  <div class="form-field" data-field-name="parent_email">
+    <label for="{{ form.parent_email.id_for_label }}">
+      {{ form.parent_email.label }} <span class="form-req" aria-label="Required">*</span>
+    </label>
     {{ form.parent_email }}
-    {{ form.parent_email.errors }}
+    <div class="field-error-slot">
+      {% if form.parent_email.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.parent_email.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
 <div class="form-row">
-  <div class="form-field">
-    <label for="{{ form.parent_phone.id_for_label }}">{{ form.parent_phone.label }}</label>
+  <div class="form-field" data-field-name="parent_phone">
+    <label for="{{ form.parent_phone.id_for_label }}">
+      {{ form.parent_phone.label }} <span class="form-req" aria-label="Required">*</span>
+    </label>
     {{ form.parent_phone }}
-    {{ form.parent_phone.errors }}
+    <div class="field-error-slot">
+      {% if form.parent_phone.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.parent_phone.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
-  <div class="form-field">
-    <label for="{{ form.preferred_contact.id_for_label }}">{{ form.preferred_contact.label }}</label>
+  <div class="form-field" data-field-name="preferred_contact">
+    <label for="{{ form.preferred_contact.id_for_label }}">
+      {{ form.preferred_contact.label }}
+    </label>
     {{ form.preferred_contact }}
-    {{ form.preferred_contact.errors }}
+    <div class="field-error-slot">
+      {% if form.preferred_contact.errors %}
+      <div class="field-error-msg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{{ form.preferred_contact.errors.0 }}</span>
+      </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
-<div class="form-field">
-  <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+<div class="form-field" data-field-name="message">
+  <label for="{{ form.message.id_for_label }}">
+    {{ form.message.label }}
+  </label>
   {{ form.message }}
-  {{ form.message.errors }}
+  <div class="field-error-slot">
+    {% if form.message.errors %}
+    <div class="field-error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ form.message.errors.0 }}</span>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
-<div class="form-field form-field--check">
-  {{ form.consent_privacy }}
-  <label for="{{ form.consent_privacy.id_for_label }}">{{ form.consent_privacy.label }}</label>
-  {{ form.consent_privacy.errors }}
+<div class="form-field form-field--check" data-field-name="consent_privacy">
+  <div class="custom-checkbox-wrap">
+    {{ form.consent_privacy }}
+    <label for="{{ form.consent_privacy.id_for_label }}" class="custom-checkbox-label">
+      <span>{{ form.consent_privacy.label }}</span>
+    </label>
+  </div>
+  <div class="field-error-slot">
+    {% if form.consent_privacy.errors %}
+    <div class="field-error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ form.consent_privacy.errors.0 }}</span>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
-<div class="form-field">
-  <label for="{{ form.captcha_answer.id_for_label }}">{{ form.captcha_answer.label }}</label>
-  {{ form.captcha_answer }}
-  {{ form.captcha_answer.errors }}
+<div class="form-field form-field--captcha" data-field-name="captcha_answer">
+  <div class="captcha-badge">
+    <div class="captcha-badge__header">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <label for="{{ form.captcha_answer.id_for_label }}">
+        Security check: <strong>What is 3 + 4?</strong> <span class="form-req" aria-label="Required">*</span>
+      </label>
+    </div>
+    <div class="captcha-badge__input">
+      {{ form.captcha_answer }}
+    </div>
+  </div>
+  <div class="field-error-slot">
+    {% if form.captcha_answer.errors %}
+    <div class="field-error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ form.captcha_answer.errors.0 }}</span>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 {# Honeypot — visually hidden #}
-<div class="hp-wrap" aria-hidden="true">
+<div class="hp-wrap" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
   <label for="{{ form.website.id_for_label }}">Leave blank</label>
   {{ form.website }}
 </div>
