@@ -35,7 +35,7 @@
 .btn--accent {
   background: var(--yellow-500);
   color: var(--ink-900);
-  box-shadow: 0 8px 24px rgba(249, 214, 30, 0.35);
+  box-shadow: 0 8px 24px rgba(251, 177, 23, 0.35);
 }
 
 .btn--accent:hover {
@@ -59,7 +59,7 @@
   background: var(--green-700);
   color: #fff;
   border-color: var(--green-900);
-  box-shadow: 0 8px 20px rgba(94, 141, 69, 0.28);
+  box-shadow: 0 8px 20px rgba(5, 62, 43, 0.28);
   white-space: nowrap;
   padding: 0.45rem 0.95rem;
   /* Reduced padding */
@@ -225,14 +225,14 @@
   color: inherit;
   padding: 1.35rem 1.25rem 1.5rem;
   height: 100%;
-  border: 1px solid rgba(92, 132, 39, 0.14);
+  border: 1px solid rgba(5, 62, 43, 0.12);
   transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
 .pillar-card:hover {
   border-color: var(--green-600);
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(54, 77, 23, 0.12);
+  box-shadow: 0 16px 36px rgba(5, 62, 43, 0.10);
 }
 
 .pillar-card__icon {
@@ -314,7 +314,9 @@
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem 2rem;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem 2rem;
   padding: 1.25rem 1.5rem;
   background: var(--green-100);
   border-left: 4px solid var(--yellow-500);
@@ -323,6 +325,8 @@
 
 .mini-proof p {
   margin: 0;
+  text-align: center;
+  flex: 1 1 12rem;
 }
 
 .mini-proof strong {
@@ -694,9 +698,9 @@ textarea.form-control {
 .aside-card {
   padding: 1.35rem;
   border-top: 4px solid var(--yellow-500);
-  border-left: 1px solid rgba(92, 132, 39, 0.14);
-  border-right: 1px solid rgba(92, 132, 39, 0.14);
-  border-bottom: 1px solid rgba(92, 132, 39, 0.14);
+  border-left: 1px solid rgba(5, 62, 43, 0.12);
+  border-right: 1px solid rgba(5, 62, 43, 0.12);
+  border-bottom: 1px solid rgba(5, 62, 43, 0.12);
 }
 
 .mini-people {

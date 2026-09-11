@@ -24,7 +24,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(46, 68, 18, 0.88);
+  background: rgba(5, 62, 43, 0.88);
 }
 
 .hero__pattern {
@@ -60,7 +60,7 @@
   margin: 0 0 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #e7f2db;
+  color: #e0f1eb;
 }
 
 .hero__title {
@@ -70,7 +70,7 @@
 
 .hero__lede {
   font-size: 1.15rem;
-  color: #e4efd8;
+  color: #d4ece3;
   max-width: 34rem;
 }
 
@@ -156,7 +156,7 @@
 }
 
 .philosophy__quote footer {
-  color: #d7e8c6;
+  color: #d3ece2;
   font-size: 0.95rem;
 }
 
@@ -166,7 +166,7 @@
 
 .impact {
   background: var(--green-900);
-  color: #e8f0df;
+  color: #e0f1eb;
 }
 
 .impact .section-head .eyebrow { color: var(--yellow-400); }
@@ -219,7 +219,7 @@
 
 .page-hero__lede {
   font-size: 1.18rem;
-  color: #e4efd8;
+  color: #d4ece3;
   max-width: 44rem;
   line-height: 1.6;
 }
@@ -275,9 +275,9 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   border-top: 4px solid var(--yellow-500);
-  border-left: 1px solid rgba(92, 132, 39, 0.14);
-  border-right: 1px solid rgba(92, 132, 39, 0.14);
-  border-bottom: 1px solid rgba(92, 132, 39, 0.14);
+  border-left: 1px solid rgba(5, 62, 43, 0.12);
+  border-right: 1px solid rgba(5, 62, 43, 0.12);
+  border-bottom: 1px solid rgba(5, 62, 43, 0.12);
 }
 
 .approach-step__num {
