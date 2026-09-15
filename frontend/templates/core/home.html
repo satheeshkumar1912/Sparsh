@@ -430,7 +430,7 @@
           <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“{{ t.quote }}”</p>
           <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
             {% if t.photo %}
-            <img src="{{ t.photo.url }}" alt="" width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
+            <img src="{{ t.photo.url }}" alt="{{ t.parent_name }}" width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;" onerror="this.onerror=null; this.src='{% static 'img/testimonials/parent-1.jpg' %}';">
             {% else %}
             <div style="width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--green-700); color: #fff; font-family: var(--font-display); font-size: 1rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0;">
               {{ t.parent_name|slice:":2"|upper }}
@@ -439,6 +439,68 @@
             <div>
               <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">{{ t.parent_name }}</cite>
               <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">{{ t.role_label }}{% if t.program %} · {{ t.program }}{% endif %}</span>
+            </div>
+          </footer>
+        </blockquote>
+      </li>
+      {% empty %}
+      <!-- Static fallback testimonials ensuring cards always render reliably -->
+      <li class="testimonial-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="color: var(--yellow-500); margin-bottom: 0.75rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        <blockquote style="margin: 0;">
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“For the first time, school doesn’t feel like a battle. Sparsh saw my son’s humour before his challenges.”</p>
+          <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+            <img src="{% static 'img/testimonials/parent-1.jpg' %}" alt="Meera S." width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
+            <div>
+              <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">Meera S.</cite>
+              <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">Parent · Inclusive Learning</span>
+            </div>
+          </footer>
+        </blockquote>
+      </li>
+      <li class="testimonial-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="color: var(--yellow-500); margin-bottom: 0.75rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        <blockquote style="margin: 0;">
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“The admissions conversation was gentle. No checklist of deficits — just curiosity about who our daughter is.”</p>
+          <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+            <img src="{% static 'img/testimonials/parent-2.jpg' %}" alt="Arjun & Neha P." width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
+            <div>
+              <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">Arjun & Neha P.</cite>
+              <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">Parent · Early Intervention</span>
+            </div>
+          </footer>
+        </blockquote>
+      </li>
+      <li class="testimonial-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="color: var(--yellow-500); margin-bottom: 0.75rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        <blockquote style="margin: 0;">
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“Teacher training with Sparsh changed our whole wing. Inclusion stopped being a poster and became practice.”</p>
+          <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+            <img src="{% static 'img/testimonials/parent-3.jpg' %}" alt="Kavitha R." width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
+            <div>
+              <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">Kavitha R.</cite>
+              <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">Partner Educator · Educator Training</span>
+            </div>
+          </footer>
+        </blockquote>
+      </li>
+      <li class="testimonial-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 2rem; border: 1px solid rgba(74, 93, 35, 0.12); box-shadow: var(--shadow-soft);">
+        <div style="color: var(--yellow-500); margin-bottom: 0.75rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        <blockquote style="margin: 0;">
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink-900); margin: 0 0 1.25rem;">“Therapy goals finally match classroom goals. We’re one team now — and our child can feel it.”</p>
+          <footer style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+            <img src="{% static 'img/testimonials/parent-4.jpg' %}" alt="David L." width="44" height="44" loading="lazy" class="testimonial-card__photo" style="border-radius: 50%; width: 2.75rem; height: 2.75rem; object-fit: cover;">
+            <div>
+              <cite style="font-style: normal; font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--ink-900); display: block;">David L.</cite>
+              <span style="font-size: 0.85rem; color: var(--green-700); font-weight: 600;">Parent · Therapy & Family Support</span>
             </div>
           </footer>
         </blockquote>
