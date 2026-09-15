@@ -16,11 +16,12 @@ SECRET_KEY = os.getenv(
     "dev-only-insecure-key-change-in-production-sparsh-2026",
 )
 
-DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() in ("1", "true", "yes")
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("1", "true", "yes")
 
 ALLOWED_HOSTS = [
     h.strip()
     for h in os.getenv(
+        ".onrender.com",
         "DJANGO_ALLOWED_HOSTS",
         "localhost,127.0.0.1",
     ).split(",")
