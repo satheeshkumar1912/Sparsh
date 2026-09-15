@@ -28,16 +28,18 @@
         {% for program in programs %}
         <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
           <div class="program-block__media{% if forloop.counter|divisibleby:2 %} order-last-desktop{% endif %}" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
-            {% if 'early' in program.slug or program.category == 'early_intervention' %}
+            {% if program.image %}
+            <img src="{{ program.image.url }}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            {% elif 'early' in program.slug or program.category == 'early_intervention' %}
             <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'therapy' in program.slug or program.category == 'therapy_support' %}
-            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="{% static 'img/welcome/therapy_support.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'academic' in program.slug or program.category == 'academic_pathways' %}
-            <img src="{% static 'img/welcome/Academy path.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="{% static 'img/welcome/academy_path.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% elif 'educator' in program.slug or program.category == 'educator_training' %}
             <img src="{% static 'img/about/sparsh_about_us.webp' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
-            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="{% static 'img/welcome/inclusive_learning.png' %}" alt="{{ program.name }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             {% endif %}
             <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
               {{ program.age_group }}
@@ -126,6 +128,143 @@
           </div>
         </div>
         {% endfor %}
+      {% else %}
+        {# ——— ROBUST FALLBACK WHEN DATABASE IS NEW ——— #}
+        <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
+          <div class="program-block__media" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="Early Intervention" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
+              Ages 2–6
+            </span>
+          </div>
+          <div class="program-block__content">
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.65rem, 3.2vw, 2.25rem); color: var(--ink-900); margin: 0 0 0.75rem;">Early Intervention</h2>
+            <p style="color: var(--ink-700); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.5rem;">A nurturing programme for early years that weaves communication, sensory regulation, motor play, and social connection.</p>
+            <ul class="program-features" style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem;">
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Play-based sessions
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Speech &amp; communication
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Sensory regulation
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Parent coaching
+              </li>
+            </ul>
+            <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="program-enquire-early-intervention">
+              Enquire about Early Intervention &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
+          <div class="program-block__media order-last-desktop" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
+            <img src="{% static 'img/welcome/inclusive_learning.png' %}" alt="Inclusive Learning" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
+              Ages 6–14
+            </span>
+          </div>
+          <div class="program-block__content">
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.65rem, 3.2vw, 2.25rem); color: var(--ink-900); margin: 0 0 0.75rem;">Inclusive Learning</h2>
+            <p style="color: var(--ink-700); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.5rem;">Small-group and supported learning that builds literacy, numeracy, and life skills while protecting joy and confidence.</p>
+            <ul class="program-features" style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem;">
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Small guided groups
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Co-teaching support
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Peer buddy system
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Individual learning plans
+              </li>
+            </ul>
+            <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="program-enquire-inclusive-learning">
+              Enquire about Inclusive Learning &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
+          <div class="program-block__media" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
+            <img src="{% static 'img/welcome/therapy_support.webp' %}" alt="Therapy & Family Support" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
+              All ages
+            </span>
+          </div>
+          <div class="program-block__content">
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.65rem, 3.2vw, 2.25rem); color: var(--ink-900); margin: 0 0 0.75rem;">Therapy &amp; Family Support</h2>
+            <p style="color: var(--ink-700); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.5rem;">Speech, occupational, and behavioural supports coordinated with educators — so children experience one coherent plan.</p>
+            <ul class="program-features" style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem;">
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Occupational therapy
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Speech therapy
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Family counselling
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Home-school bridge
+              </li>
+            </ul>
+            <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="program-enquire-therapy-support">
+              Enquire about Therapy &amp; Family Support &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="program-block reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2.5rem; align-items: center;">
+          <div class="program-block__media order-last-desktop" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); aspect-ratio: 4/3; background: var(--green-100);">
+            <img src="{% static 'img/welcome/academy_path.png' %}" alt="Academic Pathways" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 255, 255, 0.95); color: var(--green-700); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.85rem; border-radius: 999px;">
+              Ages 8–18
+            </span>
+          </div>
+          <div class="program-block__content">
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.65rem, 3.2vw, 2.25rem); color: var(--ink-900); margin: 0 0 0.75rem;">Academic Pathways</h2>
+            <p style="color: var(--ink-700); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.5rem;">From bridge programmes to mainstream readiness, we map academic pathways that respect pace, interests, and wellbeing.</p>
+            <ul class="program-features" style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem;">
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Flexible curriculum
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Exam accommodations
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Life &amp; study skills
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink-700);">
+                <span style="width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--green-700); color: #fff; display: grid; place-items: center; flex-shrink: 0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Transition planning
+              </li>
+            </ul>
+            <a href="{% url 'admissions:index' %}" class="btn btn--accent" data-track="program-enquire-academic-pathways">
+              Enquire about Academic Pathways &rarr;
+            </a>
+          </div>
+        </div>
       {% endif %}
     </div>
   </div>

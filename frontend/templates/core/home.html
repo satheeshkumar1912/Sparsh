@@ -98,14 +98,64 @@
       </li>
       {% empty %}
       <li class="reveal">
-        <div class="pillar-card">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-neurodiverse-affirming">
           <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
             <span class="icon-brain" aria-hidden="true"></span>
           </div>
           <h3>Neurodiverse-Affirming</h3>
           <p>We honour how each brain learns — strengths first, stigma never.</p>
-          <span class="pillar-card__more">Learn more &rarr;</span>
-        </div>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
+      </li>
+      <li class="reveal">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-mainstream-inclusion">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-people" aria-hidden="true"></span>
+          </div>
+          <h3>Mainstream Inclusion</h3>
+          <p>Belonging in shared spaces, with the right scaffolds around each child.</p>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
+      </li>
+      <li class="reveal">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-early-intervention">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-sprout" aria-hidden="true"></span>
+          </div>
+          <h3>Early Intervention</h3>
+          <p>The earlier we connect, the wider the path ahead.</p>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
+      </li>
+      <li class="reveal">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-educator-training">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-book" aria-hidden="true"></span>
+          </div>
+          <h3>Educator Training</h3>
+          <p>Classrooms change when teachers feel equipped and supported.</p>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
+      </li>
+      <li class="reveal">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-family-partnerships">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-heart" aria-hidden="true"></span>
+          </div>
+          <h3>Family Partnerships</h3>
+          <p>Parents are co-experts. We walk beside you every step.</p>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
+      </li>
+      <li class="reveal">
+        <a href="{% url 'programs:list' %}" class="pillar-card" data-track="pillar-every-ability-welcome">
+          <div style="width: 3rem; height: 3rem; border-radius: 12px; background: var(--yellow-600); display: grid; place-items: center; margin-bottom: 1.25rem;">
+            <span class="icon-butterfly" aria-hidden="true"></span>
+          </div>
+          <h3>Every Ability Welcome</h3>
+          <p>Different abilities. Limitless possibilities.</p>
+          <span class="pillar-card__more" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem;">Learn more &rarr;</span>
+        </a>
       </li>
       {% endfor %}
     </ul>
@@ -124,14 +174,18 @@
       <li class="welcome-card reveal">
         <a href="{{ program.get_absolute_url }}" data-track="welcome-{{ program.slug }}">
           <div class="welcome-card__media">
-            {% if 'early' in program.slug %}
-            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="" loading="lazy" width="400" height="260">
-            {% elif 'therapy' in program.slug %}
-            <img src="{% static 'img/welcome/Therapy & Family Support image.webp' %}" alt="" loading="lazy" width="400" height="260">
-            {% elif 'academic' in program.slug %}
-            <img src="{% static 'img/welcome/Academy path.png' %}" alt="" loading="lazy" width="400" height="260">
+            {% if program.image %}
+            <img src="{{ program.image.url }}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
+            {% elif 'early' in program.slug or program.category == 'early_intervention' %}
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
+            {% elif 'therapy' in program.slug or program.category == 'therapy_support' %}
+            <img src="{% static 'img/welcome/therapy_support.webp' %}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
+            {% elif 'academic' in program.slug or program.category == 'academic_pathways' %}
+            <img src="{% static 'img/welcome/academy_path.png' %}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
+            {% elif 'educator' in program.slug or program.category == 'educator_training' %}
+            <img src="{% static 'img/about/sparsh_about_us.webp' %}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
             {% else %}
-            <img src="{% static 'img/welcome/Inclusive Learning, Brighter Futures.png' %}" alt="" loading="lazy" width="400" height="260">
+            <img src="{% static 'img/welcome/inclusive_learning.png' %}" alt="{{ program.name }}" loading="lazy" width="400" height="260">
             {% endif %}
           </div>
           <div class="welcome-card__body">
@@ -142,10 +196,54 @@
         </a>
       </li>
       {% empty %}
-      <li class="welcome-card"><h3>Early Intervention</h3></li>
-      <li class="welcome-card"><h3>Inclusive Learning</h3></li>
-      <li class="welcome-card"><h3>Therapy &amp; Family Support</h3></li>
-      <li class="welcome-card"><h3>Academic Pathways</h3></li>
+      <li class="welcome-card reveal">
+        <a href="{% url 'programs:list' %}" data-track="welcome-early-intervention">
+          <div class="welcome-card__media">
+            <img src="{% static 'img/welcome/early_intervention.webp' %}" alt="Early Intervention" loading="lazy" width="400" height="260">
+          </div>
+          <div class="welcome-card__body">
+            <h3>Early Intervention</h3>
+            <p>Play-based support for young learners building foundations.</p>
+            <p class="welcome-card__stat">Ages 2–6</p>
+          </div>
+        </a>
+      </li>
+      <li class="welcome-card reveal">
+        <a href="{% url 'programs:list' %}" data-track="welcome-inclusive-learning">
+          <div class="welcome-card__media">
+            <img src="{% static 'img/welcome/inclusive_learning.png' %}" alt="Inclusive Learning" loading="lazy" width="400" height="260">
+          </div>
+          <div class="welcome-card__body">
+            <h3>Inclusive Learning</h3>
+            <p>Classroom experiences designed for belonging and growth.</p>
+            <p class="welcome-card__stat">Ages 6–14</p>
+          </div>
+        </a>
+      </li>
+      <li class="welcome-card reveal">
+        <a href="{% url 'programs:list' %}" data-track="welcome-therapy-support">
+          <div class="welcome-card__media">
+            <img src="{% static 'img/welcome/therapy_support.webp' %}" alt="Therapy & Family Support" loading="lazy" width="400" height="260">
+          </div>
+          <div class="welcome-card__body">
+            <h3>Therapy &amp; Family Support</h3>
+            <p>Integrated therapies with families at the centre.</p>
+            <p class="welcome-card__stat">All ages</p>
+          </div>
+        </a>
+      </li>
+      <li class="welcome-card reveal">
+        <a href="{% url 'programs:list' %}" data-track="welcome-academic-pathways">
+          <div class="welcome-card__media">
+            <img src="{% static 'img/welcome/academy_path.png' %}" alt="Academic Pathways" loading="lazy" width="400" height="260">
+          </div>
+          <div class="welcome-card__body">
+            <h3>Academic Pathways</h3>
+            <p>Flexible routes toward meaningful academic milestones.</p>
+            <p class="welcome-card__stat">Ages 8–18</p>
+          </div>
+        </a>
+      </li>
       {% endfor %}
     </ul>
     
@@ -181,19 +279,19 @@
           {% if item.image %}
           <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 1 %}
-          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/classroom_circle_time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 2 %}
-          <img src="{% static 'img/gallery/Colour and Rhythm Classroom.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/colour_and_rhythm.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 3 %}
-          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_35_14 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/outdoor_play.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 4 %}
-          <img src="{% static 'img/gallery/Quiet Corner, Bright Minds.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/quiet_corner.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 5 %}
-          <img src="{% static 'img/gallery/Arts and Music.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/arts_music.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% elif forloop.counter == 6 %}
-          <img src="{% static 'img/gallery/ChatGPT Image Sep 9, 2026, 06_48_20 PM.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/peer_partners.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% else %}
-          <img src="{% static 'img/gallery/Classroom Circle Time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{% static 'img/gallery/classroom_circle_time.png' %}" alt="{{ item.image_alt }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
           {% endif %}
           
           <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
@@ -207,6 +305,67 @@
             <p>“{{ item.quote }}”</p>
           </div>
           {% endif %}
+        </figure>
+      </li>
+      {% empty %}
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/classroom_circle_time.png' %}" alt="Children gathered in a calm classroom morning circle" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Classroom experiences</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Morning circle</span>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/colour_and_rhythm.png' %}" alt="Learners painting and exploring musical instruments" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Art &amp; music</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Colour &amp; rhythm</span>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/outdoor_play.png' %}" alt="Children playing outdoors in a courtyard" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Play &amp; friendship</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Friendship outdoors</span>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/quiet_corner.png' %}" alt="Sensory corner with soft lighting" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Classroom experiences</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Quiet corners</span>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/arts_music.png' %}" alt="Children collaborating on an art mural" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Art &amp; music</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Studio hour</span>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="gallery-item reveal" style="border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/10; position: relative;">
+        <figure style="margin: 0; height: 100%; position: relative;">
+          <img src="{% static 'img/gallery/peer_partners.png' %}" alt="Two children collaborating on a building activity" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(58, 58, 34, 0.88) 0%, rgba(58, 58, 34, 0.2) 60%, transparent 100%);"></div>
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; padding: 1.25rem; background: transparent;">
+            <span style="display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yellow-500); margin-bottom: 0.25rem;">Play &amp; friendship</span>
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #ffffff;">Peer partners</span>
+          </figcaption>
         </figure>
       </li>
       {% endfor %}

@@ -4,6 +4,7 @@ Django settings for Sparsh Inclusive Education public website.
 from pathlib import Path
 import dj_database_url
 import os
+import sys
 from dotenv import load_dotenv
 
 # backend/config/settings.py → backend/ → project root
@@ -99,13 +100,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Database configuration: DATABASE_URL (Render/production) -> PostgreSQL when DB_NAME is set -> SQLite for local development.
-if os.getenv("DATABASE_URL"):
+# Database configuration: Tests -> DATABASE_URL (Render/production) -> PostgreSQL (DB_NAME) -> SQLite (local development).
+if "test" in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
+    }
+elif os.getenv("DATABASE_URL"):
     DATABASES = {
         "default": dj_database_url.config(
             default=os.getenv("DATABASE_URL"),
             conn_max_age=60,
             conn_health_checks=True,
+            ssl_require=True if "render.com" in os.getenv("DATABASE_URL", "") else False,
         )
     }
 elif os.getenv("DB_NAME"):
@@ -156,6 +165,7 @@ STORAGES = {
         ),
     },
 }
+WHITENOISE_MANIFEST_STRICT = False
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
