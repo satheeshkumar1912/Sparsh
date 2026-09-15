@@ -2,6 +2,7 @@
 Django settings for Sparsh Inclusive Education public website.
 """
 from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv
 
@@ -21,12 +22,13 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("1", "true", "yes")
 ALLOWED_HOSTS = [
     h.strip()
     for h in os.getenv(
-        ".onrender.com",
         "DJANGO_ALLOWED_HOSTS",
-        "localhost,127.0.0.1",
+        "localhost,127.0.0.1,.onrender.com",
     ).split(",")
     if h.strip()
 ]
+if ".onrender.com" not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(".onrender.com")
 if DEBUG:
     for host in ("testserver", "localhost", "127.0.0.1"):
         if host not in ALLOWED_HOSTS:
@@ -97,8 +99,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# PostgreSQL when DB_NAME is set; otherwise SQLite for local development.
-if os.getenv("DB_NAME"):
+# Database configuration: DATABASE_URL (Render/production) -> PostgreSQL when DB_NAME is set -> SQLite for local development.
+if os.getenv("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.getenv("DATABASE_URL"),
+            conn_max_age=60,
+            conn_health_checks=True,
+        )
+    }
+elif os.getenv("DB_NAME"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",

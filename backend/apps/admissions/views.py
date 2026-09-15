@@ -4,7 +4,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
 
+# pyrefly: ignore [missing-import]
 from apps.content.models import FAQ
+# pyrefly: ignore [missing-import]
 from apps.programs.models import Program
 from .forms import AdmissionEnquiryForm
 
