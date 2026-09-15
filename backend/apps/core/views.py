@@ -99,16 +99,21 @@ def contact(request):
             subject=form.cleaned_data["subject"],
             message=form.cleaned_data["message"],
         )
+        recipient = getattr(settings, "CONTACT_EMAIL", "enquiry@sparshinclusiveeducation.com")
+        from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@sparshinclusiveeducation.com")
         try:
             send_mail(
                 subject=f"[Sparsh Contact] {form.cleaned_data['subject']}",
                 message=(
-                    f"From: {form.cleaned_data['name']} <{form.cleaned_data['email']}>\n"
-                    f"Phone: {form.cleaned_data.get('phone', '')}\n\n"
-                    f"{form.cleaned_data['message']}"
+                    f"New message received from Sparsh Website Contact Form:\n\n"
+                    f"Name: {form.cleaned_data['name']}\n"
+                    f"Email: {form.cleaned_data['email']}\n"
+                    f"Phone: {form.cleaned_data.get('phone', 'N/A')}\n"
+                    f"Subject: {form.cleaned_data['subject']}\n\n"
+                    f"Message:\n{form.cleaned_data['message']}\n"
                 ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.CONTACT_EMAIL],
+                from_email=from_email,
+                recipient_list=[recipient],
                 fail_silently=True,
             )
         except Exception:

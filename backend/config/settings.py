@@ -155,10 +155,10 @@ EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
     "django.core.mail.backends.console.EmailBackend",
 )
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@sparshinclusive.edu")
-CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "hello@sparshinclusive.edu")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@sparshinclusiveeducation.com")
+CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "enquiry@sparshinclusiveeducation.com")
 ADMISSIONS_NOTIFY_EMAIL = os.getenv(
-    "ADMISSIONS_NOTIFY_EMAIL", "admissions@sparshinclusive.edu"
+    "ADMISSIONS_NOTIFY_EMAIL", "enquiry@sparshinclusiveeducation.com"
 )
 WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "919876543210")
 

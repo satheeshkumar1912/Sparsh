@@ -55,20 +55,34 @@ def admissions_index(request):
             enquiry.ip_address = _client_ip(request)
             enquiry.user_agent = request.META.get("HTTP_USER_AGENT", "")[:300]
             enquiry.save()
+            recipient = getattr(
+                settings,
+                "ADMISSIONS_NOTIFY_EMAIL",
+                "enquiry@sparshinclusiveeducation.com",
+            )
+            from_email = getattr(
+                settings,
+                "DEFAULT_FROM_EMAIL",
+                "noreply@sparshinclusiveeducation.com",
+            )
             try:
+                contact_mode = enquiry.get_preferred_contact_display() if hasattr(enquiry, "get_preferred_contact_display") else enquiry.preferred_contact
                 send_mail(
-                    subject=f"[Sparsh Admissions] Enquiry for {enquiry.child_name}",
+                    subject=f"[Sparsh Quick Enquiry] New enquiry for {enquiry.child_name}",
                     message=(
-                        f"Child: {enquiry.child_name}, age {enquiry.age}\n"
-                        f"Needs: {enquiry.needs}\n"
-                        f"Program: {enquiry.program_of_interest}\n"
-                        f"Parent: {enquiry.parent_name}\n"
-                        f"Contact: {enquiry.parent_email} / {enquiry.parent_phone}\n"
-                        f"Preferred: {enquiry.preferred_contact}\n"
-                        f"Message: {enquiry.message}"
+                        f"New Quick Enquiry received from Sparsh Website:\n\n"
+                        f"Child Name: {enquiry.child_name}\n"
+                        f"Age: {enquiry.age}\n"
+                        f"Learning Needs & Support: {enquiry.needs}\n"
+                        f"Program of Interest: {enquiry.program_of_interest or 'Not specified'}\n"
+                        f"Parent / Guardian: {enquiry.parent_name}\n"
+                        f"Parent Email: {enquiry.parent_email}\n"
+                        f"Parent Phone: {enquiry.parent_phone}\n"
+                        f"Preferred Contact Mode: {contact_mode}\n"
+                        f"Additional Message: {enquiry.message or 'None'}\n"
                     ),
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.ADMISSIONS_NOTIFY_EMAIL],
+                    from_email=from_email,
+                    recipient_list=[recipient],
                     fail_silently=True,
                 )
             except Exception:
