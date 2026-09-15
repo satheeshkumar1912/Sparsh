@@ -2,16 +2,39 @@
   const doc = document;
   const body = doc.body;
 
-  /* ——— Mobile dropdown nav ——— */
+  /* ——— Mobile & Tablet Off-Canvas Side Drawer Nav ——— */
   const nav = doc.querySelector("[data-primary-nav]");
   const toggle = doc.querySelector("[data-nav-toggle]");
   const closeBtn = doc.querySelector("[data-nav-close]");
+  const backdrop = doc.querySelector("[data-nav-backdrop]");
 
   const setNav = (open) => {
     if (!nav || !toggle) return;
     nav.classList.toggle("is-open", open);
+    if (backdrop) {
+      if (open) {
+        backdrop.removeAttribute("hidden");
+        // Force reflow for smooth opacity transition
+        void backdrop.offsetWidth;
+        backdrop.classList.add("is-active");
+      } else {
+        backdrop.classList.remove("is-active");
+        setTimeout(() => {
+          if (!nav.classList.contains("is-open")) {
+            backdrop.setAttribute("hidden", "");
+          }
+        }, 360);
+      }
+    }
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    if (open) {
+      doc.documentElement.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+    } else {
+      doc.documentElement.style.overflow = "";
+      body.style.overflow = "";
+    }
   };
 
   toggle && toggle.addEventListener("click", (e) => {
@@ -19,7 +42,12 @@
     setNav(!nav.classList.contains("is-open"));
   });
 
-  closeBtn && closeBtn.addEventListener("click", () => setNav(false));
+  closeBtn && closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setNav(false);
+  });
+
+  backdrop && backdrop.addEventListener("click", () => setNav(false));
 
   doc.addEventListener("click", (e) => {
     if (!nav || !toggle) return;
@@ -33,8 +61,16 @@
   });
 
   doc.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setNav(false);
+    if (e.key === "Escape" && nav && nav.classList.contains("is-open")) {
+      setNav(false);
+    }
   });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1200 && nav && nav.classList.contains("is-open")) {
+      setNav(false);
+    }
+  }, { passive: true });
 
   /* ——— Clean up any legacy contrast settings ——— */
   try {
