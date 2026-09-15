@@ -36,10 +36,11 @@
 .hero__content {
   position: relative;
   z-index: 3;
-  padding: clamp(3rem, 6vh, 4.5rem) 0;
-  max-width: 42rem;
+  padding: clamp(2.5rem, 6vh, 4.5rem) 1rem;
+  max-width: 44rem;
   margin-left: max(1rem, calc((100% - var(--max)) / 2));
   margin-right: auto;
+  box-sizing: border-box;
   animation: rise-in 0.9s var(--transition) both;
 }
 
