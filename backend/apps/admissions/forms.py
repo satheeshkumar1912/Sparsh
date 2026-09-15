@@ -137,26 +137,51 @@ class AdmissionEnquiryForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=120,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Your name"}),
+        required=True,
+        label="Name",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your full name", "required": "required"}
+        ),
     )
     email = forms.EmailField(
+        required=True,
+        label="Email",
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": "you@example.com"}
-        )
+            attrs={"class": "form-control", "placeholder": "you@example.com", "required": "required"}
+        ),
     )
     phone = forms.CharField(
         max_length=20,
-        required=False,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Phone (optional)"}),
+        required=True,
+        label="Phone",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "+91 98765 43210",
+                "autocomplete": "tel",
+                "required": "required",
+            }
+        ),
     )
     subject = forms.CharField(
         max_length=200,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Subject"}),
+        required=True,
+        label="Subject",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Subject of your message", "required": "required"}
+        ),
     )
     message = forms.CharField(
+        required=True,
+        label="Message",
         widget=forms.Textarea(
-            attrs={"class": "form-control", "rows": 5, "placeholder": "How can we help?"}
-        )
+            attrs={
+                "class": "form-control",
+                "rows": 5,
+                "placeholder": "How can we help?",
+                "required": "required",
+            }
+        ),
     )
     website = forms.CharField(
         required=False,
@@ -170,9 +195,16 @@ class ContactForm(forms.Form):
         ),
     )
     captcha_answer = forms.IntegerField(
+        required=True,
         label="Security check: What is 2 + 5?",
         widget=forms.NumberInput(
-            attrs={"class": "form-control", "inputmode": "numeric", "autocomplete": "off"}
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter 7",
+                "inputmode": "numeric",
+                "autocomplete": "off",
+                "required": "required",
+            }
         ),
     )
 

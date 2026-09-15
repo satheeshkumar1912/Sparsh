@@ -36,6 +36,18 @@ class ContactViewTests(TestCase):
         self.assertIn("Pooja Reddy", email.body)
         self.assertIn("pooja@example.com", email.body)
 
+    def test_contact_form_mandatory_fields(self):
+        # Empty payload - all fields should fail validation
+        response = self.client.post(self.url, {})
+        self.assertEqual(response.status_code, 200)
+        form = response.context["form"]
+        self.assertIn("name", form.errors)
+        self.assertIn("email", form.errors)
+        self.assertIn("phone", form.errors)
+        self.assertIn("subject", form.errors)
+        self.assertIn("message", form.errors)
+        self.assertIn("captcha_answer", form.errors)
+
 
 class ContactMessageAdminTests(TestCase):
     def setUp(self):
