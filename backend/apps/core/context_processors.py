@@ -1,6 +1,24 @@
 from django.conf import settings
 
 
+ASSESSMENT_DROPDOWN = [
+    "Need-Based Assessment",
+    "Examination Accommodations",
+    "NIOS Support",
+    "Scribe Support",
+    "Examination Readiness",
+    "Assistive Learning and Access Support",
+]
+
+ADMISSIONS_DROPDOWN = [
+    "Who We Support",
+    "Admission Process",
+    "Initial Consultation",
+    "Screening , Assessment & Programme support",
+    "Enquire and apply",
+]
+
+
 def site_settings(request):
     return {
         "SITE_NAME": settings.SITE_NAME,
@@ -14,11 +32,15 @@ def site_settings(request):
             {"label": "About Us", "url_name": "core:about"},
             {"label": "Inclusive Education", "url_name": "core:inclusive_education"},
             {"label": "Programs", "url_name": "programs:list"},
-            {"label": "Our Approach", "url_name": "core:approach"},
-            {"label": "Our Team", "url_name": "people:team"},
-            {"label": "Advisors", "url_name": "people:advisors"},
-            {"label": "Parents’ Corner", "url_name": "core:parents_corner"},
-            {"label": "Admissions", "url_name": "admissions:index"},
-            {"label": "Contact", "url_name": "core:contact"},
+            {
+                "label": "Assessment",
+                "dropdown": ASSESSMENT_DROPDOWN,
+            },
+            {
+                "label": "Admissions",
+                "dropdown": ADMISSIONS_DROPDOWN,
+            },
+            {"label": "Partner With Us", "url_name": "core:partner"},
+            {"label": "Contact Us", "url_name": "core:contact"},
         ],
     }

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Partner With Us</p>
+    <h1>Building Inclusive Futures Together.</h1>
+    <p class="page-hero__lede">
+      Sparsh partners with institutions and professionals committed to creating ethical,
+      sustainable and meaningful inclusion. Together, we build stronger systems that expand
+      access, capability and opportunity for diverse learners.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">How we collaborate</p>
+      <h2>Our five partnership categories</h2>
+      <p class="section-head__lede">
+        Choose the pathway that fits your organisation — or start a conversation and we’ll help you find the right fit.
+      </p>
+    </div>
+
+    <ol class="partner-grid">
+      {% for category in categories %}
+      <li class="partner-card reveal">
+        <span class="partner-card__num" aria-hidden="true">{{ forloop.counter }}</span>
+        <h3>{{ category.title }}</h3>
+        <p>{{ category.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+
+    <div class="partner-cta reveal">
+      <a
+        href="{% url 'core:contact' %}"
+        class="btn btn--accent btn--lg"
+        data-track="partner-begin-conversation"
+      >
+        Begin a Partnership Conversation
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

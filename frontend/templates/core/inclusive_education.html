@@ -4,104 +4,158 @@
 <section class="page-hero">
   <div class="container">
     <p class="eyebrow">Inclusive Education</p>
-    <h1>Belonging is the default, not <br>the exception</h1>
+    <h1>Inclusive Education</h1>
     <p class="page-hero__lede">
-      How we design every lesson, space, and relationship so that every learner is understood, supported, and included.
+      SPARSH creates a continuous pathway from understanding the learner to building meaningful independence.
     </p>
   </div>
 </section>
 
-{# ——— WHAT IT MEANS ——— #}
-<section class="section inclusion-statement-section" aria-labelledby="statement-heading">
+{# ——— OUR APPROACH — SPARSH PATHWAY INFOGRAPHIC ——— #}
+<section class="section sparsh-approach" aria-labelledby="approach-heading">
   <div class="container">
-    <div class="inclusion-statement-box">
-      <p id="statement-heading" class="eyebrow">WHAT IT MEANS</p>
-      <h2 class="inclusion-statement-text">
-        Inclusive education means every child learns together —
-        with the supports, respect, and high expectations they
-        deserve. At Sparsh, inclusion is not a special room at the end
-        of the corridor; it is a way of designing every lesson, space,
-        and relationship so belonging is the default.
-      </h2>
+    <div class="sparsh-approach__head reveal">
+      <p class="eyebrow">Pathway</p>
+      <h2 id="approach-heading">OUR APPROACH</h2>
+    </div>
+
+    <div
+      class="sparsh-path reveal"
+      data-sparsh-path
+      role="region"
+      aria-label="SPARSH approach pathway"
+    >
+      <p class="sparsh-path__wordmark" aria-hidden="true" data-sparsh-wordmark>
+        {% for step in sparsh_pathway %}
+        <span class="sparsh-path__wm-letter{% if forloop.first %} is-active{% endif %}" data-wm-index="{{ forloop.counter0 }}">{{ step.letter }}</span>
+        {% endfor %}
+      </p>
+
+      <div class="sparsh-path__diagram">
+      <div class="sparsh-path__track" aria-hidden="true">
+        <svg class="sparsh-path__svg" viewBox="0 0 1000 120" preserveAspectRatio="none">
+          <path
+            class="sparsh-path__line sparsh-path__line--base"
+            d="M40,72 C120,72 140,28 220,28 S340,110 420,72 560,20 620,52 740,118 820,72 900,28 960,52"
+          />
+          <path
+            class="sparsh-path__line sparsh-path__line--progress"
+            data-path-progress
+            d="M40,72 C120,72 140,28 220,28 S340,110 420,72 560,20 620,52 740,118 820,72 900,28 960,52"
+          />
+          <circle class="sparsh-path__traveler" data-path-traveler cx="40" cy="72" r="7" />
+        </svg>
+      </div>
+
+      <div class="sparsh-path__nodes" role="tablist" aria-label="SPARSH letters">
+        {% for step in sparsh_pathway %}
+        <button
+          type="button"
+          class="sparsh-node{% if forloop.first %} is-active{% endif %}"
+          role="tab"
+          id="sparsh-tab-{{ forloop.counter }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="sparsh-panel"
+          tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+          data-sparsh-node
+          data-index="{{ forloop.counter0 }}"
+          data-letter="{{ step.letter }}"
+          data-title="{{ step.title }}"
+          data-text="{{ step.text }}"
+          data-track="sparsh-step-{{ forloop.counter }}"
+        >
+          <span class="sparsh-node__ring" aria-hidden="true"></span>
+          <span class="sparsh-node__letter">{{ step.letter }}</span>
+          <span class="sparsh-node__caption">
+            <span class="sparsh-node__emdash" aria-hidden="true">—</span>
+            {{ step.title }}
+          </span>
+        </button>
+        {% endfor %}
+      </div>
+      </div>
+
+      <div
+        class="sparsh-path__panel"
+        id="sparsh-panel"
+        role="tabpanel"
+        aria-labelledby="sparsh-tab-1"
+        data-sparsh-panel
+      >
+        <div class="sparsh-path__panel-glow" aria-hidden="true"></div>
+        <div class="sparsh-path__panel-inner" data-sparsh-panel-inner>
+          <div class="sparsh-path__badge" aria-hidden="true" data-sparsh-badge>S</div>
+          <div class="sparsh-path__copy">
+            <p class="sparsh-path__step-label">
+              <span data-sparsh-letter-full>S</span>
+              <span aria-hidden="true"> — </span>
+              <span class="sparsh-path__step-count" data-sparsh-step-label>01 / 06</span>
+            </p>
+            <h3 data-sparsh-title>Strengths-Led Assessment</h3>
+            <p data-sparsh-text>Understanding every learner beyond the diagnosis.</p>
+          </div>
+        </div>
+
+        <div class="sparsh-path__controls">
+          <button type="button" class="sparsh-path__nav-btn" data-sparsh-prev aria-label="Previous step">
+            <span aria-hidden="true">&larr;</span> Prev
+          </button>
+          <div class="sparsh-path__dots" data-sparsh-dots>
+            {% for step in sparsh_pathway %}
+            <button
+              type="button"
+              class="sparsh-path__dot{% if forloop.first %} is-active{% endif %}"
+              data-sparsh-dot
+              data-index="{{ forloop.counter0 }}"
+              aria-label="{{ step.letter }} — {{ step.title }}"
+            ></button>
+            {% endfor %}
+          </div>
+          <button type="button" class="sparsh-path__nav-btn" data-sparsh-next aria-label="Next step">
+            Next <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <ol class="visually-hidden">
+        {% for step in sparsh_pathway %}
+        <li>
+          <strong>{{ step.letter }} — {{ step.title }}</strong>
+          {{ step.text }}
+        </li>
+        {% endfor %}
+      </ol>
     </div>
   </div>
 </section>
 
-{# ——— HOW WE DO IT ——— #}
-<section class="section inclusion-models-section" aria-labelledby="models-heading">
+{# ——— INCLUSIVE EDUCATION OFFERINGS ——— #}
+<section class="section inclusion-offerings" aria-labelledby="offerings-heading">
   <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">HOW WE DO IT</p>
-      <h2 id="models-heading">Models that make inclusion real</h2>
+    <div class="inclusion-offerings__head reveal">
+      <p class="eyebrow">How we support schools &amp; learners</p>
+      <h2 id="offerings-heading">Inclusive education in practice</h2>
     </div>
-    <div class="inclusion-models-grid">
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <h3>Universal Design for Learning</h3>
-        <p>Lessons offer multiple ways to engage, understand, and show learning — so barriers are removed before they appear.</p>
-      </div>
 
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
+    <div class="inclusion-offerings__list">
+      {% for offering in inclusive_offerings %}
+      <article class="inclusion-offering reveal{% if forloop.counter|divisibleby:2 %} inclusion-offering--alt{% endif %}">
+        <div class="inclusion-offering__index" aria-hidden="true">
+          <span>{{ forloop.counter|stringformat:"02d" }}</span>
         </div>
-        <h3>Co-Teaching &amp; Scaffolds</h3>
-        <p>A special educator works alongside the class teacher, embedding quiet supports so no child is singled out.</p>
-      </div>
-
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
+        <div class="inclusion-offering__body">
+          <h3>{{ offering.title }}</h3>
+          <p>{{ offering.body }}</p>
         </div>
-        <h3>Sensory-Friendly Spaces</h3>
-        <p>Calm lighting, flexible seating, and regulation corners help every learner stay ready to learn.</p>
-      </div>
-
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <h3>Assistive Communication</h3>
-        <p>Spoken, signed, visual, or device-based — every voice has a valued way to be heard.</p>
-      </div>
-
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <h3>Peer Partnerships</h3>
-        <p>Structured buddy systems build genuine friendships and everyday practice in belonging.</p>
-      </div>
-
-      <div class="inclusion-model-card">
-        <div class="inclusion-model-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <h3>Strengths-Based Assessment</h3>
-        <p>We map what each child can do and loves, then build the plan outward from there.</p>
-      </div>
+      </article>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-{# ——— SEE INCLUSION IN ACTION CTA ——— #}
 <section class="section inclusion-cta-section" aria-labelledby="cta-heading">
   <div class="container">
-    <h2 id="cta-heading" class="inclusion-cta__title">See inclusion in action</h2>
+    <h2 id="cta-heading" class="inclusion-cta__title">See the pathway in practice</h2>
     <p class="inclusion-cta__lede">Explore our programs or book a gentle visit to our campus.</p>
     <div class="inclusion-cta__actions">
       <a href="{% url 'programs:list' %}" class="btn btn--accent" data-track="inclusive-explore-programs">Explore Programs &rarr;</a>

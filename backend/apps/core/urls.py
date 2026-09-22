@@ -8,6 +8,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("inclusive-education/", views.inclusive_education, name="inclusive_education"),
     path("our-approach/", views.approach, name="approach"),
+    path("partner-with-us/", views.partner, name="partner"),
     path("parents-corner/", views.parents_corner, name="parents_corner"),
     path("contact/", views.contact, name="contact"),
     path("accessibility/", views.accessibility_statement, name="accessibility"),

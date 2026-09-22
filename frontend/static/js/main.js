@@ -72,6 +72,56 @@
     }
   }, { passive: true });
 
+  /* ——— Nav dropdowns: open on hover/click, close when cursor leaves ——— */
+  const dropdowns = doc.querySelectorAll("[data-nav-dropdown]");
+
+  const setDropdownOpen = (item, open) => {
+    const trigger = item.querySelector("[data-nav-dropdown-trigger]");
+    item.classList.toggle("is-open", open);
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", String(open));
+      if (!open) trigger.blur();
+    }
+  };
+
+  const closeAllDropdowns = (except = null) => {
+    dropdowns.forEach((item) => {
+      if (item !== except) setDropdownOpen(item, false);
+    });
+  };
+
+  dropdowns.forEach((item) => {
+    const trigger = item.querySelector("[data-nav-dropdown-trigger]");
+    if (!trigger) return;
+
+    item.addEventListener("mouseenter", () => {
+      closeAllDropdowns(item);
+      setDropdownOpen(item, true);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      setDropdownOpen(item, false);
+    });
+
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const willOpen = !item.classList.contains("is-open");
+      closeAllDropdowns(item);
+      setDropdownOpen(item, willOpen);
+    });
+  });
+
+  doc.addEventListener("click", (e) => {
+    dropdowns.forEach((item) => {
+      if (!item.contains(e.target)) setDropdownOpen(item, false);
+    });
+  });
+
+  doc.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAllDropdowns();
+  });
+
   /* ——— Clean up any legacy contrast settings ——— */
   try {
     localStorage.removeItem("sparsh-contrast");
@@ -405,5 +455,210 @@
       });
     }
   });
+
+  /* ——— SPARSH Inclusive Education pathway infographic ——— */
+  const initSparshPath = () => {
+    const root = doc.querySelector("[data-sparsh-path]");
+    if (!root) return;
+
+    const nodes = Array.from(root.querySelectorAll("[data-sparsh-node]"));
+    const dots = Array.from(root.querySelectorAll("[data-sparsh-dot]"));
+    const wmLetters = Array.from(root.querySelectorAll("[data-wm-index]"));
+    const panel = root.querySelector("[data-sparsh-panel]");
+    const panelInner = root.querySelector("[data-sparsh-panel-inner]");
+    const badge = root.querySelector("[data-sparsh-badge]");
+    const letterFull = root.querySelector("[data-sparsh-letter-full]");
+    const stepLabel = root.querySelector("[data-sparsh-step-label]");
+    const titleEl = root.querySelector("[data-sparsh-title]");
+    const textEl = root.querySelector("[data-sparsh-text]");
+    const prevBtn = root.querySelector("[data-sparsh-prev]");
+    const nextBtn = root.querySelector("[data-sparsh-next]");
+    const progressPath = root.querySelector("[data-path-progress]");
+    const traveler = root.querySelector("[data-path-traveler]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!nodes.length || !panelInner || !titleEl || !textEl) return;
+
+    let index = 0;
+    let autoTimer = null;
+    let userPaused = false;
+    let pathLength = 0;
+
+    if (progressPath) {
+      pathLength = progressPath.getTotalLength();
+      progressPath.style.strokeDasharray = String(pathLength);
+      progressPath.style.strokeDashoffset = String(pathLength);
+    }
+
+    const pad = (n) => String(n).padStart(2, "0");
+
+    const setProgressVisual = (i) => {
+      if (!progressPath || !pathLength) return;
+      const ratio = nodes.length <= 1 ? 1 : i / (nodes.length - 1);
+      const offset = pathLength * (1 - ratio);
+      progressPath.style.strokeDashoffset = String(offset);
+
+      if (traveler) {
+        const pt = progressPath.getPointAtLength(pathLength * ratio);
+        traveler.setAttribute("cx", String(pt.x));
+        traveler.setAttribute("cy", String(pt.y));
+      }
+    };
+
+    const applyStep = (i, { animate = true } = {}) => {
+      const node = nodes[i];
+      if (!node) return;
+      index = i;
+
+      nodes.forEach((el, idx) => {
+        const active = idx === i;
+        el.classList.toggle("is-active", active);
+        el.setAttribute("aria-selected", String(active));
+        el.tabIndex = active ? 0 : -1;
+      });
+
+      dots.forEach((el, idx) => {
+        el.classList.toggle("is-active", idx === i);
+      });
+
+      wmLetters.forEach((el, idx) => {
+        el.classList.toggle("is-active", idx === i);
+      });
+
+      if (panel) {
+        panel.setAttribute("aria-labelledby", node.id);
+      }
+
+      const letter = node.dataset.letter || "";
+      const title = node.dataset.title || "";
+      const text = node.dataset.text || "";
+
+      const updateCopy = () => {
+        if (badge) badge.textContent = letter;
+        if (letterFull) letterFull.textContent = letter;
+        if (stepLabel) stepLabel.textContent = `${pad(i + 1)} / ${pad(nodes.length)}`;
+        titleEl.textContent = title;
+        textEl.textContent = text;
+        setProgressVisual(i);
+      };
+
+      if (!animate || reduceMotion) {
+        updateCopy();
+        return;
+      }
+
+      panelInner.classList.remove("is-entering");
+      panelInner.classList.add("is-exiting");
+      window.setTimeout(() => {
+        updateCopy();
+        panelInner.classList.remove("is-exiting");
+        panelInner.classList.add("is-entering");
+        // Force reflow so entering transition plays
+        void panelInner.offsetWidth;
+        panelInner.classList.remove("is-entering");
+      }, 180);
+    };
+
+    const goTo = (i, { fromUser = false } = {}) => {
+      const next = (i + nodes.length) % nodes.length;
+      applyStep(next);
+      if (fromUser) {
+        userPaused = true;
+        stopAuto();
+        window.setTimeout(() => {
+          userPaused = false;
+          startAuto();
+        }, 12000);
+      }
+    };
+
+    const stopAuto = () => {
+      if (autoTimer) {
+        window.clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    const startAuto = () => {
+      stopAuto();
+      if (reduceMotion || userPaused) return;
+      autoTimer = window.setInterval(() => {
+        goTo(index + 1);
+      }, 4200);
+    };
+
+    nodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        goTo(Number(node.dataset.index), { fromUser: true });
+      });
+
+      node.addEventListener("keydown", (e) => {
+        let nextIndex = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          nextIndex = index + 1;
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          nextIndex = index - 1;
+        } else if (e.key === "Home") {
+          nextIndex = 0;
+        } else if (e.key === "End") {
+          nextIndex = nodes.length - 1;
+        }
+        if (nextIndex === null) return;
+        e.preventDefault();
+        goTo(nextIndex, { fromUser: true });
+        nodes[(nextIndex + nodes.length) % nodes.length].focus();
+      });
+
+      node.addEventListener("mouseenter", () => {
+        if (window.matchMedia("(hover: hover)").matches) {
+          goTo(Number(node.dataset.index), { fromUser: true });
+        }
+      });
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        goTo(Number(dot.dataset.index), { fromUser: true });
+      });
+    });
+
+    prevBtn && prevBtn.addEventListener("click", () => goTo(index - 1, { fromUser: true }));
+    nextBtn && nextBtn.addEventListener("click", () => goTo(index + 1, { fromUser: true }));
+
+    root.addEventListener("mouseenter", stopAuto);
+    root.addEventListener("mouseleave", () => {
+      if (!userPaused) startAuto();
+    });
+    root.addEventListener("focusin", stopAuto);
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget) && !userPaused) startAuto();
+    });
+
+    // Entrance: draw path then begin autoplay when in view
+    const begin = () => {
+      root.classList.add("is-drawn");
+      applyStep(0, { animate: false });
+      startAuto();
+    };
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              begin();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      io.observe(root);
+    } else {
+      begin();
+    }
+  };
+
+  initSparshPath();
 })();
 

@@ -50,14 +50,96 @@ def about(request):
     )
 
 
+SPARSH_PATHWAY = [
+    {
+        "letter": "S",
+        "title": "Strengths-Led Assessment",
+        "text": "Understanding every learner beyond the diagnosis.",
+    },
+    {
+        "letter": "P",
+        "title": "Personalised Planning",
+        "text": "Designing an individual pathway for meaningful progress.",
+    },
+    {
+        "letter": "A",
+        "title": "Academic & Therapeutic Advancement",
+        "text": "Integrating remedial learning with need-based interventions.",
+    },
+    {
+        "letter": "R",
+        "title": "Responsive Partnerships",
+        "text": "Connecting schools, educators, therapists, and families.",
+    },
+    {
+        "letter": "S",
+        "title": "Skills for Life and Work",
+        "text": "Building confidence through life and vocational skills.",
+    },
+    {
+        "letter": "H",
+        "title": "Holistic Growth & Independence",
+        "text": "Enabling every learner to participate, belong, and thrive.",
+    },
+]
+
+
+INCLUSIVE_OFFERINGS = [
+    {
+        "title": "School Readiness",
+        "body": (
+            "Thoughtfully designed programmes prepare learners for classroom routines, "
+            "communication, participation and social engagement. Each pathway builds the "
+            "confidence and foundational skills required for a positive transition into school."
+        ),
+    },
+    {
+        "title": "Classroom Inclusion Support",
+        "body": (
+            "Sparsh provides coordinated classroom and shadow-teacher support that helps "
+            "learners access, engage and belong. We collaborate with educators and families "
+            "to ensure consistency across school and home."
+        ),
+    },
+    {
+        "title": "Curriculum-Integrated Special Education",
+        "body": (
+            "Individualised special education is thoughtfully aligned with the learner’s "
+            "academic and functional goals. Appropriate accommodations, differentiated "
+            "instruction and Individualised Education Plans make learning accessible and meaningful."
+        ),
+    },
+    {
+        "title": "Transition Programmes",
+        "body": (
+            "Structured transition support prepares learners for movement across grades, "
+            "schools, curricula and important life stages. Each transition is planned around "
+            "readiness, continuity and growing independence."
+        ),
+    },
+    {
+        "title": "School Inclusion Solutions",
+        "body": (
+            "We partner with schools to strengthen inclusive practices, educator capability "
+            "and learner-support systems. Every engagement is shaped around the institution’s "
+            "context, priorities and long-term vision."
+        ),
+    },
+]
+
+
 def inclusive_education(request):
     return render(
         request,
         "core/inclusive_education.html",
         {
             "page_title": "Inclusive Education",
-            "meta_description": "What inclusive education means at Sparsh — belonging, support, and limitless possibilities.",
-            "pillars": FeaturePillar.objects.filter(is_published=True),
+            "meta_description": (
+                "SPARSH creates a continuous pathway from understanding the learner "
+                "to building meaningful independence."
+            ),
+            "sparsh_pathway": SPARSH_PATHWAY,
+            "inclusive_offerings": INCLUSIVE_OFFERINGS,
         },
     )
 
@@ -69,6 +151,45 @@ def approach(request):
         {
             "page_title": "Our Approach",
             "meta_description": "Connection before curriculum — Sparsh's neurodiverse-affirming approach to learning and care.",
+        },
+    )
+
+
+PARTNERSHIP_CATEGORIES = [
+    {
+        "title": "Schools & Educational Institutions",
+        "text": "Co-create inclusive classrooms, educator capacity, and learner pathways that make belonging practical every day.",
+    },
+    {
+        "title": "Therapists & Professionals",
+        "text": "Collaborate across disciplines so therapy goals, classroom supports, and family plans stay coherent and humane.",
+    },
+    {
+        "title": "NGOs & Community Organisations",
+        "text": "Join forces to expand community access, awareness, and sustainable inclusion beyond a single campus.",
+    },
+    {
+        "title": "Corporate & CSR Partners",
+        "text": "Invest in ethical, measurable inclusion initiatives that strengthen capability and opportunity for diverse learners.",
+    },
+    {
+        "title": "Training & Knowledge Partners",
+        "text": "Share expertise through workshops, research, and knowledge exchange that raise the standard of inclusive practice.",
+    },
+]
+
+
+def partner(request):
+    return render(
+        request,
+        "core/partner.html",
+        {
+            "page_title": "Partner With Us",
+            "meta_description": (
+                "Build inclusive futures with Sparsh — partnerships for schools, professionals, "
+                "NGOs, CSR, and training organisations."
+            ),
+            "categories": PARTNERSHIP_CATEGORIES,
         },
     )
 
@@ -130,7 +251,7 @@ def contact(request):
         request,
         "core/contact.html",
         {
-            "page_title": "Contact",
+            "page_title": "Contact Us",
             "meta_description": "Get in touch with Sparsh Inclusive Education.",
             "form": form,
         },

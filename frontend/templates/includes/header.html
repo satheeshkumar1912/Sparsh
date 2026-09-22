@@ -32,7 +32,30 @@
         </div>
         <ul class="primary-nav__list">
           {% for item in NAV_ITEMS %}
-          <li>
+          {% if item.dropdown %}
+          <li class="nav-item nav-item--dropdown" data-nav-dropdown>
+            <button
+              type="button"
+              class="primary-nav__link nav-dropdown__trigger"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dropdown-menu-{{ forloop.counter }}"
+              data-nav-dropdown-trigger
+              data-track="nav-{{ item.label|slugify }}"
+            >
+              {{ item.label }}
+              <span class="nav-dropdown__chevron" aria-hidden="true"></span>
+            </button>
+            <ul id="nav-dropdown-menu-{{ forloop.counter }}" class="nav-dropdown" data-nav-dropdown-menu>
+              {% for option in item.dropdown %}
+              <li>
+                <span class="nav-dropdown__item" role="presentation">{{ option }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
             <a
               href="{% url item.url_name %}"
               class="primary-nav__link{% if request.resolver_match.view_name == item.url_name %} is-active{% endif %}"
@@ -40,6 +63,7 @@
               data-track="nav-{{ item.label|slugify }}"
             >{{ item.label }}</a>
           </li>
+          {% endif %}
           {% endfor %}
         </ul>
         <a
