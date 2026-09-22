@@ -1,4 +1,4 @@
-/* Hero — full-bleed composition */
+/* Hero — full-bleed composition with left-side motion fade */
 .hero {
   position: relative;
   min-height: min(92vh, 52rem);
@@ -15,6 +15,8 @@
 }
 
 .hero__image {
+  position: relative;
+  z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -24,13 +26,142 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-image: linear-gradient(to right, var(--green-900) 40%, transparent);
-  /* background: var(--green-900); */
-  opacity: 0.88;
+  background:
+    linear-gradient(105deg, rgba(56, 71, 27, 0.94) 0%, rgba(56, 71, 27, 0.78) 42%, rgba(56, 71, 27, 0.28) 78%, rgba(56, 71, 27, 0.12) 100%),
+    linear-gradient(to top, rgba(56, 71, 27, 0.45) 0%, transparent 38%);
+  opacity: 1;
 }
 
-.hero__pattern {
-  display: none;
+/* Motion lives on the left half and dissolves toward the right */
+.hero__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 72%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 72%);
+}
+
+.hero__motion {
+  position: absolute;
+  inset: 0;
+  width: 58%;
+  max-width: 42rem;
+}
+
+.hero__beam {
+  position: absolute;
+  left: 6%;
+  width: 18%;
+  height: 140%;
+  top: -20%;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 169, 30, 0) 0%,
+    rgba(217, 169, 30, 0.18) 35%,
+    rgba(243, 220, 135, 0.28) 55%,
+    rgba(255, 255, 255, 0.08) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(18px);
+  transform-origin: center bottom;
+  animation: hero-beam-rise 9s ease-in-out infinite;
+}
+
+.hero__beam--1 {
+  left: 8%;
+  width: 14%;
+  animation-duration: 10s;
+}
+
+.hero__beam--2 {
+  left: 24%;
+  width: 20%;
+  opacity: 0.75;
+  animation-duration: 12s;
+  animation-delay: -3s;
+}
+
+.hero__beam--3 {
+  left: 40%;
+  width: 12%;
+  opacity: 0.55;
+  animation-duration: 8.5s;
+  animation-delay: -5.5s;
+}
+
+.hero__wave {
+  position: absolute;
+  left: -5%;
+  width: 70%;
+  height: 8rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(243, 220, 135, 0.28);
+  opacity: 0;
+  animation: hero-wave-expand 7s ease-out infinite;
+}
+
+.hero__wave--1 {
+  bottom: 18%;
+}
+
+.hero__wave--2 {
+  bottom: 28%;
+  width: 55%;
+  animation-delay: -3.5s;
+}
+
+.hero__mote {
+  position: absolute;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: rgba(255, 253, 240, 0.85);
+  box-shadow: 0 0 12px rgba(217, 169, 30, 0.55);
+  animation: hero-mote-float 11s ease-in-out infinite;
+}
+
+.hero__mote--1 { left: 12%; bottom: 22%; animation-duration: 10s; }
+.hero__mote--2 { left: 22%; bottom: 34%; width: 0.35rem; height: 0.35rem; animation-duration: 13s; animation-delay: -2s; }
+.hero__mote--3 { left: 32%; bottom: 18%; animation-duration: 9s; animation-delay: -4s; }
+.hero__mote--4 { left: 18%; bottom: 48%; width: 0.3rem; height: 0.3rem; animation-duration: 14s; animation-delay: -1s; }
+.hero__mote--5 { left: 40%; bottom: 40%; width: 0.4rem; height: 0.4rem; animation-duration: 11.5s; animation-delay: -6s; }
+.hero__mote--6 { left: 28%; bottom: 58%; width: 0.28rem; height: 0.28rem; animation-duration: 12.5s; animation-delay: -3.5s; }
+
+/* Glowing particles — full hero width */
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(0.55rem * var(--s));
+  height: calc(0.55rem * var(--s));
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fff8d6 35%, rgba(217, 169, 30, 0.55) 70%, transparent 100%);
+  box-shadow:
+    0 0 8px 2px rgba(255, 248, 214, 0.75),
+    0 0 18px 6px rgba(217, 169, 30, 0.45),
+    0 0 32px 10px rgba(217, 169, 30, 0.18);
+  animation: hero-particle-glow var(--t, 12s) ease-in-out var(--d, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+.hero__particle--gold {
+  background: radial-gradient(circle at 35% 30%, #fff4b8 0%, #d9a91e 45%, rgba(194, 149, 26, 0.35) 75%, transparent 100%);
+  box-shadow:
+    0 0 10px 3px rgba(217, 169, 30, 0.85),
+    0 0 22px 8px rgba(217, 169, 30, 0.4),
+    0 0 40px 14px rgba(217, 169, 30, 0.16);
 }
 
 .hero__content {
@@ -53,6 +184,64 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes hero-beam-rise {
+  0%, 100% {
+    transform: translate3d(0, 4%, 0) scaleY(0.92);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(0, -6%, 0) scaleY(1.05);
+    opacity: 0.85;
+  }
+}
+
+@keyframes hero-wave-expand {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes hero-mote-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 0.95;
+  }
+  70% {
+    transform: translate3d(12px, -48px, 0);
+    opacity: 0.55;
+  }
+}
+
+@keyframes hero-particle-glow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.7);
+    opacity: 0.15;
+  }
+  25% {
+    opacity: 0.95;
+    transform: translate3d(6px, -28px, 0) scale(1);
+  }
+  55% {
+    opacity: 0.7;
+    transform: translate3d(-4px, -64px, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(10px, -110px, 0) scale(0.55);
+    opacity: 0;
   }
 }
 
@@ -91,14 +280,79 @@
   margin-top: 1.5rem;
 }
 
-.hero .btn--ghost {
+.hero .btn--ghost,
+.hero .btn--ghost-white {
   border-color: #fff;
   color: #fff;
 }
 
-.hero .btn--ghost:hover {
+.hero .btn--ghost:hover,
+.hero .btn--ghost-white:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: min(88vh, 40rem);
+    align-items: end;
+  }
+
+  .hero__content {
+    max-width: none;
+    margin-left: 0;
+    padding-bottom: 2.75rem;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__atmosphere {
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 92%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 92%);
+    opacity: 0.85;
+  }
+
+  .hero__motion {
+    width: 85%;
+  }
+
+  .hero__particles {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__beam,
+  .hero__wave,
+  .hero__mote,
+  .hero__particle,
+  .hero__content {
+    animation: none !important;
+  }
+
+  .hero__beam {
+    opacity: 0.4;
+    transform: none;
+  }
+
+  .hero__wave,
+  .hero__mote,
+  .hero__particle {
+    opacity: 0.35;
+  }
+
+  .page-hero::before,
+  .page-hero::after {
+    animation: none !important;
+  }
 }
 
 .trust-strip {
@@ -223,6 +477,44 @@
   position: relative;
   background: var(--green-900);
   color: #ffffff;
+  overflow: hidden;
+}
+
+.page-hero::before,
+.page-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-hero::before {
+  width: min(28rem, 55vw);
+  height: min(28rem, 55vw);
+  top: -30%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(217, 169, 30, 0.22) 0%, rgba(217, 169, 30, 0) 70%);
+  animation: page-hero-glow 16s ease-in-out infinite alternate;
+}
+
+.page-hero::after {
+  width: min(18rem, 40vw);
+  height: min(18rem, 40vw);
+  bottom: -35%;
+  left: 8%;
+  background: radial-gradient(circle, rgba(241, 246, 223, 0.16) 0%, rgba(241, 246, 223, 0) 70%);
+  animation: page-hero-glow 20s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes page-hero-glow {
+  from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
+  to { transform: translate3d(-4%, 3%, 0) scale(1.08); opacity: 1; }
+}
+
+.page-hero > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-hero--soft {

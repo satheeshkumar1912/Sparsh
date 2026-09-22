@@ -3,10 +3,8 @@
 
 {% block content %}
 {# ——— HERO ——— #}
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero__media" aria-hidden="false">
-    <div class="hero__gradient"></div>
-    <div class="hero__pattern" aria-hidden="true"></div>
+<section class="hero" aria-labelledby="hero-heading" data-home-hero>
+  <div class="hero__media">
     <img
       class="hero__image"
       src="{% static 'img/Hero-Img_indian_classroom.webp' %}"
@@ -15,6 +13,44 @@
       height="1000"
       fetchpriority="high"
     >
+    <div class="hero__gradient" aria-hidden="true"></div>
+    <div class="hero__atmosphere" aria-hidden="true">
+      <div class="hero__motion">
+        <span class="hero__beam hero__beam--1"></span>
+        <span class="hero__beam hero__beam--2"></span>
+        <span class="hero__beam hero__beam--3"></span>
+        <span class="hero__wave hero__wave--1"></span>
+        <span class="hero__wave hero__wave--2"></span>
+        <span class="hero__mote hero__mote--1"></span>
+        <span class="hero__mote hero__mote--2"></span>
+        <span class="hero__mote hero__mote--3"></span>
+        <span class="hero__mote hero__mote--4"></span>
+        <span class="hero__mote hero__mote--5"></span>
+        <span class="hero__mote hero__mote--6"></span>
+      </div>
+    </div>
+    <div class="hero__particles" aria-hidden="true">
+      <span class="hero__particle" style="--x:6%; --y:78%; --s:0.55; --d:0s; --t:11s;"></span>
+      <span class="hero__particle" style="--x:14%; --y:62%; --s:0.7; --d:-1.5s; --t:13s;"></span>
+      <span class="hero__particle" style="--x:22%; --y:84%; --s:0.45; --d:-3s; --t:9.5s;"></span>
+      <span class="hero__particle" style="--x:30%; --y:55%; --s:0.85; --d:-0.8s; --t:14s;"></span>
+      <span class="hero__particle" style="--x:38%; --y:72%; --s:0.5; --d:-4.2s; --t:10.5s;"></span>
+      <span class="hero__particle" style="--x:46%; --y:48%; --s:0.65; --d:-2.4s; --t:12s;"></span>
+      <span class="hero__particle" style="--x:54%; --y:40%; --s:0.4; --d:-5s; --t:15s;"></span>
+      <span class="hero__particle" style="--x:62%; --y:30%; --s:0.75; --d:-1.1s; --t:11.5s;"></span>
+      <span class="hero__particle" style="--x:70%; --y:88%; --s:0.6; --d:-6s; --t:13.5s;"></span>
+      <span class="hero__particle" style="--x:78%; --y:36%; --s:0.48; --d:-3.6s; --t:10s;"></span>
+      <span class="hero__particle" style="--x:86%; --y:52%; --s:0.9; --d:-2s; --t:12.5s;"></span>
+      <span class="hero__particle" style="--x:92%; --y:66%; --s:0.42; --d:-4.8s; --t:9s;"></span>
+      <span class="hero__particle" style="--x:18%; --y:70%; --s:0.58; --d:-7s; --t:14.5s;"></span>
+      <span class="hero__particle" style="--x:50%; --y:58%; --s:0.72; --d:-0.4s; --t:11s;"></span>
+      <span class="hero__particle" style="--x:66%; --y:44%; --s:0.52; --d:-5.5s; --t:13s;"></span>
+      <span class="hero__particle hero__particle--gold" style="--x:10%; --y:76%; --s:0.8; --d:-2.8s; --t:12s;"></span>
+      <span class="hero__particle hero__particle--gold" style="--x:34%; --y:50%; --s:0.68; --d:-1.8s; --t:10.8s;"></span>
+      <span class="hero__particle hero__particle--gold" style="--x:58%; --y:34%; --s:0.55; --d:-4s; --t:15s;"></span>
+      <span class="hero__particle hero__particle--gold" style="--x:74%; --y:80%; --s:0.62; --d:-6.5s; --t:11.2s;"></span>
+      <span class="hero__particle hero__particle--gold" style="--x:88%; --y:46%; --s:0.78; --d:-3.2s; --t:13.8s;"></span>
+    </div>
   </div>
   <div class="hero__content container">
     <p class="hero__brand">Sparsh</p>
@@ -25,18 +61,21 @@
       and learning begins with connection.
     </p>
     <div class="hero__actions">
-      <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="hero-admissions">
-        Admissions &amp; Enquiry
+      <a href="{% url 'admissions:index' %}" class="btn btn--accent btn--lg" data-track="hero-book-interaction">
+        Book an interaction
       </a>
       <a href="{% url 'programs:list' %}" class="btn btn--ghost-white btn--lg" data-track="hero-programs">
-        Explore Programs
+        Our Programs
+      </a>
+      <a href="{% url 'core:partner' %}" class="btn btn--ghost-white btn--lg" data-track="hero-partner">
+        Partner with us
       </a>
     </div>
   </div>
 </section>
 
 {# ——— TRUST STRIP ——— #}
-<section class="trust-strip" aria-label="Trust indicators">
+<section class="trust-strip" aria-label="Whom we support">
   <div class="container trust-strip__inner">
     <p><strong>{% if stats %}{{ stats.learners_supported }}+{% else %}2,400+{% endif %}</strong> families served</p>
     <p><strong>{% if stats %}{{ stats.partner_schools }}{% else %}48{% endif %}</strong> partner schools</p>
@@ -46,7 +85,7 @@
 </section>
 
 {# ——— PHILOSOPHY ——— #}
-<section class="section philosophy" aria-labelledby="philosophy-heading" style="background: var(--surface-0);">
+<section class="section philosophy" aria-labelledby="philosophy-heading" id="who-we-are" style="background: var(--surface-0);">
   <div class="container philosophy__grid">
     <div class="philosophy__copy reveal">
       <p class="eyebrow">Our philosophy</p>
@@ -72,7 +111,7 @@
 </section>
 
 {# ——— FEATURE PILLARS ——— #}
-<section class="section pillars" aria-labelledby="pillars-heading" style="background: var(--surface-2);">
+<section class="section pillars" aria-labelledby="pillars-heading" id="what-makes-us-distinctive" style="background: var(--surface-2);">
   <div class="container">
     <div class="section-head reveal" style="max-width: 42rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">What guides us</p>
@@ -163,7 +202,7 @@
 </section>
 
 {# ——— WELCOME / PROGRAMS ——— #}
-<section class="section welcome" aria-labelledby="welcome-heading" style="background: var(--surface-0);">
+<section class="section welcome" aria-labelledby="welcome-heading" id="our-programmes" style="background: var(--surface-0);">
   <div class="container">
     <div class="section-head reveal" style="max-width: 48rem; margin-bottom: 2.75rem;">
       <p class="eyebrow">Welcome</p>
