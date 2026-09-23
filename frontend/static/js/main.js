@@ -485,6 +485,121 @@
 
   initPageHeroAmbient();
 
+  /* ——— Live motion ambient for every section / band ——— */
+  const initSectionAmbients = () => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const targets = doc.querySelectorAll(
+      "main .section, main .trust-strip, .site-footer"
+    );
+
+    const isDarkSection = (el) => {
+      const styleAttr = el.getAttribute("style") || "";
+      if (/green-900|impact|program-cta|inclusion-cta/i.test(styleAttr + " " + el.className)) {
+        return true;
+      }
+      if (el.classList.contains("site-footer") || el.classList.contains("hero")) return true;
+      try {
+        const bg = window.getComputedStyle(el).backgroundColor;
+        const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (!m) return false;
+        const r = Number(m[1]);
+        const g = Number(m[2]);
+        const b = Number(m[3]);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance < 0.45;
+      } catch (err) {
+        return false;
+      }
+    };
+
+    const particleHtml = (count) => {
+      const spots = [
+        [8, 78, 0.55, "0s", "11s"],
+        [18, 62, 0.7, "-1.5s", "13s"],
+        [28, 84, 0.45, "-3s", "10s"],
+        [38, 48, 0.85, "-0.8s", "14s"],
+        [48, 70, 0.5, "-4s", "12s"],
+        [58, 40, 0.65, "-2.2s", "15s"],
+        [68, 76, 0.42, "-5s", "11.5s"],
+        [78, 54, 0.75, "-1s", "13.5s"],
+        [88, 66, 0.5, "-6s", "12.5s"],
+        [14, 36, 0.6, "-3.5s", "14.5s"],
+        [42, 28, 0.48, "-7s", "16s"],
+        [72, 32, 0.7, "-2.8s", "13s"],
+      ];
+      return spots.slice(0, count).map(([x, y, s, d, t]) => (
+        `<span class="section-ambient__particle" style="--x:${x}%; --y:${y}%; --s:${s}; --d:${d}; --t:${t};"></span>`
+      )).join("");
+    };
+
+    const variants = [
+      (dark) => `
+        <div class="section-ambient section-ambient--particles${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <div class="section-ambient__wash"></div>
+          ${particleHtml(10)}
+        </div>`,
+      (dark) => `
+        <div class="section-ambient section-ambient--beams${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <span class="section-ambient__beam"></span>
+          <span class="section-ambient__beam"></span>
+          <span class="section-ambient__beam"></span>
+          <span class="section-ambient__beam"></span>
+          ${particleHtml(6)}
+        </div>`,
+      (dark) => `
+        <div class="section-ambient section-ambient--orbs${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <span class="section-ambient__orb"></span>
+          <span class="section-ambient__orb"></span>
+          <span class="section-ambient__orb"></span>
+          ${particleHtml(7)}
+        </div>`,
+      (dark) => `
+        <div class="section-ambient section-ambient--path${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <svg class="section-ambient__path" viewBox="0 0 1200 400" preserveAspectRatio="none" focusable="false">
+            <path d="M-20,260 C180,200 300,320 460,240 S780,120 940,180 1120,280 1220,200"></path>
+            <path d="M-40,140 C200,180 360,80 540,130 S900,220 1100,150 1220,100"></path>
+          </svg>
+          ${particleHtml(6)}
+        </div>`,
+      (dark) => `
+        <div class="section-ambient section-ambient--waves${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <span class="section-ambient__wave"></span>
+          <span class="section-ambient__wave"></span>
+          <span class="section-ambient__wave"></span>
+          ${particleHtml(8)}
+        </div>`,
+      (dark) => `
+        <div class="section-ambient section-ambient--sparkle${dark ? " section-ambient--dark" : ""}" aria-hidden="true">
+          <div class="section-ambient__mesh"></div>
+          <div class="section-ambient__shimmer"></div>
+          ${particleHtml(9)}
+        </div>`,
+    ];
+
+    targets.forEach((el, index) => {
+      if (el.querySelector(":scope > .section-ambient")) return;
+      if (el.classList.contains("page-hero") || el.classList.contains("hero")) return;
+      const dark = isDarkSection(el);
+      // Footer: glowing particles only — no beams/stripes that clash with text
+      if (el.classList.contains("site-footer")) {
+        el.insertAdjacentHTML(
+          "afterbegin",
+          `<div class="section-ambient section-ambient--particles section-ambient--footer section-ambient--dark" aria-hidden="true">${particleHtml(12)}</div>`
+        );
+      } else {
+        const make = variants[index % variants.length];
+        el.insertAdjacentHTML("afterbegin", make(dark));
+      }
+      if (reduceMotion) {
+        el.querySelectorAll(".section-ambient__particle").forEach((p, i) => {
+          if (i > 3) p.remove();
+        });
+      }
+    });
+  };
+
+  initSectionAmbients();
+
   /* ——— SPARSH Inclusive Education pathway infographic ——— */
   const initSparshPath = () => {
     const root = doc.querySelector("[data-sparsh-path]");

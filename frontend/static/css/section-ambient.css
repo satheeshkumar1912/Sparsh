@@ -1,0 +1,312 @@
+/* ——— Per-section live motion ambients (all pages) ——— */
+.section,
+.trust-strip,
+.site-footer,
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.section > *:not(.section-ambient),
+.trust-strip > *:not(.section-ambient),
+.site-footer > *:not(.section-ambient):not(.site-footer__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shared particles */
+.section-ambient__particle {
+  position: absolute;
+  width: calc(0.45rem * var(--s, 1));
+  height: calc(0.45rem * var(--s, 1));
+  left: var(--x);
+  top: var(--y);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fff8d6 38%, rgba(217, 169, 30, 0.55) 72%, transparent 100%);
+  box-shadow:
+    0 0 8px 2px rgba(255, 248, 214, 0.7),
+    0 0 18px 6px rgba(217, 169, 30, 0.35);
+  animation: section-ambient-float var(--t, 12s) ease-in-out var(--d, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+.section-ambient--dark .section-ambient__particle {
+  background: radial-gradient(circle at 35% 30%, #fff8d6 0%, #d9a91e 50%, rgba(217, 169, 30, 0.25) 80%, transparent 100%);
+  box-shadow:
+    0 0 10px 3px rgba(217, 169, 30, 0.75),
+    0 0 24px 8px rgba(217, 169, 30, 0.28);
+}
+
+/* Variant: particles */
+.section-ambient--particles .section-ambient__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 15% 80%, rgba(217, 169, 30, 0.14), transparent 65%),
+    radial-gradient(ellipse 40% 50% at 85% 20%, rgba(74, 93, 35, 0.08), transparent 70%);
+  animation: section-ambient-wash 16s ease-in-out infinite alternate;
+}
+
+/* Variant: beams */
+.section-ambient--beams .section-ambient__beam {
+  position: absolute;
+  top: -25%;
+  height: 150%;
+  width: 16%;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(217, 169, 30, 0.16) 40%,
+    rgba(243, 220, 135, 0.22) 58%,
+    transparent 100%
+  );
+  filter: blur(18px);
+  animation: section-ambient-beam 11s ease-in-out infinite;
+}
+
+.section-ambient--beams .section-ambient__beam:nth-child(1) { left: 6%; }
+.section-ambient--beams .section-ambient__beam:nth-child(2) { left: 24%; width: 20%; animation-duration: 14s; animation-delay: -3s; opacity: 0.75; }
+.section-ambient--beams .section-ambient__beam:nth-child(3) { left: 48%; width: 14%; animation-duration: 10s; animation-delay: -6s; opacity: 0.55; }
+.section-ambient--beams .section-ambient__beam:nth-child(4) { left: 68%; width: 12%; animation-duration: 13s; animation-delay: -2s; opacity: 0.4; }
+
+.section-ambient--dark.section-ambient--beams .section-ambient__beam {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(217, 169, 30, 0.22) 40%,
+    rgba(255, 248, 214, 0.18) 60%,
+    transparent 100%
+  );
+}
+
+/* Variant: orbs */
+.section-ambient--orbs .section-ambient__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.55;
+  animation: section-ambient-orb 18s ease-in-out infinite;
+}
+
+.section-ambient--orbs .section-ambient__orb:nth-child(1) {
+  width: min(14rem, 40vw);
+  height: min(14rem, 40vw);
+  top: -10%;
+  right: 5%;
+  background: radial-gradient(circle, rgba(217, 169, 30, 0.35) 0%, transparent 70%);
+}
+
+.section-ambient--orbs .section-ambient__orb:nth-child(2) {
+  width: min(11rem, 32vw);
+  height: min(11rem, 32vw);
+  bottom: -8%;
+  left: 8%;
+  background: radial-gradient(circle, rgba(107, 125, 58, 0.28) 0%, transparent 70%);
+  animation-duration: 22s;
+  animation-delay: -5s;
+}
+
+.section-ambient--orbs .section-ambient__orb:nth-child(3) {
+  width: min(9rem, 28vw);
+  height: min(9rem, 28vw);
+  top: 35%;
+  left: 42%;
+  background: radial-gradient(circle, rgba(243, 220, 135, 0.3) 0%, transparent 70%);
+  animation-duration: 15s;
+  animation-delay: -8s;
+}
+
+.section-ambient--dark.section-ambient--orbs .section-ambient__orb:nth-child(1) {
+  background: radial-gradient(circle, rgba(217, 169, 30, 0.4) 0%, transparent 70%);
+}
+
+/* Variant: path */
+.section-ambient--path .section-ambient__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+.section-ambient--path .section-ambient__path path {
+  fill: none;
+  stroke: rgba(217, 169, 30, 0.45);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: section-ambient-path 6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.section-ambient--path .section-ambient__path path:nth-child(2) {
+  stroke: rgba(107, 125, 58, 0.28);
+  stroke-width: 1.5;
+  animation-delay: 0.8s;
+}
+
+.section-ambient--dark.section-ambient--path .section-ambient__path path {
+  stroke: rgba(243, 220, 135, 0.55);
+}
+
+.section-ambient--dark.section-ambient--path .section-ambient__path path:nth-child(2) {
+  stroke: rgba(217, 169, 30, 0.35);
+}
+
+/* Variant: waves */
+.section-ambient--waves .section-ambient__wave {
+  position: absolute;
+  left: -10%;
+  width: 70%;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid rgba(217, 169, 30, 0.28);
+  opacity: 0;
+  animation: section-ambient-wave 8s ease-out infinite;
+}
+
+.section-ambient--waves .section-ambient__wave:nth-child(1) { bottom: 12%; }
+.section-ambient--waves .section-ambient__wave:nth-child(2) { bottom: 28%; width: 55%; animation-delay: -2.5s; }
+.section-ambient--waves .section-ambient__wave:nth-child(3) { bottom: 44%; width: 42%; animation-delay: -5s; border-color: rgba(74, 93, 35, 0.2); }
+
+.section-ambient--dark.section-ambient--waves .section-ambient__wave {
+  border-color: rgba(243, 220, 135, 0.35);
+}
+
+/* Variant: sparkle mesh */
+.section-ambient--sparkle .section-ambient__mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image: radial-gradient(rgba(217, 169, 30, 0.18) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  animation: section-ambient-mesh 24s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 40% 50%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 40% 50%, #000 10%, transparent 75%);
+}
+
+.section-ambient--sparkle .section-ambient__shimmer {
+  position: absolute;
+  inset: -20% -30%;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 248, 214, 0.18) 48%,
+    transparent 62%
+  );
+  animation: section-ambient-shimmer 9s ease-in-out infinite;
+}
+
+.section-ambient--dark.section-ambient--sparkle .section-ambient__mesh {
+  background-image: radial-gradient(rgba(243, 220, 135, 0.22) 1.2px, transparent 1.2px);
+}
+
+/* Footer: particles only, no washes/beams/stripes */
+.section-ambient--footer {
+  opacity: 0.85;
+}
+
+.section-ambient--footer .section-ambient__wash,
+.section-ambient--footer .section-ambient__beam,
+.section-ambient--footer .section-ambient__orb,
+.section-ambient--footer .section-ambient__wave,
+.section-ambient--footer .section-ambient__mesh,
+.section-ambient--footer .section-ambient__shimmer,
+.section-ambient--footer .section-ambient__path {
+  display: none !important;
+}
+
+.section-ambient--footer .section-ambient__particle {
+  box-shadow:
+    0 0 10px 3px rgba(217, 169, 30, 0.7),
+    0 0 22px 8px rgba(217, 169, 30, 0.28);
+}
+
+@keyframes section-ambient-float {
+  0% { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0.15; }
+  25% { opacity: 1; transform: translate3d(8px, -28px, 0) scale(1.05); }
+  60% { opacity: 0.65; transform: translate3d(-6px, -70px, 0) scale(1.15); }
+  100% { transform: translate3d(12px, -120px, 0) scale(0.5); opacity: 0; }
+}
+
+@keyframes section-ambient-wash {
+  from { transform: scale(1) translate3d(0, 0, 0); opacity: 0.7; }
+  to { transform: scale(1.08) translate3d(-2%, 2%, 0); opacity: 1; }
+}
+
+@keyframes section-ambient-beam {
+  0%, 100% { transform: translate3d(0, 5%, 0) scaleY(0.9); opacity: 0.35; }
+  50% { transform: translate3d(0, -6%, 0) scaleY(1.08); opacity: 0.9; }
+}
+
+@keyframes section-ambient-orb {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3%, -4%, 0) scale(1.12); }
+}
+
+@keyframes section-ambient-path {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes section-ambient-wave {
+  0% { transform: scale(0.5); opacity: 0; }
+  30% { opacity: 0.55; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes section-ambient-mesh {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -22px, 0); }
+}
+
+@keyframes section-ambient-shimmer {
+  0% { transform: translate3d(-20%, 0, 0); opacity: 0; }
+  40% { opacity: 0.8; }
+  100% { transform: translate3d(20%, 0, 0); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  .section-ambient {
+    opacity: 0.75;
+  }
+
+  .section-ambient__particle:nth-child(n + 8) {
+    display: none;
+  }
+
+  .section-ambient--beams .section-ambient__beam:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-ambient *,
+  .section-ambient__particle,
+  .section-ambient__beam,
+  .section-ambient__orb,
+  .section-ambient__wave,
+  .section-ambient__mesh,
+  .section-ambient__shimmer,
+  .section-ambient__wash,
+  .section-ambient--path .section-ambient__path path {
+    animation: none !important;
+  }
+
+  .section-ambient--path .section-ambient__path path {
+    stroke-dashoffset: 0;
+  }
+
+  .section-ambient__particle {
+    opacity: 0.4;
+  }
+}
