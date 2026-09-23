@@ -456,6 +456,35 @@
     }
   });
 
+  /* ——— Page-hero journey ambient (all inner pages) ——— */
+  const initPageHeroAmbient = () => {
+    doc.querySelectorAll(".page-hero").forEach((hero) => {
+      if (hero.querySelector(".page-hero__ambient")) return;
+      const wrap = doc.createElement("div");
+      wrap.className = "page-hero__ambient";
+      wrap.setAttribute("aria-hidden", "true");
+      wrap.innerHTML = `
+        <span class="page-hero__ambient-beam"></span>
+        <span class="page-hero__ambient-beam"></span>
+        <span class="page-hero__ambient-beam"></span>
+        <svg class="page-hero__ambient-path" viewBox="0 0 1200 320" preserveAspectRatio="none" focusable="false">
+          <path d="M-20,220 C180,180 280,280 420,210 S700,90 860,150 1040,240 1220,160"></path>
+        </svg>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+        <span class="page-hero__ambient-particle"></span>
+      `;
+      hero.insertBefore(wrap, hero.firstChild);
+    });
+  };
+
+  initPageHeroAmbient();
+
   /* ——— SPARSH Inclusive Education pathway infographic ——— */
   const initSparshPath = () => {
     const root = doc.querySelector("[data-sparsh-path]");

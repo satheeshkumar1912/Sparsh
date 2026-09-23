@@ -26,12 +26,23 @@ body {
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--ink-700);
-  background: var(--surface-0);
+  background-color: var(--surface-0);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(217, 169, 30, 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 20%, rgba(74, 93, 35, 0.06), transparent 50%),
+    linear-gradient(180deg, #fffdf2 0%, var(--surface-0) 40%, #fbf8e8 100%);
+  background-attachment: fixed;
   min-height: 100vh;
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
   position: relative;
+}
+
+@media (max-width: 700px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -221,6 +232,8 @@ html {
 
 .section {
   padding: clamp(3rem, 7vw, 5.5rem) 0;
+  position: relative;
+  z-index: 1;
 }
 
 .section-head {
@@ -269,11 +282,22 @@ html {
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+  transform: translateY(22px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

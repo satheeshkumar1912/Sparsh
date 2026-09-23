@@ -1,0 +1,60 @@
+{# Site-wide subtle journey ambient — inclusion → independence #}
+<div class="site-ambient" aria-hidden="true">
+  <div class="site-ambient__wash"></div>
+  <div class="site-ambient__mesh"></div>
+  <div class="site-ambient__beams">
+    <span class="site-ambient__beam site-ambient__beam--1"></span>
+    <span class="site-ambient__beam site-ambient__beam--2"></span>
+    <span class="site-ambient__beam site-ambient__beam--3"></span>
+    <span class="site-ambient__beam site-ambient__beam--4"></span>
+  </div>
+  <svg class="site-ambient__path" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <linearGradient id="site-ambient-path-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#D9A91E" stop-opacity="0.08" />
+        <stop offset="40%" stop-color="#D9A91E" stop-opacity="0.34" />
+        <stop offset="100%" stop-color="#F3DC87" stop-opacity="0.08" />
+      </linearGradient>
+      <linearGradient id="site-ambient-path-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#6B7D3A" stop-opacity="0.04" />
+        <stop offset="50%" stop-color="#D9A91E" stop-opacity="0.18" />
+        <stop offset="100%" stop-color="#6B7D3A" stop-opacity="0.04" />
+      </linearGradient>
+    </defs>
+    <path
+      class="site-ambient__path-line site-ambient__path-line--a"
+      d="M-20,620 C220,560 320,740 520,640 S820,420 980,500 1200,640 1480,480"
+      fill="none"
+      stroke="url(#site-ambient-path-grad)"
+      stroke-width="2.25"
+      stroke-linecap="round"
+    />
+    <path
+      class="site-ambient__path-line site-ambient__path-line--b"
+      d="M-40,380 C200,440 340,260 520,320 S860,480 1040,360 1260,240 1480,300"
+      fill="none"
+      stroke="url(#site-ambient-path-grad-2)"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+  </svg>
+  <div class="site-ambient__particles">
+    <span class="site-ambient__particle" style="--x:6%; --y:78%; --s:0.55; --d:0s; --t:14s;"></span>
+    <span class="site-ambient__particle" style="--x:14%; --y:58%; --s:0.7; --d:-2s; --t:16s;"></span>
+    <span class="site-ambient__particle" style="--x:22%; --y:82%; --s:0.45; --d:-4s; --t:12s;"></span>
+    <span class="site-ambient__particle" style="--x:30%; --y:46%; --s:0.8; --d:-1s; --t:15s;"></span>
+    <span class="site-ambient__particle" style="--x:38%; --y:68%; --s:0.5; --d:-5s; --t:13s;"></span>
+    <span class="site-ambient__particle" style="--x:46%; --y:36%; --s:0.65; --d:-3s; --t:17s;"></span>
+    <span class="site-ambient__particle" style="--x:54%; --y:74%; --s:0.42; --d:-6s; --t:14.5s;"></span>
+    <span class="site-ambient__particle" style="--x:62%; --y:52%; --s:0.75; --d:-2.5s; --t:15.5s;"></span>
+    <span class="site-ambient__particle" style="--x:70%; --y:66%; --s:0.48; --d:-7s; --t:12.5s;"></span>
+    <span class="site-ambient__particle" style="--x:78%; --y:42%; --s:0.6; --d:-1.5s; --t:16.5s;"></span>
+    <span class="site-ambient__particle" style="--x:86%; --y:78%; --s:0.52; --d:-4.5s; --t:13.5s;"></span>
+    <span class="site-ambient__particle" style="--x:92%; --y:54%; --s:0.58; --d:-8s; --t:15s;"></span>
+    <span class="site-ambient__particle site-ambient__particle--gold" style="--x:10%; --y:50%; --s:0.85; --d:-3.5s; --t:15s;"></span>
+    <span class="site-ambient__particle site-ambient__particle--gold" style="--x:28%; --y:62%; --s:0.7; --d:-0.5s; --t:14s;"></span>
+    <span class="site-ambient__particle site-ambient__particle--gold" style="--x:50%; --y:44%; --s:0.58; --d:-5.5s; --t:16s;"></span>
+    <span class="site-ambient__particle site-ambient__particle--gold" style="--x:68%; --y:58%; --s:0.72; --d:-2.2s; --t:13s;"></span>
+    <span class="site-ambient__particle site-ambient__particle--gold" style="--x:84%; --y:34%; --s:0.66; --d:-6.8s; --t:14.8s;"></span>
+  </div>
+</div>

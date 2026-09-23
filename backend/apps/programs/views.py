@@ -50,38 +50,62 @@ PROGRAM_PAGE_SECTIONS = [
     {
         "title": "Vocational Training & Life Skills",
         "body": (
-            "Strengths-led programmes prepare learners for independent living, purposeful "
-            "engagement and future employment. Experiences may include practical skill "
-            "development, workplace readiness, supported exposure and transition planning."
+            "Strengths-led programmes prepare learners for independence, purposeful "
+            "living and future employment."
         ),
-        "points": [],
+        "points": [
+            "Vocational and job-readiness skills",
+            "Daily living and self-management",
+            "Communication and social skills",
+            "Digital and financial literacy",
+            "Internships and workplace exposure",
+            "Transition planning for adulthood",
+        ],
     },
     {
         "title": "Sports & Endurance Training",
         "body": (
-            "Adaptive sports and movement programmes strengthen fitness, coordination, "
-            "endurance and confidence. Participation also nurtures perseverance, teamwork "
-            "and emotional well-being."
+            "Adaptive sports strengthen fitness, coordination, confidence and teamwork."
         ),
-        "points": [],
+        "points": [
+            "Fitness and endurance",
+            "Balance and motor planning",
+            "Yoga and movement",
+            "Athletics, skating and swimming",
+            "Team and recreational sports",
+        ],
     },
     {
         "title": "Evening Therapies & Remedial Support",
         "body": (
-            "Flexible after-school sessions provide personalised academic, developmental "
-            "and therapeutic support. Individual and small-group formats enable focused "
-            "intervention beyond regular school hours."
+            "Flexible after-school sessions provide focused academic, developmental "
+            "and therapeutic support."
         ),
-        "points": [],
+        "points": [
+            "Remedial and academic support",
+            "Speech and occupational therapy",
+            "Behavioural and communication support",
+            "Sensory-regulation sessions",
+            "Individual and small-group learning",
+        ],
     },
     {
         "title": "Weekend Cognitive Skill Development",
         "body": (
-            "Engaging weekend experiences develop attention, memory, reasoning, "
-            "communication and executive functioning. Play, projects and real-world "
-            "challenges encourage creativity, collaboration and independent thinking."
+            "Engaging activities strengthen essential thinking, communication and "
+            "self-regulation skills."
         ),
-        "points": [],
+        "points": [
+            "Attention and concentration",
+            "Memory and information processing",
+            "Executive functioning",
+            "Reasoning and problem-solving",
+            "Social communication",
+            "Emotional regulation",
+            "Creativity and independent thinking",
+            "Collaborative play and teamwork",
+            "Real-world application of skills",
+        ],
     },
 ]
 

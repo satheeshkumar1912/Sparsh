@@ -350,8 +350,23 @@
   }
 
   .page-hero::before,
-  .page-hero::after {
+  .page-hero::after,
+  .page-hero__ambient-path path,
+  .page-hero__ambient-particle,
+  .page-hero__ambient-beam {
     animation: none !important;
+  }
+
+  .page-hero__ambient-path path {
+    stroke-dashoffset: 0;
+  }
+
+  .page-hero__ambient-particle {
+    opacity: 0.4;
+  }
+
+  .page-hero__ambient-beam {
+    opacity: 0.25;
   }
 }
 
@@ -512,6 +527,89 @@
   to { transform: translate3d(-4%, 3%, 0) scale(1.08); opacity: 1; }
 }
 
+/* Quick-visible journey motion inside every page hero */
+.page-hero__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-hero__ambient-beam {
+  position: absolute;
+  top: -20%;
+  height: 140%;
+  width: 14%;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 169, 30, 0) 0%,
+    rgba(217, 169, 30, 0.18) 45%,
+    rgba(243, 220, 135, 0.12) 70%,
+    transparent 100%
+  );
+  filter: blur(16px);
+  opacity: 0.55;
+  animation: page-hero-beam 12s ease-in-out infinite;
+}
+
+.page-hero__ambient-beam:nth-child(1) { left: 8%; animation-duration: 14s; }
+.page-hero__ambient-beam:nth-child(2) { left: 22%; width: 18%; opacity: 0.4; animation-duration: 16s; animation-delay: -3s; }
+.page-hero__ambient-beam:nth-child(3) { left: 40%; width: 12%; opacity: 0.35; animation-duration: 11s; animation-delay: -6s; }
+
+.page-hero__ambient-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.75;
+}
+
+.page-hero__ambient-path path {
+  fill: none;
+  stroke: rgba(217, 169, 30, 0.5);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: page-hero-path 5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+.page-hero__ambient-particle {
+  position: absolute;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8d6 0%, rgba(217, 169, 30, 0.7) 55%, transparent 100%);
+  box-shadow: 0 0 10px 3px rgba(217, 169, 30, 0.35);
+  animation: page-hero-particle 10s ease-in-out infinite;
+}
+
+.page-hero__ambient-particle:nth-child(5) { left: 10%; top: 72%; animation-delay: -1s; animation-duration: 11s; }
+.page-hero__ambient-particle:nth-child(6) { left: 20%; top: 48%; width: 0.32rem; height: 0.32rem; animation-delay: -3s; }
+.page-hero__ambient-particle:nth-child(7) { left: 32%; top: 64%; animation-delay: -5s; animation-duration: 12s; }
+.page-hero__ambient-particle:nth-child(8) { left: 46%; top: 40%; width: 0.28rem; height: 0.28rem; animation-delay: -2s; }
+.page-hero__ambient-particle:nth-child(9) { left: 58%; top: 70%; animation-delay: -4s; animation-duration: 9.5s; }
+.page-hero__ambient-particle:nth-child(10) { left: 70%; top: 46%; width: 0.35rem; height: 0.35rem; animation-delay: -6s; }
+.page-hero__ambient-particle:nth-child(11) { left: 82%; top: 62%; animation-delay: -1.5s; animation-duration: 13s; }
+.page-hero__ambient-particle:nth-child(12) { left: 90%; top: 38%; width: 0.3rem; height: 0.3rem; animation-delay: -7s; }
+
+@keyframes page-hero-path {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes page-hero-beam {
+  0%, 100% { transform: translate3d(0, 4%, 0) scaleY(0.92); opacity: 0.3; }
+  50% { transform: translate3d(0, -5%, 0) scaleY(1.06); opacity: 0.7; }
+}
+
+@keyframes page-hero-particle {
+  0% { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0.15; }
+  35% { opacity: 0.95; transform: translate3d(6px, -22px, 0) scale(1); }
+  100% { transform: translate3d(-4px, -70px, 0) scale(0.55); opacity: 0; }
+}
+
 .page-hero > .container {
   position: relative;
   z-index: 1;
@@ -638,7 +736,7 @@
   background:
     radial-gradient(ellipse 80% 50% at 10% 0%, rgba(217, 169, 30, 0.16), transparent 55%),
     radial-gradient(ellipse 70% 45% at 90% 20%, rgba(74, 93, 35, 0.1), transparent 50%),
-    linear-gradient(180deg, var(--surface-0) 0%, #fffdf0 45%, var(--yellow-600) 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-0) 86%, transparent) 0%, color-mix(in srgb, #fffdf0 88%, transparent) 45%, color-mix(in srgb, var(--yellow-600) 85%, transparent) 100%);
   padding: clamp(3.5rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 6rem);
 }
 
@@ -1108,7 +1206,7 @@
 
 /* Inclusive education offerings (after SPARSH pathway) */
 .inclusion-offerings {
-  background: var(--surface-2);
+  background: color-mix(in srgb, var(--surface-2) 82%, transparent);
   padding: clamp(3.5rem, 7vw, 5.5rem) 0;
 }
 
@@ -1258,7 +1356,7 @@
 .program-ecosystem {
   background:
     radial-gradient(ellipse 70% 55% at 50% 0%, rgba(217, 169, 30, 0.12), transparent 60%),
-    linear-gradient(180deg, var(--surface-0) 0%, #fffdf2 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-0) 88%, transparent) 0%, color-mix(in srgb, #fffdf2 90%, transparent) 100%);
   padding-bottom: 2.5rem;
 }
 
@@ -1339,7 +1437,7 @@
 }
 
 .program-sections {
-  background: var(--surface-2);
+  background: color-mix(in srgb, var(--surface-2) 82%, transparent);
   padding-top: 2.5rem;
   padding-bottom: 3.5rem;
 }
@@ -1501,8 +1599,52 @@
 }
 
 /* About — Mission / Vision / Values table */
+/* About — The People */
+.about-people {
+  background: var(--surface-0);
+  padding-top: 0.5rem;
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.about-people__inner {
+  max-width: 46rem;
+}
+
+.about-people__inner h2 {
+  margin: 0 0 1rem;
+  color: var(--ink-900);
+}
+
+.about-people__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.about-people__list li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--ink-700);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.about-people__list li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.7rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--yellow-500);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--green-700) 45%, transparent);
+}
+
 .about-mvv {
-  background: var(--surface-2);
+  background: color-mix(in srgb, var(--surface-2) 82%, transparent);
 }
 
 .about-table-wrap {
