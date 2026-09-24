@@ -14,7 +14,7 @@ from .forms import AdmissionEnquiryForm
 ADMISSIONS_TIMELINE = [
     {
         "step": 1,
-        "title": "Gentle enquiry",
+        "title": "Enquiry",
         "text": "Share a little about your child — no pressure, no jargon. We’ll listen first.",
     },
     {
@@ -24,18 +24,63 @@ ADMISSIONS_TIMELINE = [
     },
     {
         "step": 3,
-        "title": "Visit & observation",
+        "title": "Visit",
         "text": "Optional campus visit so your child can explore spaces at their own pace.",
     },
     {
         "step": 4,
-        "title": "Collaborative plan",
+        "title": "Plan",
         "text": "Together we map a thoughtful placement and support plan.",
     },
     {
         "step": 5,
         "title": "Welcome",
         "text": "Onboarding with family partnership — settling in with care and clarity.",
+    },
+]
+
+
+IEP_PATHWAY = [
+    {
+        "step": 1,
+        "title": "Initial Inquiry & Engagement",
+        "text": "Preliminary consultation to align goals and understand the child’s unique profile.",
+    },
+    {
+        "step": 2,
+        "title": "Observational Assessment",
+        "text": "A guided, play-based session to assess developmental milestones and social-emotional needs.",
+    },
+    {
+        "step": 3,
+        "title": "Multidisciplinary Evaluation",
+        "text": "In-depth, holistic review conducted by specialized clinical and educational professionals.",
+    },
+    {
+        "step": 4,
+        "title": "Therapeutic & Academic Mapping",
+        "text": "Tailored blueprint designed to integrate appropriate therapies and learning strategies.",
+    },
+    {
+        "step": 5,
+        "title": "Enrolment & Collaborative IEP Formulation",
+        "text": "Finalization of admission and co-creation of the individualized learning goals alongside parents.",
+    },
+]
+
+
+REQUIRED_DOCS = [
+    {
+        "title": "Identity Verification",
+        "text": "Birth Certificate and recent Passport-sized Photographs.",
+    },
+    {
+        "title": "Educational History",
+        "text": "Cumulative School Records and Academic Reports (if applicable).",
+    },
+    {
+        "title": "Clinical Documentation",
+        "text": "Comprehensive Diagnostic and Medical Assessments (where available).",
     },
 ]
 
@@ -129,9 +174,14 @@ def admissions_index(request):
         "admissions/index.html",
         {
             "page_title": "Admissions",
-            "meta_description": "Begin your child's journey with Sparsh — a gentle, supportive admissions process.",
+            "meta_description": (
+                "Every journey begins with understanding — consultative, confidential "
+                "admissions centred on each learner’s needs."
+            ),
             "form": form,
             "timeline": ADMISSIONS_TIMELINE,
+            "iep_pathway": IEP_PATHWAY,
+            "required_docs": REQUIRED_DOCS,
             "faqs": admission_faqs,
             "programs": Program.objects.filter(is_published=True),
             "whatsapp_url": f"https://wa.me/{settings.WHATSAPP_NUMBER}?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire%20about%20admissions.",

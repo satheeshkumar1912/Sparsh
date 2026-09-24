@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Assessment</p>
+    <h1>Clarity for Confident Next Steps</h1>
+    <p class="page-hero__lede">
+      Sparsh offers need-based assessment and academic-access guidance to help families understand the learner’s strengths and support requirements. Recommendations are personalised, evidence-informed and developed with appropriately qualified professionals. 
+    </p>
+  </div>
+</section>
+
+<section class="section assessment-services" aria-labelledby="assessment-services-heading">
+  <div class="container">
+    <div class="section-head reveal" style="max-width: 40rem; margin-bottom: 2.5rem;">
+      <p class="eyebrow">Our services</p>
+      <h2 id="assessment-services-heading">Assessment pathways that open doors</h2>
+      <p class="lede-text" style="color: var(--ink-700); font-size: 1.1rem; line-height: 1.7; margin-top: 0.85rem;">
+        Explore the supports families ask about most — each pathway is consultative, confidential, and centred on the learner.
+      </p>
+    </div>
+
+    <ol class="assessment-grid">
+      {% for service in services %}
+      <li class="assessment-card reveal" id="{{ service.slug }}">
+        <span class="assessment-card__num" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+        <div>
+          <h2>{{ service.title }}</h2>
+          <p>{{ service.text }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section assessment-cta" aria-labelledby="assessment-cta-heading">
+  <div class="container">
+    <h2 id="assessment-cta-heading">Ready to take the next step?</h2>
+    <p>Begin with a gentle conversation — we’ll listen first, then recommend the most appropriate pathway.</p>
+    <div class="assessment-cta__actions">
+      <a href="{% url 'admissions:index' %}#enquiry-section" class="btn btn--accent" data-track="assessment-enquire">Apply / Enquire</a>
+      <a
+        href="{{ whatsapp_url }}"
+        class="btn btn--ghost-white"
+        data-track="assessment-whatsapp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp chat
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -34,6 +34,21 @@
           {% for item in NAV_ITEMS %}
           {% if item.dropdown %}
           <li class="nav-item nav-item--dropdown" data-nav-dropdown>
+            {% if item.url_name %}
+            <a
+              href="{% url item.url_name %}"
+              class="primary-nav__link nav-dropdown__trigger{% if request.resolver_match.view_name == item.url_name %} is-active{% endif %}"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dropdown-menu-{{ forloop.counter }}"
+              {% if request.resolver_match.view_name == item.url_name %}aria-current="page"{% endif %}
+              data-nav-dropdown-trigger
+              data-track="nav-{{ item.label|slugify }}"
+            >
+              {{ item.label }}
+              <span class="nav-dropdown__chevron" aria-hidden="true"></span>
+            </a>
+            {% else %}
             <button
               type="button"
               class="primary-nav__link nav-dropdown__trigger"
@@ -46,10 +61,15 @@
               {{ item.label }}
               <span class="nav-dropdown__chevron" aria-hidden="true"></span>
             </button>
+            {% endif %}
             <ul id="nav-dropdown-menu-{{ forloop.counter }}" class="nav-dropdown" data-nav-dropdown-menu>
               {% for option in item.dropdown %}
               <li>
+                {% if option.url %}
+                <a class="nav-dropdown__item" href="{{ option.url }}" data-track="nav-{{ item.label|slugify }}-{{ option.label|slugify }}">{{ option.label }}</a>
+                {% else %}
                 <span class="nav-dropdown__item" role="presentation">{{ option }}</span>
+                {% endif %}
               </li>
               {% endfor %}
             </ul>

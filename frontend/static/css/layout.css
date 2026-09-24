@@ -474,7 +474,8 @@
   position: relative;
 }
 
-button.primary-nav__link.nav-dropdown__trigger {
+button.primary-nav__link.nav-dropdown__trigger,
+a.primary-nav__link.nav-dropdown__trigger {
   width: 100%;
   border: 0;
   background: transparent;
@@ -487,6 +488,7 @@ button.primary-nav__link.nav-dropdown__trigger {
   color: inherit;
   text-align: left;
   gap: 0.4rem;
+  text-decoration: none;
 }
 
 .nav-dropdown__chevron {
@@ -547,12 +549,17 @@ button.primary-nav__link.nav-dropdown__trigger {
   font-weight: 600;
   font-size: 0.9rem;
   line-height: 1.35;
-  cursor: default;
+  text-decoration: none;
+  cursor: pointer;
   transition:
     background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     padding-left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+span.nav-dropdown__item {
+  cursor: default;
 }
 
 .nav-dropdown__item:hover,
@@ -642,7 +649,8 @@ button.primary-nav__link.nav-dropdown__trigger {
   }
 
   .primary-nav__link,
-  button.primary-nav__link.nav-dropdown__trigger {
+  button.primary-nav__link.nav-dropdown__trigger,
+  a.primary-nav__link.nav-dropdown__trigger {
     padding: 0.3rem 0.45rem;
     font-family: var(--font-display);
     font-weight: 700;
@@ -669,7 +677,8 @@ button.primary-nav__link.nav-dropdown__trigger {
     box-shadow: 0 1px 4px rgba(74, 93, 35, 0.06);
   }
 
-  button.primary-nav__link.nav-dropdown__trigger {
+  button.primary-nav__link.nav-dropdown__trigger,
+  a.primary-nav__link.nav-dropdown__trigger {
     width: auto;
     justify-content: center;
   }
@@ -733,7 +742,8 @@ button.primary-nav__link.nav-dropdown__trigger {
   }
 
   .primary-nav__link,
-  button.primary-nav__link.nav-dropdown__trigger {
+  button.primary-nav__link.nav-dropdown__trigger,
+  a.primary-nav__link.nav-dropdown__trigger {
     padding: 0.35rem 0.65rem;
     font-size: 1.05rem;
   }
@@ -750,7 +760,8 @@ button.primary-nav__link.nav-dropdown__trigger {
   }
 
   .primary-nav__link,
-  button.primary-nav__link.nav-dropdown__trigger {
+  button.primary-nav__link.nav-dropdown__trigger,
+  a.primary-nav__link.nav-dropdown__trigger {
     padding: 0.4rem 0.8rem;
     font-size: 1.05rem;
   }

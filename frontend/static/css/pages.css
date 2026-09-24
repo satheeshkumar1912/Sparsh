@@ -471,19 +471,309 @@
 }
 
 .admissions-band {
-  background: var(--yellow-600);
+  background: color-mix(in srgb, var(--surface-2) 88%, transparent);
 }
 
 .admissions-band__grid {
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: start;
 }
 
 @media (min-width: 900px) {
   .admissions-band__grid {
     grid-template-columns: 1fr 1.05fr;
+    gap: 3rem;
   }
+}
+
+.admissions-iep .eyebrow,
+.admissions-band .eyebrow,
+.admissions-faq .eyebrow,
+.assessment-services .eyebrow {
+  color: var(--yellow-600);
+}
+
+/* Admissions IEP Framework */
+.admissions-iep {
+  background: color-mix(in srgb, var(--surface-0) 90%, transparent);
+}
+
+.admissions-iep__head {
+  max-width: 44rem;
+  margin-bottom: 2.5rem;
+}
+
+.admissions-iep__head h2 {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  line-height: 1.25;
+}
+
+.admissions-iep__grid {
+  display: grid;
+  gap: 1.75rem;
+}
+
+@media (min-width: 960px) {
+  .admissions-iep__grid {
+    grid-template-columns: 1.35fr 0.9fr;
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+.admissions-pathway,
+.admissions-docs {
+  background: #ffffff;
+  border: 1px solid rgba(74, 93, 35, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 1.75rem 1.5rem 1.85rem;
+}
+
+.admissions-pathway__title,
+.admissions-docs__title {
+  margin: 0 0 1.35rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  color: var(--ink-900);
+}
+
+.admissions-pathway__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.admissions-pathway__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.admissions-pathway__num {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  background: var(--yellow-500);
+  color: var(--green-900);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 6px 14px rgba(217, 169, 30, 0.28);
+}
+
+.admissions-pathway__body h4 {
+  margin: 0.15rem 0 0.4rem;
+  font-size: 1.08rem;
+  color: var(--ink-900);
+}
+
+.admissions-pathway__body p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.admissions-docs {
+  background: color-mix(in srgb, var(--green-100) 45%, #ffffff);
+  border-color: rgba(74, 93, 35, 0.16);
+}
+
+.admissions-docs__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.admissions-docs__list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.admissions-docs__icon {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 10px;
+  background: var(--green-900);
+  color: var(--yellow-500);
+}
+
+.admissions-docs__list strong {
+  display: block;
+  color: var(--ink-900);
+  font-size: 1.02rem;
+  margin-bottom: 0.25rem;
+}
+
+.admissions-docs__list p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.admissions-band__lede {
+  color: var(--ink-700);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+.admissions-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.admissions-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.admissions-steps__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.admissions-steps__num {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  background: var(--yellow-500);
+  color: var(--green-900);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.admissions-steps__item h3 {
+  margin: 0.1rem 0 0.3rem;
+  font-size: 1.08rem;
+}
+
+.admissions-steps__item p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.admissions-faq {
+  background: color-mix(in srgb, var(--surface-0) 92%, transparent);
+}
+
+.admissions-faq__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+/* Assessment page */
+.assessment-services {
+  background: color-mix(in srgb, var(--surface-0) 90%, transparent);
+}
+
+.assessment-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 760px) {
+  .assessment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.assessment-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.1rem;
+  align-items: start;
+  background: #ffffff;
+  border: 1px solid rgba(74, 93, 35, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem 1.35rem 1.6rem;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.assessment-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94, 141, 69, 0.35);
+}
+
+.assessment-card__num {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--green-900);
+  color: var(--yellow-500);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.assessment-card h2 {
+  margin: 0.15rem 0 0.55rem;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+}
+
+.assessment-card p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.assessment-cta {
+  background: var(--green-900);
+  color: #ffffff;
+  text-align: center;
+}
+
+.assessment-cta h2 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.assessment-cta p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.1rem;
+  margin: 0 auto 1.75rem;
+  max-width: 36rem;
+}
+
+.assessment-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
 }
 
 /* Page Hero for all Navbar Pages */

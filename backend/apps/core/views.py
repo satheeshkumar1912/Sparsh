@@ -144,6 +144,80 @@ def inclusive_education(request):
     )
 
 
+ASSESSMENT_SERVICES = [
+    {
+        "slug": "need-based-assessment",
+        "title": "Need-Based Assessment",
+        "text": (
+            "A clear picture of strengths, support needs, and practical next steps. "
+            "Recommendations are personalised, evidence-informed and developed with "
+            "appropriately qualified professionals."
+        ),
+    },
+    {
+        "slug": "examination-accommodations",
+        "title": "Examination Accommodations",
+        "text": (
+            "Navigate exam access arrangements with clarity and the right documentation — "
+            "within applicable school and board rules and timelines."
+        ),
+    },
+    {
+        "slug": "nios-support",
+        "title": "NIOS Support",
+        "text": (
+            "Sparsh supports families exploring flexible academic pathways through the "
+            "National Institute of Open Schooling. Guidance may include subject planning, "
+            "academic preparation, registration support and examination readiness, subject "
+            "to applicable NIOS regulations."
+        ),
+    },
+    {
+        "slug": "scribe-support",
+        "title": "Scribe Support",
+        "text": (
+            "Thoughtful scribe arrangements so learners can show what they know — with "
+            "eligibility guidance, practice, and calm exam-day preparation."
+        ),
+    },
+    {
+        "slug": "examination-readiness",
+        "title": "Examination Readiness",
+        "text": (
+            "Build calm, confident exam habits — content, pacing, sensory regulation, "
+            "and exam-day plans practised together with families."
+        ),
+    },
+    {
+        "slug": "assistive-learning-and-access-support",
+        "title": "Assistive Learning and Access Support",
+        "text": (
+            "Tools, strategies, and access supports that open learning — chosen for "
+            "usefulness in real classrooms and at home."
+        ),
+    },
+]
+
+
+def assessment(request):
+    return render(
+        request,
+        "core/assessment.html",
+        {
+            "page_title": "Assessment",
+            "meta_description": (
+                "Clarity for confident next steps — need-based assessment and "
+                "academic-access guidance from Sparsh."
+            ),
+            "services": ASSESSMENT_SERVICES,
+            "whatsapp_url": (
+                f"https://wa.me/{settings.WHATSAPP_NUMBER}"
+                "?text=Hello%20Sparsh%2C%20I%27d%20like%20to%20enquire%20about%20assessment."
+            ),
+        },
+    )
+
+
 def approach(request):
     return render(
         request,

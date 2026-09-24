@@ -104,6 +104,14 @@
     });
 
     trigger.addEventListener("click", (e) => {
+      const isLink = trigger.tagName === "A";
+      const desktop = window.innerWidth >= 1200;
+
+      /* Desktop: allow the Assessment/Admissions label to navigate; hover opens the menu */
+      if (isLink && desktop) {
+        return;
+      }
+
       e.preventDefault();
       e.stopPropagation();
       const willOpen = !item.classList.contains("is-open");

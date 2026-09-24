@@ -43,6 +43,29 @@
   color: var(--ink-900);
 }
 
+.btn--primary {
+  background: var(--green-700);
+  color: #ffffff;
+  border-color: var(--green-900);
+  box-shadow: 0 8px 20px rgba(56, 71, 27, 0.22);
+}
+
+.btn--primary:hover {
+  background: var(--green-900);
+  color: #ffffff;
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--green-700);
+  color: var(--green-900);
+}
+
+.btn--outline:hover {
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
 .btn--whatsapp {
   background: #25d366;
   color: #fff;

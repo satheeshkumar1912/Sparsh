@@ -1,22 +1,67 @@
 from django.conf import settings
+from django.urls import reverse
 
 
 ASSESSMENT_DROPDOWN = [
-    "Need-Based Assessment",
-    "Examination Accommodations",
-    "NIOS Support",
-    "Scribe Support",
-    "Examination Readiness",
-    "Assistive Learning and Access Support",
+    {
+        "label": "Need-Based Assessment",
+        "anchor": "need-based-assessment",
+    },
+    {
+        "label": "Examination Accommodations",
+        "anchor": "examination-accommodations",
+    },
+    {
+        "label": "NIOS Support",
+        "anchor": "nios-support",
+    },
+    {
+        "label": "Scribe Support",
+        "anchor": "scribe-support",
+    },
+    {
+        "label": "Examination Readiness",
+        "anchor": "examination-readiness",
+    },
+    {
+        "label": "Assistive Learning and Access Support",
+        "anchor": "assistive-learning-and-access-support",
+    },
 ]
 
 ADMISSIONS_DROPDOWN = [
-    "Who We Support",
-    "Admission Process",
-    "Initial Consultation",
-    "Screening , Assessment & Programme support",
-    "Enquire and apply",
+    {
+        "label": "Who We Support",
+        "anchor": "who-we-support",
+    },
+    {
+        "label": "Admission Process",
+        "anchor": "admission-process",
+    },
+    {
+        "label": "Initial Consultation",
+        "anchor": "initial-consultation",
+    },
+    {
+        "label": "Screening , Assessment & Programme support",
+        "anchor": "iep-framework",
+    },
+    {
+        "label": "Enquire and apply",
+        "anchor": "enquiry-section",
+    },
 ]
+
+
+def _nav_dropdown_links(url_name, items):
+    base = reverse(url_name)
+    return [
+        {
+            "label": item["label"],
+            "url": f"{base}#{item['anchor']}",
+        }
+        for item in items
+    ]
 
 
 def site_settings(request):
@@ -34,11 +79,13 @@ def site_settings(request):
             {"label": "Programs", "url_name": "programs:list"},
             {
                 "label": "Assessment",
-                "dropdown": ASSESSMENT_DROPDOWN,
+                "url_name": "core:assessment",
+                "dropdown": _nav_dropdown_links("core:assessment", ASSESSMENT_DROPDOWN),
             },
             {
                 "label": "Admissions",
-                "dropdown": ADMISSIONS_DROPDOWN,
+                "url_name": "admissions:index",
+                "dropdown": _nav_dropdown_links("admissions:index", ADMISSIONS_DROPDOWN),
             },
             {"label": "Partner With Us", "url_name": "core:partner"},
             {"label": "Contact Us", "url_name": "core:contact"},
