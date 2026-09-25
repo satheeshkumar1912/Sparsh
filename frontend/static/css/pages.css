@@ -33,7 +33,7 @@
   background:
     linear-gradient(105deg, rgba(56, 71, 27, 0.94) 0%, rgba(56, 71, 27, 0.78) 42%, rgba(56, 71, 27, 0.28) 78%, rgba(56, 71, 27, 0.12) 100%),
     linear-gradient(to top, rgba(56, 71, 27, 0.45) 0%, transparent 38%);
-  opacity: 1;
+  opacity: 0.9;
 }
 
 /* Motion lives on the left half and dissolves toward the right */
