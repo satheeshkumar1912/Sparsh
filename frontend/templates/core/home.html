@@ -5,14 +5,21 @@
 {# ——— HERO ——— #}
 <section class="hero" aria-labelledby="hero-heading" data-home-hero>
   <div class="hero__media">
-    <img
-      class="hero__image"
-      src="{% static 'img/Hero-Img_indian_classroom.webp' %}"
-      alt="Children learning together in a bright, welcoming classroom"
+    <video
+      class="hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      disablepictureinpicture
+      poster="{% static 'img/Hero-Img_indian_classroom.webp' %}"
       width="1600"
       height="1000"
-      fetchpriority="high"
+      aria-hidden="true"
     >
+      <source src="{% static 'files/Sparsh.mp4' %}" type="video/mp4">
+    </video>
     <div class="hero__gradient" aria-hidden="true"></div>
     <div class="hero__atmosphere" aria-hidden="true">
       <div class="hero__motion">

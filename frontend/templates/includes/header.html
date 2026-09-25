@@ -68,7 +68,7 @@
                 {% if option.url %}
                 <a class="nav-dropdown__item" href="{{ option.url }}" data-track="nav-{{ item.label|slugify }}-{{ option.label|slugify }}">{{ option.label }}</a>
                 {% else %}
-                <span class="nav-dropdown__item" role="presentation">{{ option }}</span>
+                <span class="nav-dropdown__item" role="presentation">{% if option.label %}{{ option.label }}{% else %}{{ option }}{% endif %}</span>
                 {% endif %}
               </li>
               {% endfor %}

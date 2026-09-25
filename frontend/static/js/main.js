@@ -2,6 +2,23 @@
   const doc = document;
   const body = doc.body;
 
+  /* Hero video: autoplay when allowed, stay still if motion is reduced */
+  const heroVideo = doc.querySelector(".hero__video");
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      heroVideo.removeAttribute("autoplay");
+      heroVideo.pause();
+    } else {
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    }
+  }
+
   /* ——— Mobile & Tablet Off-Canvas Side Drawer Nav ——— */
   const nav = doc.querySelector("[data-primary-nav]");
   const toggle = doc.querySelector("[data-nav-toggle]");

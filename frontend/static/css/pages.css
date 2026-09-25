@@ -14,12 +14,16 @@
   z-index: 0;
 }
 
-.hero__image {
-  position: relative;
+.hero__video {
+  position: absolute;
+  inset: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  background: #38471b;
 }
 
 .hero__gradient {
@@ -335,6 +339,10 @@
   .hero__mote,
   .hero__particle,
   .hero__content {
+    animation: none !important;
+  }
+
+  .hero__video {
     animation: none !important;
   }
 

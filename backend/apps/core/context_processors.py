@@ -53,15 +53,15 @@ ADMISSIONS_DROPDOWN = [
 ]
 
 
-def _nav_dropdown_links(url_name, items):
+def _nav_dropdown_links(url_name, items, link_labels=None):
     base = reverse(url_name)
-    return [
-        {
-            "label": item["label"],
-            "url": f"{base}#{item['anchor']}",
-        }
-        for item in items
-    ]
+    links = []
+    for item in items:
+        entry = {"label": item["label"]}
+        if link_labels is None or item["label"] in link_labels:
+            entry["url"] = f"{base}#{item['anchor']}"
+        links.append(entry)
+    return links
 
 
 def site_settings(request):
@@ -85,7 +85,11 @@ def site_settings(request):
             {
                 "label": "Admissions",
                 "url_name": "admissions:index",
-                "dropdown": _nav_dropdown_links("admissions:index", ADMISSIONS_DROPDOWN),
+                "dropdown": _nav_dropdown_links(
+                    "admissions:index",
+                    ADMISSIONS_DROPDOWN,
+                    link_labels={"Enquire and apply"},
+                ),
             },
             {"label": "Partner With Us", "url_name": "core:partner"},
             {"label": "Contact Us", "url_name": "core:contact"},
