@@ -261,6 +261,133 @@
     reveals.forEach((el) => el.classList.add("is-visible"));
   }
 
+  /* ——— Families cover-flow carousel ——— */
+  doc.querySelectorAll("[data-family-carousel]").forEach((root) => {
+    const slides = Array.from(root.querySelectorAll(".family-slide"));
+    const dotsWrap = root.querySelector("[data-family-dots]");
+    const stage = root.querySelector(".family-carousel__stage");
+    const prevBtn = root.querySelector("[data-family-prev]");
+    const nextBtn = root.querySelector("[data-family-next]");
+    if (!slides.length || !stage) return;
+
+    const count = slides.length;
+    if (count < 2) {
+      if (prevBtn) prevBtn.hidden = true;
+      if (nextBtn) nextBtn.hidden = true;
+    }
+
+    let index = 0;
+    let timer = null;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const shortest = (i) => {
+      let offset = i - index;
+      if (offset > count / 2) offset -= count;
+      if (offset < -count / 2) offset += count;
+      return offset;
+    };
+
+    const fitStage = () => {
+      let tallest = 0;
+      slides.forEach((slide) => {
+        tallest = Math.max(tallest, slide.offsetHeight);
+      });
+      if (tallest) stage.style.minHeight = `${Math.ceil(tallest + 36)}px`;
+    };
+
+    const paint = () => {
+      slides.forEach((slide, i) => {
+        const offset = shortest(i);
+        const visible = Math.abs(offset) <= 1;
+        slide.dataset.offset = visible ? String(offset) : "hidden";
+        slide.classList.toggle("is-active", offset === 0);
+        slide.setAttribute("aria-hidden", offset === 0 ? "false" : "true");
+      });
+      if (dotsWrap) {
+        dotsWrap.querySelectorAll(".family-carousel__dot").forEach((dot, i) => {
+          const active = i === index;
+          dot.classList.toggle("is-active", active);
+          dot.setAttribute("aria-selected", String(active));
+        });
+      }
+      fitStage();
+    };
+
+    const go = (next) => {
+      index = (next + count) % count;
+      paint();
+    };
+
+    if (dotsWrap) {
+      slides.forEach((_, i) => {
+        const dot = doc.createElement("button");
+        dot.type = "button";
+        dot.className = "family-carousel__dot";
+        dot.setAttribute("role", "tab");
+        dot.setAttribute("aria-label", `Show story ${i + 1}`);
+        dot.addEventListener("click", () => {
+          go(i);
+          restart();
+        });
+        dotsWrap.appendChild(dot);
+      });
+    }
+
+    const step = (dir) => {
+      go(index + dir);
+      restart();
+    };
+
+    prevBtn && prevBtn.addEventListener("click", () => step(-1));
+    nextBtn && nextBtn.addEventListener("click", () => step(1));
+
+    slides.forEach((slide) => {
+      slide.addEventListener("click", () => {
+        const offset = Number(slide.dataset.offset);
+        if (offset === -1 || offset === 1) step(offset);
+      });
+    });
+
+    let touchX = null;
+    stage.addEventListener("touchstart", (e) => {
+      touchX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (touchX == null) return;
+      const delta = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(delta) > 40) step(delta < 0 ? 1 : -1);
+      touchX = null;
+    }, { passive: true });
+
+    const stop = () => {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const start = () => {
+      stop();
+      if (reduceMotion || count < 2 || root.matches(":hover")) return;
+      timer = window.setInterval(() => go(index + 1), 4500);
+    };
+
+    const restart = () => start();
+
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+    doc.addEventListener("visibilitychange", () => {
+      if (doc.hidden) stop();
+      else start();
+    });
+
+    paint();
+    window.addEventListener("resize", fitStage);
+    start();
+  });
+
   /* ——— Animated counters ——— */
   const counters = doc.querySelectorAll("[data-count]");
   const animateCount = (el) => {
