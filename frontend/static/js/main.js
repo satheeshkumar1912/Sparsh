@@ -2,20 +2,50 @@
   const doc = document;
   const body = doc.body;
 
-  /* Hero video: autoplay when allowed, stay still if motion is reduced */
+  /* Hero video: mobile clip on small screens, desktop clip otherwise */
   const heroVideo = doc.querySelector(".hero__video");
   if (heroVideo) {
+    const mobileQuery = window.matchMedia("(max-width: 700px)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      heroVideo.removeAttribute("autoplay");
-      heroVideo.pause();
-    } else {
+
+    const chosenSrc = () => (
+      mobileQuery.matches ? heroVideo.dataset.srcMobile : heroVideo.dataset.srcDesktop
+    );
+
+    const loadChosenSrc = () => {
+      const next = chosenSrc();
+      if (!next || heroVideo.getAttribute("src") === next) return;
+      heroVideo.setAttribute("src", next);
+      heroVideo.load();
+    };
+
+    const playHero = () => {
+      if (reduceMotion) {
+        heroVideo.removeAttribute("autoplay");
+        heroVideo.pause();
+        return;
+      }
       const playPromise = heroVideo.play();
       if (playPromise && typeof playPromise.catch === "function") {
         playPromise.catch(() => {});
       }
+    };
+
+    loadChosenSrc();
+    playHero();
+
+    const onViewportChange = () => {
+      const before = heroVideo.getAttribute("src");
+      loadChosenSrc();
+      if (heroVideo.getAttribute("src") !== before) playHero();
+    };
+
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", onViewportChange);
+    } else if (typeof mobileQuery.addListener === "function") {
+      mobileQuery.addListener(onViewportChange);
     }
   }
 
