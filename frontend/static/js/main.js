@@ -104,7 +104,11 @@
   });
 
   nav && nav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setNav(false));
+    link.addEventListener("click", () => {
+      const mobileDrawer = window.innerWidth < 1200;
+      if (mobileDrawer && link.hasAttribute("data-nav-dropdown-trigger")) return;
+      setNav(false);
+    });
   });
 
   doc.addEventListener("keydown", (e) => {
@@ -142,28 +146,26 @@
     if (!trigger) return;
 
     item.addEventListener("mouseenter", () => {
+      if (window.innerWidth < 1200) return;
       closeAllDropdowns(item);
       setDropdownOpen(item, true);
     });
 
     item.addEventListener("mouseleave", () => {
+      if (window.innerWidth < 1200) return;
       setDropdownOpen(item, false);
     });
 
     trigger.addEventListener("click", (e) => {
-      const isLink = trigger.tagName === "A";
       const desktop = window.innerWidth >= 1200;
+      if (desktop) return;
 
-      /* Desktop: allow the Assessment/Admissions label to navigate; hover opens the menu */
-      if (isLink && desktop) {
-        return;
+      if (!item.classList.contains("is-open")) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAllDropdowns(item);
+        setDropdownOpen(item, true);
       }
-
-      e.preventDefault();
-      e.stopPropagation();
-      const willOpen = !item.classList.contains("is-open");
-      closeAllDropdowns(item);
-      setDropdownOpen(item, willOpen);
     });
   });
 
@@ -478,9 +480,38 @@
     el.addEventListener("click", () => track(el.getAttribute("data-track")));
   });
 
+  /* ——— Success acknowledgement popup ——— */
+  const successPopup = doc.getElementById("success-popup");
+  const successPopupText = successPopup ? successPopup.querySelector("[data-success-text]") : null;
+  const successPopupTitle = successPopup ? successPopup.querySelector("[data-success-title]") : null;
+
+  const closeSuccessPopup = () => {
+    if (!successPopup) return;
+    successPopup.hidden = true;
+    doc.body.style.overflow = "";
+  };
+
+  const showSuccessPopup = (message, title) => {
+    if (!successPopup) return;
+    if (successPopupTitle) successPopupTitle.textContent = title || "Message sent";
+    if (successPopupText) successPopupText.textContent = message;
+    successPopup.hidden = false;
+    const closeBtn = successPopup.querySelector(".success-popup__close");
+    if (closeBtn) closeBtn.focus();
+  };
+
+  if (successPopup) {
+    successPopup.querySelectorAll("[data-success-close]").forEach((el) => {
+      el.addEventListener("click", closeSuccessPopup);
+    });
+    doc.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !successPopup.hidden) closeSuccessPopup();
+    });
+  }
+
   /* ——— Quick Enquiry AJAX Form Handling & Instant Refresh ——— */
   const initEnquiryForms = () => {
-    const forms = doc.querySelectorAll('.admissions-enquiry-form, form[data-track-form="home-enquiry"], form[data-track-form="admissions-page"]');
+    const forms = doc.querySelectorAll('.admissions-enquiry-form, form[data-track-form="home-enquiry"], form[data-track-form="admissions-page"], form[data-track-form="contact-page"]');
 
     forms.forEach((form) => {
       const card = form.closest(".form-card");
@@ -501,20 +532,20 @@
       // Helper to attach inline error message
       const showFieldError = (fieldName, message) => {
         const fieldWrap = form.querySelector(`[data-field-name="${fieldName}"]`);
-        if (fieldWrap) {
-          fieldWrap.classList.add("has-error");
-          const input = fieldWrap.querySelector(".form-control, input, select, textarea");
-          if (input) input.classList.add("is-invalid");
-
-          const slot = fieldWrap.querySelector(".field-error-slot");
-          if (slot) {
-            slot.innerHTML = `
-              <div class="field-error-msg" role="alert">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span>${message}</span>
-              </div>
-            `;
-          }
+        const named = form.querySelector(`[name="${fieldName}"]`);
+        const input = fieldWrap
+          ? fieldWrap.querySelector(".form-control, input, select, textarea")
+          : named;
+        if (fieldWrap) fieldWrap.classList.add("has-error");
+        if (input) input.classList.add("is-invalid");
+        const slot = fieldWrap ? fieldWrap.querySelector(".field-error-slot") : null;
+        if (slot) {
+          slot.innerHTML = `
+            <div class="field-error-msg" role="alert">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>${message}</span>
+            </div>
+          `;
         }
       };
 
@@ -558,20 +589,12 @@
           const data = await response.json().catch(() => null);
 
           if (response.ok && data && data.success) {
-            // Reset all form fields to blank
             form.reset();
             clearErrors();
-
-            // Display success banner
-            if (successBanner) {
-              successBanner.hidden = false;
-              if (data.message) {
-                const textEl = successBanner.querySelector(".enquiry-success-banner__text");
-                if (textEl) textEl.textContent = data.message;
-              }
-              // Smooth scroll into view
-              successBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            }
+            showSuccessPopup(
+              data.message || "Thank you. We’ve received your message and will reply soon.",
+              form.getAttribute("data-track-form") === "contact-page" ? "Message sent" : "Enquiry sent"
+            );
           } else {
             // Handle validation errors
             if (data && data.errors) {

@@ -63,6 +63,15 @@
 
   {% include "includes/footer.html" %}
 
+  <div class="success-popup" id="success-popup" hidden>
+    <div class="success-popup__backdrop" data-success-close></div>
+    <div class="success-popup__card" role="dialog" aria-modal="true" aria-labelledby="success-popup-title">
+      <button type="button" class="success-popup__close" data-success-close aria-label="Close">&times;</button>
+      <h2 id="success-popup-title" data-success-title>Message sent</h2>
+      <p data-success-text>Thank you. We’ve received your message and will reply soon.</p>
+    </div>
+  </div>
+
   {# Floating Scroll to Top Button #}
   <button
     type="button"

@@ -1372,3 +1372,67 @@ textarea.form-control {
   color: var(--ink-500);
   font-size: 0.9rem;
 }
+
+.success-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.success-popup[hidden] {
+  display: none;
+}
+
+.success-popup__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(31, 41, 16, 0.46);
+}
+
+.success-popup__card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 28rem);
+  padding: 2rem 1.5rem 1.6rem;
+  border-radius: 1.25rem;
+  background: #fffdf6;
+  border: 1px solid rgba(217, 169, 30, 0.45);
+  box-shadow: 0 24px 60px rgba(31, 41, 16, 0.28);
+  text-align: left;
+}
+
+.success-popup__card h2 {
+  margin: 0 2rem 0.6rem 0;
+  font-size: 1.45rem;
+  color: var(--green-900);
+}
+
+.success-popup__card p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.success-popup__close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--green-100);
+  color: var(--green-900);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.success-popup__close:hover,
+.success-popup__close:focus-visible {
+  background: var(--yellow-100);
+}

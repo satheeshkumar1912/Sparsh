@@ -1660,8 +1660,8 @@
 
 .program-ecosystem__intro {
   max-width: 44rem;
-  text-align: center;
-  margin-inline: auto;
+  text-align: left;
+  margin-inline: 0;
 }
 
 .program-ecosystem__intro h2 {
@@ -1676,7 +1676,7 @@
   display: block;
   width: 4.5rem;
   height: 3px;
-  margin: 1.1rem auto 0;
+  margin: 1.1rem 0 0;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--yellow-500), var(--green-600));
 }

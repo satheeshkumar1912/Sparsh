@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -285,6 +286,10 @@ def parents_corner(request):
 
 @require_http_methods(["GET", "POST"])
 def contact(request):
+    is_ajax = (
+        request.headers.get("x-requested-with") == "XMLHttpRequest"
+        or request.POST.get("is_ajax") == "1"
+    )
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -314,11 +319,24 @@ def contact(request):
                 )
             except Exception:
                 pass
-            messages.success(
-                request,
-                "Thank you — we’ve received your message and will reply soon.",
-            )
+            success_message = "Thank you — we’ve received your message and will reply soon."
+            if is_ajax:
+                return JsonResponse({"success": True, "message": success_message})
+            messages.success(request, success_message)
             return redirect("core:contact")
+        if is_ajax:
+            errors = {
+                field: [str(e) for e in err_list]
+                for field, err_list in form.errors.items()
+            }
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Please correct the highlighted fields before sending.",
+                    "errors": errors,
+                },
+                status=400,
+            )
     else:
         form = ContactForm()
     return render(
