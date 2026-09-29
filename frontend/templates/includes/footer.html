@@ -3,9 +3,13 @@
   <div class="site-footer__glow" aria-hidden="true"></div>
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
-      <img src="{% static 'img/logo.png' %}" alt="" width="140" height="64" class="site-footer__logo">
-      <p class="site-footer__name">{{ SITE_NAME }}</p>
-      <p class="site-footer__tag">{{ SITE_TAGLINE }}</p>
+      <div class="site-footer__lockup">
+        <img src="{% static 'img/logo.png' %}" alt="" width="140" height="64" class="site-footer__logo">
+        <span class="brand__wordmark">
+          <span class="brand__wordmark-name">{{ SITE_NAME }}</span>
+          <span class="brand__wordmark-tag">{{ SITE_TAGLINE }}</span>
+        </span>
+      </div>
       <p class="site-footer__blurb">A neurodiverse-affirming community where every child has a place — and every child has potential.</p>
     </div>
 
