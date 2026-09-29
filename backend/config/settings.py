@@ -187,7 +187,7 @@ RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "")
 
 SITE_NAME = "Sparsh Inclusive Education"
-SITE_TAGLINE = "Different Abilities. Limitless Possibilities."
+SITE_TAGLINE = "Different Abilities. Infinite Possibilities."
 SITE_URL = os.getenv("SITE_URL", "https://sparshinclusive.edu")
 
 # Security headers (active when DEBUG is False)
