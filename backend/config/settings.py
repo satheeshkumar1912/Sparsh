@@ -181,7 +181,7 @@ CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "enquiry@sparshinclusiveeducation.com
 ADMISSIONS_NOTIFY_EMAIL = os.getenv(
     "ADMISSIONS_NOTIFY_EMAIL", "enquiry@sparshinclusiveeducation.com"
 )
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "919876543210")
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "9600163526")
 
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "")
