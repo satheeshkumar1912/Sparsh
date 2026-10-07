@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse, Http404
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.programs.models import Program, FeaturePillar
 from apps.people.models import TeamMember
@@ -15,6 +17,31 @@ from apps.content.models import (
     ContactMessage,
 )
 from apps.admissions.forms import ContactForm, AdmissionEnquiryForm
+
+
+BROCHURE_FILENAME = "SPARSH-Brochure.pdf"
+
+
+def _brochure_path():
+    return Path(settings.PROJECT_ROOT) / "frontend" / "static" / "files" / BROCHURE_FILENAME
+
+
+@require_GET
+def brochure_download(request):
+    """Force-download the current brochure PDF (bypasses stale static/browser caches)."""
+    brochure = _brochure_path()
+    if not brochure.is_file():
+        raise Http404("Brochure not found")
+    response = FileResponse(
+        brochure.open("rb"),
+        as_attachment=True,
+        filename=BROCHURE_FILENAME,
+        content_type="application/pdf",
+    )
+    response["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response["Pragma"] = "no-cache"
+    response["Expires"] = "0"
+    return response
 
 
 def home(request):

@@ -12,6 +12,7 @@ urlpatterns = [
     path("partner-with-us/", views.partner, name="partner"),
     path("parents-corner/", views.parents_corner, name="parents_corner"),
     path("contact/", views.contact, name="contact"),
+    path("brochure/", views.brochure_download, name="brochure"),
     path("accessibility/", views.accessibility_statement, name="accessibility"),
     path("privacy/", views.privacy_policy, name="privacy"),
     path("terms/", views.terms, name="terms"),
