@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
 
@@ -8,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from apps.content.models import FAQ
 # pyrefly: ignore [missing-import]
 from apps.programs.models import Program
+from apps.core.mail import send_form_notification
 from .forms import AdmissionEnquiryForm
 
 
@@ -107,33 +107,25 @@ def admissions_index(request):
                 "ADMISSIONS_NOTIFY_EMAIL",
                 "enquiry@sparshinclusiveeducation.com",
             )
-            from_email = getattr(
-                settings,
-                "DEFAULT_FROM_EMAIL",
-                "noreply@sparshinclusiveeducation.com",
+            contact_mode = enquiry.get_preferred_contact_display() if hasattr(enquiry, "get_preferred_contact_display") else enquiry.preferred_contact
+            send_form_notification(
+                subject=f"[Sparsh Quick Enquiry] New enquiry for {enquiry.child_name}",
+                body=(
+                    f"New Quick Enquiry received from Sparsh Website:\n\n"
+                    f"Child Name: {enquiry.child_name}\n"
+                    f"Age: {enquiry.age}\n"
+                    f"Learning Needs & Support: {enquiry.needs}\n"
+                    f"Program of Interest: {enquiry.program_of_interest or 'Not specified'}\n"
+                    f"Parent / Guardian: {enquiry.parent_name}\n"
+                    f"Parent Email: {enquiry.parent_email}\n"
+                    f"Parent Phone: {enquiry.parent_phone}\n"
+                    f"Preferred Contact Mode: {contact_mode}\n"
+                    f"Additional Message: {enquiry.message or 'None'}\n"
+                ),
+                recipient=recipient,
+                kind="admissions",
+                record_id=enquiry.pk,
             )
-            try:
-                contact_mode = enquiry.get_preferred_contact_display() if hasattr(enquiry, "get_preferred_contact_display") else enquiry.preferred_contact
-                send_mail(
-                    subject=f"[Sparsh Quick Enquiry] New enquiry for {enquiry.child_name}",
-                    message=(
-                        f"New Quick Enquiry received from Sparsh Website:\n\n"
-                        f"Child Name: {enquiry.child_name}\n"
-                        f"Age: {enquiry.age}\n"
-                        f"Learning Needs & Support: {enquiry.needs}\n"
-                        f"Program of Interest: {enquiry.program_of_interest or 'Not specified'}\n"
-                        f"Parent / Guardian: {enquiry.parent_name}\n"
-                        f"Parent Email: {enquiry.parent_email}\n"
-                        f"Parent Phone: {enquiry.parent_phone}\n"
-                        f"Preferred Contact Mode: {contact_mode}\n"
-                        f"Additional Message: {enquiry.message or 'None'}\n"
-                    ),
-                    from_email=from_email,
-                    recipient_list=[recipient],
-                    fail_silently=True,
-                )
-            except Exception:
-                pass
 
             if is_ajax:
                 return JsonResponse(

@@ -7,6 +7,8 @@ import os
 import sys
 from dotenv import load_dotenv
 
+from apps.core.mail import resolve_smtp_security
+
 # backend/config/settings.py → backend/ → project root
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = BASE_DIR.parent
@@ -24,33 +26,31 @@ ALLOWED_HOSTS = [
     h.strip()
     for h in os.getenv(
         "DJANGO_ALLOWED_HOSTS",
-        "localhost,127.0.0.1,.onrender.com",
+        "localhost,127.0.0.1",
     ).split(",")
     if h.strip()
 ]
-if ".onrender.com" not in ALLOWED_HOSTS:
-    ALLOWED_HOSTS.append(".onrender.com")
 if DEBUG:
     for host in ("testserver", "localhost", "127.0.0.1"):
         if host not in ALLOWED_HOSTS:
             ALLOWED_HOSTS.append(host)
 
-# Render sets this automatically for Web Services
-RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME", "").strip()
-if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Optional hostname injected by a platform. GoDaddy does not set this.
+EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME", "").strip()
+if EXTERNAL_HOSTNAME and EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(EXTERNAL_HOSTNAME)
 
 CSRF_TRUSTED_ORIGINS = [
     o.strip()
     for o in os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
     if o.strip()
 ]
-if RENDER_EXTERNAL_HOSTNAME:
-    render_origin = f"https://{RENDER_EXTERNAL_HOSTNAME}"
-    if render_origin not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(render_origin)
+if EXTERNAL_HOSTNAME:
+    external_origin = f"https://{EXTERNAL_HOSTNAME}"
+    if external_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(external_origin)
 
-# Required behind Render's HTTPS proxy so CSRF/cookies work
+# Trust the hosting proxy's HTTPS marker (Apache on GoDaddy, or a similar proxy).
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
@@ -100,7 +100,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Database configuration: Tests -> DATABASE_URL (Render/production) -> PostgreSQL (DB_NAME) -> SQLite (local development).
+# Database: tests -> DATABASE_URL -> PostgreSQL (DB_NAME) -> SQLite (local development).
 if "test" in sys.argv:
     DATABASES = {
         "default": {
@@ -172,11 +172,39 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+def _env_flag(name, default="false"):
+    return os.getenv(name, default).strip().lower() in ("1", "true", "yes", "on")
+
+
+def _env_int(name, default):
+    try:
+        return int(os.getenv(name, str(default)))
+    except (TypeError, ValueError):
+        return default
+
+
+# Console backend until EMAIL_BACKEND is set to Django's SMTP backend.
+# Titan Mail: smtpout.secureserver.net, port 465, SSL only (not STARTTLS).
 EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
     "django.core.mail.backends.console.EmailBackend",
 )
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@sparshinclusiveeducation.com")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "").strip()
+EMAIL_PORT = _env_int("EMAIL_PORT", 465)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "").strip()
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_SSL, EMAIL_USE_TLS = resolve_smtp_security(
+    EMAIL_PORT,
+    _env_flag("EMAIL_USE_SSL"),
+    _env_flag("EMAIL_USE_TLS"),
+)
+EMAIL_TIMEOUT = _env_int("EMAIL_TIMEOUT", 20)
+# Titan accepts mail only from the authenticated mailbox or one of its aliases.
+DEFAULT_FROM_EMAIL = (
+    os.getenv("DEFAULT_FROM_EMAIL", "").strip()
+    or EMAIL_HOST_USER
+    or "noreply@sparshinclusiveeducation.com"
+)
 CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "enquiry@sparshinclusiveeducation.com")
 ADMISSIONS_NOTIFY_EMAIL = os.getenv(
     "ADMISSIONS_NOTIFY_EMAIL", "enquiry@sparshinclusiveeducation.com"
@@ -205,10 +233,24 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-elif RENDER_EXTERNAL_HOSTNAME:
-    # On Render even with DEBUG temporarily on, cookies must be HTTPS-aware
+elif EXTERNAL_HOSTNAME:
+    # HTTPS cookies when a public hostname is configured, even if DEBUG is on.
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "apps": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}
 
 CACHES = {
     "default": {

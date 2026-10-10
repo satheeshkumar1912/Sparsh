@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.core import mail
@@ -66,6 +68,35 @@ class AdmissionEnquiryTests(TestCase):
         self.assertFalse(data["success"])
         self.assertIn("child_name", data["errors"])
         self.assertIn("captcha_answer", data["errors"])
+
+    def test_enquiry_is_saved_when_notification_email_fails(self):
+        payload = {
+            "child_name": "Aarav Sharma",
+            "age": 6,
+            "needs": "Needs support with sensory integration and speech development.",
+            "program_of_interest": "Inclusive Learning",
+            "parent_name": "Mathan Sharma",
+            "parent_email": "mathan@example.com",
+            "parent_phone": "+919883805821",
+            "preferred_contact": "whatsapp",
+            "message": "Looking forward to hearing from you.",
+            "consent_privacy": "on",
+            "captcha_answer": 7,
+            "website": "",
+            "is_ajax": "1",
+        }
+        with patch("django.core.mail.send_mail", side_effect=OSError("connection refused")):
+            with self.assertLogs("apps.core.mail", level="ERROR") as logs:
+                response = self.client.post(
+                    self.url,
+                    payload,
+                    HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+                )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        self.assertEqual(AdmissionEnquiry.objects.count(), 1)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertIn("admissions notification email failed", "\n".join(logs.output))
 
 
 class AdmissionEnquiryAdminTests(TestCase):

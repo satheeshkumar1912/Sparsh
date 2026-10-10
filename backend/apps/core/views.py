@@ -3,7 +3,6 @@ from pathlib import Path
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, FileResponse, Http404
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_GET, require_http_methods
 
@@ -17,6 +16,7 @@ from apps.content.models import (
     ContactMessage,
 )
 from apps.admissions.forms import ContactForm, AdmissionEnquiryForm
+from apps.core.mail import send_form_notification
 
 
 BROCHURE_FILENAME = "SPARSH-Brochure.pdf"
@@ -320,7 +320,7 @@ def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            ContactMessage.objects.create(
+            saved = ContactMessage.objects.create(
                 name=form.cleaned_data["name"],
                 email=form.cleaned_data["email"],
                 phone=form.cleaned_data.get("phone", ""),
@@ -328,24 +328,20 @@ def contact(request):
                 message=form.cleaned_data["message"],
             )
             recipient = getattr(settings, "CONTACT_EMAIL", "enquiry@sparshinclusiveeducation.com")
-            from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@sparshinclusiveeducation.com")
-            try:
-                send_mail(
-                    subject=f"[Sparsh Contact] {form.cleaned_data['subject']}",
-                    message=(
-                        f"New message received from Sparsh Website Contact Form:\n\n"
-                        f"Name: {form.cleaned_data['name']}\n"
-                        f"Email: {form.cleaned_data['email']}\n"
-                        f"Phone: {form.cleaned_data.get('phone', 'N/A')}\n"
-                        f"Subject: {form.cleaned_data['subject']}\n\n"
-                        f"Message:\n{form.cleaned_data['message']}\n"
-                    ),
-                    from_email=from_email,
-                    recipient_list=[recipient],
-                    fail_silently=True,
-                )
-            except Exception:
-                pass
+            send_form_notification(
+                subject=f"[Sparsh Contact] {form.cleaned_data['subject']}",
+                body=(
+                    f"New message received from Sparsh Website Contact Form:\n\n"
+                    f"Name: {form.cleaned_data['name']}\n"
+                    f"Email: {form.cleaned_data['email']}\n"
+                    f"Phone: {form.cleaned_data.get('phone', 'N/A')}\n"
+                    f"Subject: {form.cleaned_data['subject']}\n\n"
+                    f"Message:\n{form.cleaned_data['message']}\n"
+                ),
+                recipient=recipient,
+                kind="contact",
+                record_id=saved.pk,
+            )
             success_message = "Thank you — we’ve received your message and will reply soon."
             if is_ajax:
                 return JsonResponse({"success": True, "message": success_message})

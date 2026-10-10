@@ -81,7 +81,23 @@ DB_USER=sparsh
 DB_PASSWORD=<secure>
 DB_HOST=localhost
 DB_PORT=5432
+
+# Titan Mail. From address must be that mailbox or an alias of it.
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtpout.secureserver.net
+EMAIL_PORT=465
+EMAIL_HOST_USER=your-mailbox@yourdomain.com
+EMAIL_HOST_PASSWORD=your-mailbox-password
+EMAIL_USE_SSL=True
+EMAIL_USE_TLS=False
+DEFAULT_FROM_EMAIL=your-mailbox@yourdomain.com
+CONTACT_EMAIL=enquiry@sparshinclusiveeducation.com
+ADMISSIONS_NOTIFY_EMAIL=enquiry@sparshinclusiveeducation.com
 ```
+
+Put the same variables in the project-root `.env` on the server, or in GoDaddy’s Python application environment variables. `.env` is gitignored.
+
+GoDaddy shared hosting does not run the `Procfile` / gunicorn process the way a VPS does. A cPanel Python app needs Passenger (`passenger_wsgi.py`), a supported Python version, and a database the plan actually provides (this project expects PostgreSQL, or SQLite if `DB_NAME` is unset). Outbound SMTP to `smtpout.secureserver.net:465` is the intended mail path. If the host already redirects HTTP to HTTPS, set `SECURE_SSL_REDIRECT=False` to avoid a redirect loop.
 
 Then:
 
