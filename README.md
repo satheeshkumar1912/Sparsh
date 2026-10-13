@@ -1,6 +1,6 @@
 # Sparsh Inclusive Education — Public Website
 
-Production-ready public site for **Sparsh Inclusive Education**, built with Django (MVC), HTML/CSS/JS, and PostgreSQL.
+Production-ready public site for **Sparsh Inclusive Education**, built with Django (MVC), HTML/CSS/JS, and MySQL.
 
 **Tagline:** Different Abilities. Limitless Possibilities.
 
@@ -37,8 +37,8 @@ Sparsh/
 | Layer | Technology |
 |-------|------------|
 | Frontend | HTML templates, modular CSS, accessible JS |
-| Backend | Python Django 5 (views, forms, CSRF, admin) |
-| Database | PostgreSQL in production; SQLite for local demo |
+| Backend | Python Django (views, forms, CSRF, admin) |
+| Database | MySQL or MariaDB in production; SQLite for local demo |
 
 ## Quick start (local)
 
@@ -66,9 +66,9 @@ Open http://127.0.0.1:8000/
 
 Admin: http://127.0.0.1:8000/admin/
 
-## PostgreSQL (production)
+## MySQL (production)
 
-Set in project-root `.env` (copy from `.env.example`):
+Set in project-root `.env` (copy from `.env.example`). Use the full database name and username from GoDaddy’s MySQL Databases page:
 
 ```
 DJANGO_DEBUG=False
@@ -76,11 +76,11 @@ DJANGO_SECRET_KEY=<long-random-string>
 DJANGO_ALLOWED_HOSTS=sparshinclusive.edu,www.sparshinclusive.edu
 DJANGO_CSRF_TRUSTED_ORIGINS=https://sparshinclusive.edu,https://www.sparshinclusive.edu
 SITE_URL=https://sparshinclusive.edu
-DB_NAME=sparsh
-DB_USER=sparsh
+DB_NAME=youraccount_sparsh
+DB_USER=youraccount_sparshuser
 DB_PASSWORD=<secure>
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=3306
 
 # Titan Mail. From address must be that mailbox or an alias of it.
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
@@ -97,7 +97,9 @@ ADMISSIONS_NOTIFY_EMAIL=enquiry@sparshinclusiveeducation.com
 
 Put the same variables in the project-root `.env` on the server, or in GoDaddy’s Python application environment variables. `.env` is gitignored.
 
-GoDaddy shared hosting does not run the `Procfile` / gunicorn process the way a VPS does. A cPanel Python app needs Passenger (`passenger_wsgi.py`), a supported Python version, and a database the plan actually provides (this project expects PostgreSQL, or SQLite if `DB_NAME` is unset). Outbound SMTP to `smtpout.secureserver.net:465` is the intended mail path. If the host already redirects HTTP to HTTPS, set `SECURE_SSL_REDIRECT=False` to avoid a redirect loop.
+GoDaddy shared hosting does not run the `Procfile` / gunicorn process the way a VPS does. A cPanel Python app needs Passenger (`passenger_wsgi.py`) and a supported Python version. Create the database with cPanel’s MySQL Database Wizard, then set `DB_NAME` and the related variables. If `DB_NAME` is blank, the site uses SQLite. An old `postgres://` `DATABASE_URL` is ignored. Outbound SMTP to `smtpout.secureserver.net:465` is the intended mail path. If the host already redirects HTTP to HTTPS, set `SECURE_SSL_REDIRECT=False` to avoid a redirect loop.
+
+In phpMyAdmin, check the server version shown at the top. This release supports MariaDB 10.6 or newer and MySQL 8.0.11 or newer, which matches GoDaddy’s documented MariaDB 10.6. MySQL 5.7 cannot be used.
 
 Then:
 

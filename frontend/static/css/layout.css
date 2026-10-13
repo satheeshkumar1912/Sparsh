@@ -349,18 +349,20 @@
     width: min(100% - 1.25rem, 96rem);
     justify-content: flex-start;
     gap: 1.5rem;
-    padding-inline: 2rem 1.35rem;
+    padding-inline: 2.35rem 2.15rem;
   }
 
   .brand {
     flex-shrink: 0;
     margin-right: 0;
+    margin-left: 0.35rem;
     padding-left: 0;
   }
 
   .site-header .header-cta {
     display: inline-flex !important;
-    margin-left: 0;
+    margin-left: 0.35rem;
+    margin-right: 0.15rem;
   }
 
   .primary-nav__cta {
@@ -706,9 +708,11 @@ span.nav-dropdown__item {
   }
 
   .primary-nav__panel {
+    flex: 0 0 auto;
+    width: auto;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     height: auto;
     padding: 0;
     gap: 0.15rem;
@@ -818,7 +822,12 @@ span.nav-dropdown__item {
 
 @media (min-width: 1360px) {
   .site-header__inner {
-    gap: 0.75rem;
+    gap: 1.75rem;
+    padding-inline: 2.75rem 2.4rem;
+  }
+
+  .brand {
+    margin-left: 0.5rem;
   }
 
   .brand__logo {

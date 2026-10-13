@@ -2,10 +2,18 @@
 Django settings for Sparsh Inclusive Education public website.
 """
 from pathlib import Path
-import dj_database_url
 import os
 import sys
+
+import pymysql
 from dotenv import load_dotenv
+
+# PyMySQL provides Django's MySQLdb interface without a C compiler,
+# which shared hosting such as GoDaddy cPanel usually does not allow.
+pymysql.install_as_MySQLdb()
+pymysql.version_info = (2, 2, 1, "final", 0)
+
+import dj_database_url
 
 from apps.core.mail import resolve_smtp_security
 
@@ -100,7 +108,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Database: tests -> DATABASE_URL -> PostgreSQL (DB_NAME) -> SQLite (local development).
+# Database: tests use SQLite. Production uses MySQL when DB_NAME is set
+# (GoDaddy cPanel). A mysql:// DATABASE_URL is also accepted. Anything else,
+# including an old PostgreSQL URL, falls back to local SQLite.
+_database_url = os.getenv("DATABASE_URL", "").strip()
 if "test" in sys.argv:
     DATABASES = {
         "default": {
@@ -108,27 +119,29 @@ if "test" in sys.argv:
             "NAME": ":memory:",
         }
     }
-elif os.getenv("DATABASE_URL"):
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=os.getenv("DATABASE_URL"),
-            conn_max_age=60,
-            conn_health_checks=True,
-            ssl_require=True if "render.com" in os.getenv("DATABASE_URL", "") else False,
-        )
-    }
-elif os.getenv("DB_NAME"):
+elif os.getenv("DB_NAME", "").strip():
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER", "sparsh"),
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME").strip(),
+            "USER": os.getenv("DB_USER", "").strip(),
             "PASSWORD": os.getenv("DB_PASSWORD", ""),
-            "HOST": os.getenv("DB_HOST", "localhost"),
-            "PORT": os.getenv("DB_PORT", "5432"),
-            "CONN_MAX_AGE": 60,
-            "OPTIONS": {"sslmode": os.getenv("DB_SSLMODE", "prefer")},
+            "HOST": os.getenv("DB_HOST", "localhost").strip() or "localhost",
+            "PORT": os.getenv("DB_PORT", "3306").strip() or "3306",
+            "CONN_MAX_AGE": 0,
+            "OPTIONS": {
+                "charset": "utf8mb4",
+                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
         }
+    }
+elif _database_url.startswith(("mysql://", "mysql2://")):
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=_database_url,
+            conn_max_age=0,
+            conn_health_checks=True,
+        )
     }
 else:
     DATABASES = {
